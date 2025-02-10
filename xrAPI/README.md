@@ -23,6 +23,20 @@ Status: **To be RE'd.** <br>
 Note: No source code available anywhere.
 
 ```c
+xrPerfSettingsSetPerformanceLevelEXT
+```
+
+External name: Pxr_SetPerformanceLevels <br>
+Status: **To be RE'd.** <br>
+
+```c
+xrPerfSettingsGetPerformanceLevelEXT
+```
+
+External name: Pxr_GetPerformanceLevels <br>
+Status: **To be RE'd.** <br>
+
+```c
 xrGetControllerSensorDataPredictPico
 ```
 
@@ -640,6 +654,125 @@ xrSetBodyTrackingAlgParamPICO
 ```
 
 External name: Pxr_SetBodyTrackingAlgParam <br>
+Status: **To be RE'd**
+
+```c
+xrCreateBodyTrackerBD
+```
+
+External name: Pxr_StartBodyTracking <br>
+Status: **To be RE'd**
+
+```c
+xrDestroyBodyTrackerBD
+```
+
+External name: Pxr_StopBodyTracking <br>
+Status: **To be RE'd**
+
+```c
+xrLocateBodyJointsBD
+```
+
+External name: Pxr_GetBodyTrackingData <br>
+Status: **To be RE'd**
+
+```c
+xrStartBodyTrackingCalibAppBD
+```
+
+External name: Pxr_StartBodyTrackingCalibApp <br>
+Status: **To be RE'd**
+
+```c
+xrGetBodyTrackingStateBD
+```
+
+External name: Pxr_GetBodyTrackingState <br>
+Status: **To be RE'd**
+
+```c
+xrGetMotionTrackerConnectStateBD
+```
+
+External name: Pxr_GetMotionTrackerConnectState <br>
+Status: **To be RE'd**
+
+```c
+xrGetMotionTrackerTypeBD
+```
+
+External name: Pxr_GetMotionTrackerType <br>
+Status: **To be RE'd**
+
+```c
+xrGetMotionTrackerModeBD
+```
+
+External name: Pxr_GetMotionTrackerMode <br>
+Status: **To be RE'd**
+
+```c
+xrGetMotionTrackerLocationsBD
+```
+
+External name: Pxr_GetMotionTrackerLocations <br>
+Status: **To be RE'd**
+
+```c
+xrCheckMotionTrackerModeAndNumberBD
+```
+
+External name: Pxr_CheckMotionTrackerModeAndNumber <br>
+Status: **To be RE'd**
+
+```c
+xrGetExtDevTrackerConnectStateBD
+```
+
+External name: Pxr_GetExtDevTrackerConnectState <br>
+Status: **To be RE'd**
+
+```c
+xrSetExtDevTrackerMotorVibrateBD
+```
+
+External name: Pxr_SetExtDevTrackerMotorVibrate <br>
+Status: **To be RE'd**
+
+```c
+xrSetExtDevTrackerPassDataStateBD
+```
+
+External name: Pxr_SetExtDevTrackerPassDataState <br>
+Status: **To be RE'd**
+
+```c
+xrSetExtDevTrackerByPassDataBD
+```
+
+External name: Pxr_SetExtDevTrackerByPassData <br>
+Status: **To be RE'd**
+
+```c
+xrGetExtDevTrackerByPassDataBD
+```
+
+External name: Pxr_GetExtDevTrackerByPassData <br>
+Status: **To be RE'd**
+
+```c
+xrGetExtDevTrackerBatteryBD
+```
+
+External name: Pxr_GetExtDevTrackerKeyData <br>
+Status: **To be RE'd**
+
+```c
+xrGetExtDevTrackerKeyDataBD
+```
+
+External name: Pxr_GetExtDevTrackerKeyData <br>
 Status: **To be RE'd**
 
 ```c
