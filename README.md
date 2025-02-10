@@ -13,3 +13,9 @@ A repository that aims to document the internals of PICO devices.
 
 Hi! Setting up.
 All the pages are still under construction since I am still gathering documentation.
+
+# Usefull links
+
+- [Curoviyxru's reverse engineering efforts](https://pico.crx.moe/docs/intro/)
+  - Curoviyxru is responsible for [OVRPort](https://t.me/ovrport), a way to play Quest games on the PICO, including other reverse engineering efforts.
+- [PICO Developer Documentation](https://developer.picoxr.com/document/)
