@@ -1,4 +1,4 @@
-# PICO OpenXR API
+# PICO OpenXR API <!-- omit in toc -->
 
 Content dumped from libpxrruntime.so, used by com.pico.xr.openxr_runtime
 
@@ -6,6 +6,72 @@ PICO's OpenXR runtime is documented [here](https://sdk.picovr.com/docs/OpenXRMob
 
 OpenXR uses a function called xrGetInstanceProcAdrr, documented [here](https://registry.khronos.org/OpenXR/specs/1.0/man/html/xrGetInstanceProcAddr.html). <br>
 Original source code from OpenXR for the xrGetInstanceProcAddr function is [here](https://github.com/KhronosGroup/OpenXR-SDK-Source/blob/d0bbcabc2a2e6565035ef3a68ec1f789a2dc9562/src/loader/loader_core.cpp#L715).
+
+# Table of contents <!-- omit in toc -->
+
+- [PICO Extensions](#pico-extensions)
+- [PICO Specific XR functions](#pico-specific-xr-functions)
+  - [Misc](#misc)
+    - [xrLogSdkApiPICO](#xrlogsdkapipico)
+    - [xrPerfSettingsSetPerformanceLevelEXT](#xrperfsettingssetperformancelevelext)
+    - [xrPerfSettingsGetPerformanceLevelEXT](#xrperfsettingsgetperformancelevelext)
+  - [Controller functionality (XR_PICO_android_controller_function_ext_enable)](#controller-functionality-xr_pico_android_controller_function_ext_enable)
+    - [xrGetControllerSensorDataPredictPico](#xrgetcontrollersensordatapredictpico)
+    - [xrSetEngineVersionPico](#xrsetengineversionpico)
+    - [xrSetMainControllerHandlePico](#xrsetmaincontrollerhandlepico)
+    - [xrGetMainControllerHandlePico](#xrgetmaincontrollerhandlepico)
+    - [xrGetControllerConnectionStatePico](#xrgetcontrollerconnectionstatepico)
+    - [xrGetPhyControllerInfoPico](#xrgetphycontrollerinfopico)
+    - [xrGetPhyControllerTypePico](#xrgetphycontrollertypepico)
+    - [xrVibrateControllerPico](#xrvibratecontrollerpico)
+    - [xrVibrateControllerPico](#xrvibratecontrollerpico-1)
+    - [xrSetPhyControllerEnterPairingPico](#xrsetphycontrollerenterpairingpico)
+    - [xrSetPhyControllerStopPairingPico](#xrsetphycontrollerstoppairingpico)
+    - [xrSetPhyControllerUpgradePico](#xrsetphycontrollerupgradepico)
+    - [xrSetPhyControllerUnbindPico](#xrsetphycontrollerunbindpico)
+    - [xrSetPhyControllerEnableKeyPico](#xrsetphycontrollerenablekeypico)
+    - [xrSetVirtualKeyPico](#xrsetvirtualkeypico)
+    - [xrStartPhyControllerVCMotorPico](#xrstartphycontrollervcmotorpico)
+    - [xrStopPhyControllerVCMotorPico](#xrstopphycontrollervcmotorpico)
+    - [xrSetControllerAmpPico](#xrsetcontrolleramppico)
+    - [xrSetMotorDelayPico](#xrsetmotordelaypico)
+    - [xrGetVibrateDelayTimePico](#xrgetvibratedelaytimepico)
+    - [xrStartVibrateBySharemPico](#xrstartvibratebysharempico)
+    - [xrGetVibrateSharemPico](#xrgetvibratesharempico)
+    - [xrStartVibrateByPHFPico](#xrstartvibratebyphfpico)
+    - [xrGetPHFSharedMemPico](#xrgetphfsharedmempico)
+    - [xrPauseVibratePico](#xrpausevibratepico)
+    - [xrResumeVibratePico](#xrresumevibratepico)
+    - [xrReleaseControllerBufferPico](#xrreleasecontrollerbufferpico)
+    - [xrStartVibrateByCachePico](#xrstartvibratebycachepico)
+    - [xrClearVibrateByCachePico](#xrclearvibratebycachepico)
+    - [xrSetAppHandTrackingEnabledPico](#xrsetapphandtrackingenabledpico)
+    - [xrGetActiveInputDeviceTypePico](#xrgetactiveinputdevicetypepico)
+    - [xrGetHandTrackingEnabledPico](#xrgethandtrackingenabledpico)
+    - [xrGetHandTrackingHandStatePico](#xrgethandtrackinghandstatepico)
+    - [xrGetHandTrackingSkeletonPico](#xrgethandtrackingskeletonpico)
+  - [Controller interaction (XR_PICO_controller_interaction)](#controller-interaction-xr_pico_controller_interaction)
+    - [xrGetHandTrackingMeshPico](#xrgethandtrackingmeshpico)
+    - [xrGetControllerSensorDataPredictPICO](#xrgetcontrollersensordatapredictpico-1)
+    - [xrSetControllerMainHandlePICO](#xrsetcontrollermainhandlepico)
+    - [xrGetControllerMainHandlePICO](#xrgetcontrollermainhandlepico)
+    - [xrGetControllerConnectionStatePICO](#xrgetcontrollerconnectionstatepico-1)
+    - [xrGetControllerInfoPICO](#xrgetcontrollerinfopico)
+    - [xrResetControllerPICO](#xrresetcontrollerpico)
+    - [xrSetArmModelParametersPICO](#xrsetarmmodelparameterspico)
+    - [xrGetControllerHandnessPICO](#xrgetcontrollerhandnesspico)
+    - [xrGetControllerTypePICO](#xrgetcontrollertypepico)
+    - [xrSetControllerVibratePICO](#xrsetcontrollervibratepico)
+    - [xrSetControllerVibrateEventPICO](#xrsetcontrollervibrateeventpico)
+    - [xrSetControllerEnterPairingPICO](#xrsetcontrollerenterpairingpico)
+    - [xrSetControllerStopPairingPICO](#xrsetcontrollerstoppairingpico)
+    - [xrSetControllerUpgradePICO](#xrsetcontrollerupgradepico)
+    - [xrSetControllerUnbindPICO](#xrsetcontrollerunbindpico)
+    - [xrSetControllerEnableKeyPICO](#xrsetcontrollerenablekeypico)
+    - [xrCreateControllerClientPICO](#xrcreatecontrollerclientpico)
+    - [xrUpdateVibrateParamsPICO](#xrupdatevibrateparamspico)
+    - [xrCreateHapticStreamPICO](#xrcreatehapticstreampico)
+    - [xrWriteHapticStreamPICO](#xrwritehapticstreampico)
 
 # PICO Extensions
 
@@ -65,7 +131,7 @@ For the original OpenXR header used by PICO see [here](./include_openXR/openxr_p
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
 
-## Non-categorized
+## Misc
 
 ### xrLogSdkApiPICO
 
@@ -122,6 +188,8 @@ External name: Pxr_GetPerformanceLevels <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/de/d7f/_pxr_api_8h.html#a68478ea6f8a8e353e123ccc1e93822bf) <br>
 
 ---
+
+## Controller functionality (XR_PICO_android_controller_function_ext_enable)
 
 ### xrGetControllerSensorDataPredictPico
 
@@ -620,7 +688,7 @@ XrResult xrStartVibrateBySharemPico(
     XrInstance instance,
     float* data,
     PxrVibrate_config* parameter,
-    int* source_id
+    int* sourceId
 );
 ```
 
@@ -665,7 +733,7 @@ XrResult xrStartVibrateByPHFPico(
     XrInstance instance,
     char* data,
     int buffersize,
-    int* source_id,
+    int* sourceId,
     VibrateInfo vibrateInfo
 );
 ```
@@ -706,13 +774,13 @@ _Pauses the PHF vibration data._
 ```c
 XrResult xrPauseVibratePico(
     XrInstance instance,
-    int source_id
+    int sourceId
 );
 ```
 
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
-| source_id | ID returned by another vibration control API. |
+| sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
 > Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
@@ -729,13 +797,13 @@ _Resumes PHF vibration data._
 ```c
 XrResult xrResumeVibratePico(
     XrInstance instance,
-    int source_id
+    int sourceId
 );
 ```
 
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
-| source_id | ID returned by another vibration control API. |
+| sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
 > Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
@@ -768,13 +836,13 @@ _Plays the cached audio vibration data._
 ```c
 XrResult xrStartVibrateByCachePico(
     XrInstance instance,
-    int source_id
+    int sourceId
 );
 ```
 
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
-| source_id | ID returned by another vibration control API. |
+| sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
 > Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
@@ -791,13 +859,13 @@ _Clears the cached audio vibration data._
 ```c
 XrResult xrClearVibrateByCachePico(
     XrInstance instance,
-    int source_id
+    int sourceId
 );
 ```
 
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
-| source_id | ID returned by another vibration control API. |
+| sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
 > Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
@@ -918,6 +986,8 @@ External name: Pxr_GetHandTrackingSkeleton <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L523)
 
 ---
+
+## Controller interaction (XR_PICO_controller_interaction)
 
 ### xrGetHandTrackingMeshPico
 
@@ -1350,7 +1420,7 @@ _Dynamically modifies PHF and AudioClip vibration data._
 ```c
 xrUpdateVibrateParamsPICO(
     XrInstance instance,
-    int source_id,
+    int sourceId,
     EPICOXRVibrateController slot,
     EPICOXRChannelFlip slotConfig,
     float AmpValue
@@ -1359,7 +1429,7 @@ xrUpdateVibrateParamsPICO(
 
 | Parameter  | Description                                                                                               |
 | ---------- | --------------------------------------------------------------------------------------------------------- |
-| source_id  | ID returned by another vibration control API.                                                             |
+| sourceId   | ID returned by another vibration control API.                                                             |
 | slot       | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
 | slotconfig | Specifies whether to enable audio channel inversion. <br> No = 0 <br> Yes = 1                             |
 | AmpValue   | Vibration amplitude level. The range is 0.0 to 2.0.                                                       |
@@ -1375,14 +1445,38 @@ Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/clien
 
 ---
 
+### xrCreateHapticStreamPICO
+
+_Creates a haptic stream._
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrCreateHapticStreamPICO
+XrResult xrCreateHapticStreamPICO(
+    XrInstance instance,
+    char* PHFVersion,
+    int frameDurationMS,
+    int slot,
+    int reversal,
+    float amp,
+    float speed,
+    int sourceId
+);
 ```
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_CreateHapticStream <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_CreateHapticStream)
 
 ---
+
+### xrWriteHapticStreamPICO
+
+_Writes vibration data in the corresponding stream._
 
 ```c
 xrWriteHapticStreamPICO
