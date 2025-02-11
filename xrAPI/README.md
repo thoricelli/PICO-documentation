@@ -7,6 +7,56 @@ PICO's OpenXR runtime is documented [here](https://sdk.picovr.com/docs/OpenXRMob
 OpenXR uses a function called xrGetInstanceProcAdrr, documented [here](https://registry.khronos.org/OpenXR/specs/1.0/man/html/xrGetInstanceProcAddr.html). <br>
 Original source code from OpenXR for the xrGetInstanceProcAddr function is [here](https://github.com/KhronosGroup/OpenXR-SDK-Source/blob/d0bbcabc2a2e6565035ef3a68ec1f789a2dc9562/src/loader/loader_core.cpp#L715).
 
+# PICO Extensions
+
+> Extensions are a method for runtimes or API layers to expose groups of functionality upon opt-in by the application. To help understand how OpenXR extensions are created and supported, this document describes the various processes for creating, supporting, promoting, and retiring extensions. <br> [Documentation](https://registry.khronos.org/OpenXR/specs/1.0/extprocess.html)
+
+Extensions are to be passed when calling [`XrCreateInstance`](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrCreateInstance.html).
+
+```
+XR_BD_anchor_entity
+XR_BD_anchor_entity_persistence
+XR_BD_async_task
+XR_BD_body_tracking
+XR_BD_composition_layer_color_matrix
+XR_BD_composition_layer_eac
+XR_BD_composition_layer_settigs
+XR_BD_controller_interaction
+XR_BD_external_camera
+XR_BD_human_occlusion_ext
+XR_BD_motion_tracking
+XR_BD_mr_management
+XR_BD_room_scene
+XR_BD_semi_auto_room_capture
+XR_BD_spatial_anchor
+XR_BD_spatial_anchor_persistence
+XR_BD_spatial_localization_and_tracking
+XR_BD_spatial_scene
+XR_BD_spatial_tracking_state
+XR_PICO_MetricsTool_ext
+XR_PICO_android_controller_function_ext_enable
+XR_PICO_body_tracking
+XR_PICO_boundary
+XR_PICO_configs_ext
+XR_PICO_configuration
+XR_PICO_controller_interaction
+XR_PICO_eye_tracking
+XR_PICO_frame_end
+XR_PICO_frame_end_info_ext
+XR_PICO_hand_tracking
+XR_PICO_ipd
+XR_PICO_mrc_pose
+XR_PICO_mrc_pose_ext_enable
+XR_PICO_passthrough
+XR_PICO_performance_metrics
+XR_PICO_reset_sensor
+XR_PICO_view_frustum
+XR_PICO_view_frustum_ext
+XR_PICO_view_ipd
+XR_PICO_view_state
+XR_PICO_view_state_ext_enable
+```
+
 # PICO Specific XR functions
 
 Written here are all the PICO specific XR extensions that I could find. <br>
@@ -89,6 +139,9 @@ XrResult xrGetControllerSensorDataPredictPico(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: getControllerSensorDataPredict <br>
 Status: [Only available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
 
@@ -106,6 +159,9 @@ XrResult xrSetEngineVersionPico(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetEngineVersionPico <br>
 Status: [Only available in header source code](./include_openXR/openxr_pico.h?plain=1#L836) <br>
@@ -128,6 +184,9 @@ XrResult xrSetMainControllerHandlePico(
 | ---------------- | --------------------------------------------- |
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrsetmaincontrollerhandlepico)
 
@@ -140,13 +199,16 @@ _Gets the main controller_
 ```c
 XrResult xrGetMainControllerHandlePico(
     XrInstance instance,
-    int controllerHandle
+    int* controllerHandle
 );
 ```
 
 | Parameter        | Description                                   |
 | ---------------- | --------------------------------------------- |
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetmaincontrollerhandlepico-new)
@@ -170,6 +232,9 @@ XrResult xrGetControllerConnectionStatePico(
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 | status           | Disconnected = 0 <br> Connected = 1           |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_GetControllerConnectStatus <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetcontrollerconnectionstatepico)
 
@@ -192,6 +257,9 @@ XrResult xrGetPhyControllerInfoPico(
 | device         | Left controller = 0 <br> Right controller = 1                 |
 | controllerinfo | See [struct](./include_openXR/openxr_pico.h?plain=1#L11) here |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_GetControllerinfo <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetphycontrollerinfopico-new)
 
@@ -199,9 +267,18 @@ Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/ch
 
 ### xrGetPhyControllerTypePico
 
+_Not tested_
+
 ```c
-xrGetPhyControllerTypePico
+XrResult xrGetPhyControllerTypePico(
+    XrInstance instance,
+    int device,
+    unkown_data_struct* controllerType
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: getControllerType <br>
 Status: **To be RE'd**
@@ -211,6 +288,10 @@ Status: **To be RE'd**
 ### xrVibrateControllerPico
 
 _Vibrates the specified controller for a specified strength and time_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrVibrateControllerPico(
@@ -227,6 +308,9 @@ XrResult xrVibrateControllerPico(
 | time             | time of vibration in MS                       |
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetControllerVibration <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrvibratecontrollerpico)
 
@@ -235,6 +319,10 @@ Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/ch
 ### xrVibrateControllerPico
 
 _Vibrates the specified controller for a specified frequency, strength and time._
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrVibrateControllerPico(
@@ -252,6 +340,9 @@ XrResult xrVibrateControllerPico(
 | frequency | vibration frequency: 50 - 500 Hz              |
 | strength  | vibrate strength: 0 - 1                       |
 | time      | time of vibration in MS                       |
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerVibrationEvent <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerVibrationEvent)
@@ -273,6 +364,9 @@ XrResult xrSetPhyControllerEnterPairingPico(
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetControllerEnterPairing <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L488)
 
@@ -293,12 +387,18 @@ XrResult xrSetPhyControllerStopPairingPico(
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetControllerStopPairing <br>
 Status: [Only available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L861)
 
 ---
 
 ### xrSetPhyControllerUpgradePico
+
+> [!CAUTION]
+> Use with caution. <br> I am not responsible for bricked controllers.
 
 _Not tested_
 
@@ -311,6 +411,9 @@ XrResult xrSetPhyControllerUpgradePico(
     char* controller_path_by_char
 );
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 **Parameters not documented**
 
@@ -334,6 +437,9 @@ XrResult xrSetPhyControllerUnbindPico(
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetControllerUnbind <br>
 Status: [Only available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L863)
 
@@ -351,6 +457,9 @@ XrResult xrSetPhyControllerEnableKeyPico(
 );
 ```
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 | Parameter | Description                                                           |
 | --------- | --------------------------------------------------------------------- |
 | isEnabled | Key blocked                                                           |
@@ -364,8 +473,16 @@ Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/ch
 ### xrSetVirtualKeyPico
 
 ```c
-xrSetVirtualKeyPico
+XrResult xrSetVirtualKeyPico(
+    XrInstance instance,
+    int param_2,
+    int param_3,
+    int param_4
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 Status: **To be RE'd**
 
@@ -376,13 +493,20 @@ Status: **To be RE'd**
 _Enables audio-based vibration through audio file path._
 
 ```c
-XrResult xrStartPhyControllerVCMotorPico(char* file, EPICOXRVibrateController slot)
+XrResult xrStartPhyControllerVCMotorPico(
+    XrInstance instance,
+    char* file,
+    EPICOXRVibrateController slot
+);
 ```
 
 | Parameter | Description                                                                                               |
 | --------- | --------------------------------------------------------------------------------------------------------- |
 | file      | Audio file path                                                                                           |
 | slot      | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_StartControllerVCMotor <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartControllerVCMotor)
@@ -402,6 +526,9 @@ XrResult xrStopPhyControllerVCMotorPico(
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | clientId  | a reserved parameter, set it to the sourceId returned by another vibration control API to stop the corresponding vibration, or set it to 0 to stop all vibrations. |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_StopControllerVCMotor <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StopControllerVCMotor)
 
@@ -410,6 +537,10 @@ Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/clien
 ### xrSetControllerAmpPico
 
 _Sets the amplitude of audio-based vibration. You can change the vibration amplitude during audio playback._
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrSetControllerAmpPico(
@@ -421,6 +552,9 @@ XrResult xrSetControllerAmpPico(
 | Parameter | Description                                        |
 | --------- | -------------------------------------------------- |
 | device    | Vibration amplitude level. The range is 0.0 to 2.0 |
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerAmp <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerAmp)
@@ -440,6 +574,9 @@ XrResult xrSetMotorDelayPico(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetControllerDelay <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L508)
 
@@ -448,6 +585,10 @@ Status: [Only available in header source code](./include/PxrInput.h?plain=1#L508
 ### xrGetVibrateDelayTimePico
 
 _Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrGetVibrateDelayTimePico(
@@ -458,6 +599,9 @@ XrResult xrGetVibrateDelayTimePico(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_GetVibrateDelayTime <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L509)
 
@@ -466,6 +610,10 @@ Status: [Only available in header source code](./include/PxrInput.h?plain=1#L509
 ### xrStartVibrateBySharemPico
 
 _Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrStartVibrateBySharemPico(
@@ -478,6 +626,9 @@ XrResult xrStartVibrateBySharemPico(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_StartVibrateBySharemF and Pxr_StartVibrateBySharemU <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L510)
 
@@ -486,8 +637,15 @@ Status: [Only available in header source code](./include/PxrInput.h?plain=1#L510
 ### xrGetVibrateSharemPico
 
 ```c
-xrGetVibrateSharemPico
+XrResult xrGetVibrateSharemPico(
+    XrInstance instance,
+    long param_2,
+    int param3
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetVibrateSharem <br>
 Status: **To be RE'd**
@@ -497,6 +655,10 @@ Status: **To be RE'd**
 ### xrStartVibrateByPHFPico
 
 _Plays PHF vibration data._
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrStartVibrateByPHFPico(
@@ -511,16 +673,26 @@ XrResult xrStartVibrateByPHFPico(
 **Conflicting documentation for parameters** <br>
 Refer to [VibrateInfo](./include/PxrTypes.h?plain=1#L506) for the struct.
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_StartVibrateByPHF <br>
-Status: [Documented by PICO (not up to date?)](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByPHF)
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByPHF)
 
 ---
 
 ### xrGetPHFSharedMemPico
 
 ```c
-xrGetPHFSharedMemPico
+XrResult xrGetPHFSharedMemPico(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetPHFSharedMem <br>
 Status: **To be RE'd**
@@ -542,6 +714,9 @@ XrResult xrPauseVibratePico(
 | --------- | --------------------------------------------- |
 | source_id | ID returned by another vibration control API. |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_PauseVibrate <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_PauseVibrate)
 
@@ -562,6 +737,9 @@ XrResult xrResumeVibratePico(
 | --------- | --------------------------------------------- |
 | source_id | ID returned by another vibration control API. |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_ResumeVibrate <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_ResumeVibrate)
 
@@ -570,8 +748,13 @@ Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/clien
 ### xrReleaseControllerBufferPico
 
 ```c
-xrReleaseControllerBufferPico
+XrResult xrReleaseControllerBufferPico(
+    XrInstance instance
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_ReleaseControllerBuffer <br>
 Status: **To be RE'd**
@@ -593,6 +776,9 @@ XrResult xrStartVibrateByCachePico(
 | --------- | --------------------------------------------- |
 | source_id | ID returned by another vibration control API. |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_StartVibrateByCache <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByCache)
 
@@ -613,6 +799,9 @@ XrResult xrClearVibrateByCachePico(
 | --------- | --------------------------------------------- |
 | source_id | ID returned by another vibration control API. |
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_ClearVibrateByCache <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_ClearVibrateByCache)
 
@@ -631,6 +820,9 @@ XrResult xrSetAppHandTrackingEnabledPico(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_SetAppHandTrackingEnabled <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L519)
 
@@ -639,6 +831,10 @@ Status: [Only available in header source code](./include/PxrInput.h?plain=1#L519
 ### xrGetActiveInputDeviceTypePico
 
 _Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
 XrResult xrGetActiveInputDeviceTypePico(
@@ -651,6 +847,9 @@ XrResult xrGetActiveInputDeviceTypePico(
 
 **Parameters not documented** <br>
 See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetActiveInputDeviceType <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L520)
@@ -667,6 +866,9 @@ XrResult xrGetHandTrackingEnabledPico(
     bool* handTrackingEnabled
 );
 ```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetHandTrackingEnabled <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L521)
@@ -689,6 +891,9 @@ XrResult xrGetHandTrackingHandStatePico(
 **Parameters not documented** <br>
 See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
 
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
 External name: Pxr_GetHandTrackingHandState <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L522)
 
@@ -701,7 +906,7 @@ _Not tested_
 ```c
 XrResult xrGetHandTrackingSkeletonPico(
     XrInstance instance,
-    PxrSkeletonType,
+    PxrSkeletonType handtrackingSkeletonType,
     PxrSkeleton* handtrackSkeleton
 );
 ```
@@ -729,6 +934,9 @@ XrResult xrGetHandTrackingMeshPico(
 **Parameters not documented** <br>
 See [PxrMeshType](./include/PxrInput.h?plain=1#L209) and [PxrHandMesh](./include/PxrInput.h?plain=1#L340)
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_GetHandTrackingMesh <br>
 Status: [Only available in header source code](./include/PxrInput.h?plain=1#L524)
 
@@ -750,6 +958,9 @@ XrResult xrGetControllerSensorDataPredictPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: getControllerSensorDataPredict <br>
 Status: [Only available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
 
@@ -770,6 +981,9 @@ XrResult xrSetControllerMainHandlePICO(
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_SetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a95cd83871aeee5ccb75f62dc7dea3b24)
 
@@ -789,6 +1003,9 @@ XrResult xrGetControllerMainHandlePICO(
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a12d599740d6397af7bd62a8927b4adb0)
@@ -812,6 +1029,9 @@ XrResult xrGetControllerConnectionStatePICO(
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 | status           | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_GetControllerConnectStatus <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetcontrollerconnectionstatepico)
 
@@ -834,6 +1054,9 @@ XrResult xrGetControllerInfoPICO(
 | device    | Left controller = 0 <br> Right controller = 1                   |
 | info      | Refer to [PxrControllerInfo](./include/PxrInput.h?plain=1#L186) |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_GetControllerinfo <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a9d51f251f137aefde686c5489765b2b7)
 
@@ -853,6 +1076,9 @@ XrResult xrResetControllerPICO(
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_ResetController <br>
 Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2601)
@@ -876,6 +1102,9 @@ XrResult xrSetArmModelParametersPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_SetArmModelParameters <br>
 Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2604)
 
@@ -892,6 +1121,9 @@ XrResult xrGetControllerHandnessPICO(
 );
 ```
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_GetControllerHandness <br>
 Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2604)
 
@@ -900,8 +1132,15 @@ Status: [Only available in external source code.](https://github.com/Pico-Develo
 ### xrGetControllerTypePICO
 
 ```c
-xrGetControllerTypePICO
+XrResult xrGetControllerTypePICO(
+    XrInstance instance,
+    long param_2,
+    int* param_3
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: getControllerType <br>
 Status: **To be RE'd**
@@ -926,6 +1165,9 @@ XrResult xrSetControllerVibratePICO(
 | device    | Left controller = 0 <br> Right controller = 1                                                                               |
 | strength  | Vibration amplitude. The valid value ranges from 0.0f to 1.0f. The greater the value, the stronger the vibration amplitude. |
 | time      | Vibration duration. The valid value ranges from 0 to 65535 (in milliseconds).                                               |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerVibration <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a29b92a99751ab8830d1b266ae5135fde)
@@ -953,6 +1195,9 @@ XrResult xrSetControllerVibrateEventPICO(
 | strength  | vibrate strength: 0 - 1                       |
 | time      | time of vibration in MS                       |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_SetControllerVibrationEvent <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerVibrationEvent)
 
@@ -973,6 +1218,9 @@ XrResult xrSetControllerEnterPairingPICO(
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_SetControllerEnterPairing <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a501fc44a5990f5b45f7bd0d3758cd61d)
 
@@ -989,6 +1237,9 @@ XrResult xrSetControllerStopPairingPICO(
 );
 ```
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
@@ -999,6 +1250,9 @@ Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/nativ
 ---
 
 ### xrSetControllerUpgradePICO
+
+> [!CAUTION]
+> Use with caution. <br> I am not responsible for bricked controllers.
 
 _Not tested_
 
@@ -1013,6 +1267,9 @@ XrResult xrSetControllerUpgradePICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerUpgrade <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#ad4405376f56f06ac2a73b18760efe84f)
@@ -1034,6 +1291,9 @@ XrResult xrSetControllerUnbindPICO(
 | --------- | --------------------------------------------- |
 | device    | Left controller = 0 <br> Right controller = 1 |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_SetControllerUnbind <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#ad0a4668857cf365ab008ba6b96a6a587)
 
@@ -1045,6 +1305,7 @@ _Enables/disables the specified controller key._
 
 ```c
 XrResult xrSetControllerEnableKeyPICO(
+    XrInstance instance,
     bool isEnable,
     PxrControllerKeyMap key
 );
@@ -1055,151 +1316,62 @@ XrResult xrSetControllerEnableKeyPICO(
 | isEnable  | Whether to enable/disable the specified key                      |
 | key       | Refer to [PxrControllerKeyMap](./include/PxrInput.h?plain=1#L19) |
 
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
+
 External name: Pxr_SetControllerEnableKey <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a75859deb3d1097a444ae985c926a218a)
 
 ---
 
-```c
-xrStartPhyControllerVCMotorPICO
-```
-
-External name: Pxr_StartControllerVCMotor <br>
-Status: **To be RE'd**
-
----
+### xrCreateControllerClientPICO
 
 ```c
-xrStopPhyControllerVCMotorPICO
+XrResult xrCreateControllerClientPICO(
+    XrInstance instance
+);
 ```
 
-External name: Pxr_StopControllerVCMotor <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrSetControllerAmpPICO
-```
-
-External name: Pxr_SetControllerAmp <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrSetMotorDelayPICO
-```
-
-External name: Pxr_SetControllerDelay <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrGetVibrateDelayTimePICO
-```
-
-External name: Pxr_GetVibrateDelayTime <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrStartVibrateBySharemPICO
-```
-
-External name: Pxr_StartVibrateBySharemF and Pxr_StartVibrateBySharemU <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrGetVibrateSharemPICO
-```
-
-External name: Pxr_GetVibrateSharem <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrStartVibrateByPHFPICO
-```
-
-External name: Pxr_StartVibrateByPHF <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrGetPHFSharedMemPICO
-```
-
-External name: Pxr_GetPHFSharedMem <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrPauseVibratePICO
-```
-
-External name: Pxr_PauseVibrate <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrResumeVibratePICO
-```
-
-External name: Pxr_ResumeVibrate <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrReleaseControllerBufferPICO
-```
-
-External name: Pxr_ReleaseControllerBuffer <br>
-Status: **To be RE'd**
-
----
-
-```c
-xrCreateControllerClientPICO
-```
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 Status: **To be RE'd**
 
 ---
 
-```c
-xrStartVibrateByCachePICO
-```
+### xrUpdateVibrateParamsPICO
 
-External name: Pxr_StartVibrateByCache <br>
-Status: **To be RE'd**
+_Dynamically modifies PHF and AudioClip vibration data._
 
----
-
-```c
-xrClearVibrateByCachePICO
-```
-
-External name: Pxr_ClearVibrateByCache <br>
-Status: **To be RE'd**
-
----
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
 
 ```c
-xrUpdateVibrateParamsPICO
+xrUpdateVibrateParamsPICO(
+    XrInstance instance,
+    int source_id,
+    EPICOXRVibrateController slot,
+    EPICOXRChannelFlip slotConfig,
+    float AmpValue
+);
 ```
+
+| Parameter  | Description                                                                                               |
+| ---------- | --------------------------------------------------------------------------------------------------------- |
+| source_id  | ID returned by another vibration control API.                                                             |
+| slot       | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
+| slotconfig | Specifies whether to enable audio channel inversion. <br> No = 0 <br> Yes = 1                             |
+| AmpValue   | Vibration amplitude level. The range is 0.0 to 2.0.                                                       |
+
+> [!NOTE]
+> When slotConfig = 1, the left controller vibrates with the audio source from right soundtrack, and vice versa.
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_UpdateVibrateParams <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_UpdateVibrateParams)
 
 ---
 
