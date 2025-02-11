@@ -2,17 +2,22 @@
 
 Content dumped from libpxrruntime.so, used by com.pico.xr.openxr_runtime
 
+PICO's OpenXR runtime is documented [here](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/index.html).
+
 OpenXR uses a function called xrGetInstanceProcAdrr, documented [here](https://registry.khronos.org/OpenXR/specs/1.0/man/html/xrGetInstanceProcAddr.html). <br>
 Original source code from OpenXR for the xrGetInstanceProcAddr function is [here](https://github.com/KhronosGroup/OpenXR-SDK-Source/blob/d0bbcabc2a2e6565035ef3a68ec1f789a2dc9562/src/loader/loader_core.cpp#L715).
 
 # PICO Specific XR functions
 
-## Non-categorized
-
-Written here are all the PICO specific XR extensions that I could find.
+Written here are all the PICO specific XR extensions that I could find. <br>
+For the original OpenXR header used by PICO see [here](./include_openXR/openxr_pico.h).
 
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
+
+## Non-categorized
+
+### xrLogSdkApiPICO
 
 ```c
 xrLogSdkApiPICO
@@ -22,62 +27,177 @@ External name: Pxr_LogPluginApi <br>
 Status: **To be RE'd.** <br>
 Note: No source code available anywhere.
 
+---
+
+### xrPerfSettingsSetPerformanceLevelEXT
+
+_Sets GPU or CPU performance level._
+
 ```c
-xrPerfSettingsSetPerformanceLevelEXT
+XrResult xrPerfSettingsSetPerformanceLevelEXT(
+    XrInstance instance,
+    XrPerfSettingsDomainEXT domain,
+    XrPerfSettingsLevelEXT level
+);
 ```
+
+| Parameter               | Description                                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------ |
+| XrPerfSettingsDomainEXT | CPU = 1 <br> GPU = 2                                                                                   |
+| XrPerfSettingsLevelEXT  | The performance level<br />Saving = 0<br />Sustained low = 25<br />Sustained high = 50<br />Boost = 75 |
 
 External name: Pxr_SetPerformanceLevels <br>
-Status: **To be RE'd.** <br>
+Status: [Documented by Khronos](https://registry.khronos.org/OpenXR/specs/1.0/man/html/xrPerfSettingsSetPerformanceLevelEXT.html) <br>
+
+---
+
+### xrPerfSettingsGetPerformanceLevelEXT
+
+_Gets GPU or CPU performance level_
 
 ```c
-xrPerfSettingsGetPerformanceLevelEXT
+XrResult xrPerfSettingsGetPerformanceLevelEXT(
+    XrInstance instance,
+    XrPerfSettingsDomainEXT domain,
+    XrPerfSettingsLevelEXT level
+);
 ```
+
+| Parameter               | Description                                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------ |
+| XrPerfSettingsDomainEXT | CPU = 1 <br> GPU = 2                                                                                   |
+| XrPerfSettingsLevelEXT  | The performance level<br />Saving = 0<br />Sustained low = 25<br />Sustained high = 50<br />Boost = 75 |
 
 External name: Pxr_GetPerformanceLevels <br>
-Status: **To be RE'd.** <br>
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/de/d7f/_pxr_api_8h.html#a68478ea6f8a8e353e123ccc1e93822bf) <br>
+
+---
+
+### xrGetControllerSensorDataPredictPico
+
+_Not tested._
 
 ```c
-xrGetControllerSensorDataPredictPico
+XrResult xrGetControllerSensorDataPredictPico(
+    XrInstance instance,
+    int controllerHandle,
+    float headSensorData[],
+    float predictTime,
+    float* data
+):
 ```
 
-External name: Pxr_GetControllerConnectStatus <br>
-Status: **To be RE'd.**
+**Parameters not documented**
+
+External name: getControllerSensorDataPredict <br>
+Status: [Only available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
+
+---
+
+### xrSetEngineVersionPico
+
+_Not tested_
 
 ```c
-xrSetEngineVersionPico
+XrResult xrSetEngineVersionPico(
+    XrInstance instance,
+    const char* version
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetEngineVersionPico <br>
-Status: **To be RE'd.** <br>
+Status: [Only available in header source code](./include_openXR/openxr_pico.h?plain=1#L836) <br>
 Note: Not made public through libpxrplugin.so.
 
+---
+
+### xrSetMainControllerHandlePico
+
+_Sets the main controller_
+
 ```c
-xrSetMainControllerHandlePico
+XrResult xrSetMainControllerHandlePico(
+    XrInstance instance,
+    int controllerHandle
+);
 ```
+
+| Parameter        | Description                                   |
+| ---------------- | --------------------------------------------- |
+| controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerMainInputHandle <br>
-Status: **To be RE'd.**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrsetmaincontrollerhandlepico)
+
+---
+
+### xrGetMainControllerHandlePico
+
+_Gets the main controller_
 
 ```c
-xrGetMainControllerHandlePico
+XrResult xrGetMainControllerHandlePico(
+    XrInstance instance,
+    int controllerHandle
+);
 ```
+
+| Parameter        | Description                                   |
+| ---------------- | --------------------------------------------- |
+| controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_GetControllerMainInputHandle <br>
-Status: **To be RE'd.**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetmaincontrollerhandlepico-new)
+
+---
+
+### xrGetControllerConnectionStatePico
+
+_Gets the connection status of the specified controller_
 
 ```c
-xrGetControllerConnectionStatePico
+XrResult xrGetControllerConnectionStatePico(
+    XrInstance instance,
+    uint8_t controllerhandle,
+    uint8_t* status
+);
 ```
+
+| Parameter        | Description                                   |
+| ---------------- | --------------------------------------------- |
+| controllerHandle | Left controller = 0 <br> Right controller = 1 |
+| status           | Disconnected = 0 <br> Connected = 1           |
 
 External name: Pxr_GetControllerConnectStatus <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetcontrollerconnectionstatepico)
+
+---
+
+### xrGetPhyControllerInfoPico
+
+_Gets physical controller information_
 
 ```c
-xrGetPhyControllerInfoPico
+XrResult xrGetPhyControllerInfoPico(
+    XrInstance instance,
+    int device,
+    XrControllerInfo* controllerinfo
+);
 ```
 
+| Parameter      | Description                                                   |
+| -------------- | ------------------------------------------------------------- |
+| device         | Left controller = 0 <br> Right controller = 1                 |
+| controllerinfo | See [struct](./include_openXR/openxr_pico.h?plain=1#L11) here |
+
 External name: Pxr_GetControllerinfo <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetphycontrollerinfopico-new)
+
+---
+
+### xrGetPhyControllerTypePico
 
 ```c
 xrGetPhyControllerTypePico
@@ -86,54 +206,162 @@ xrGetPhyControllerTypePico
 External name: getControllerType <br>
 Status: **To be RE'd**
 
+---
+
+### xrVibrateControllerPico
+
+_Vibrates the specified controller for a specified strength and time_
+
 ```c
-xrVibrateControllerPico
+XrResult xrVibrateControllerPico(
+    XrInstance instance,
+    float strength,
+    int time,
+    int controllerHandle
+);
 ```
+
+| Parameter        | Description                                   |
+| ---------------- | --------------------------------------------- |
+| strength         | vibrate strength: 0 - 1                       |
+| time             | time of vibration in MS                       |
+| controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerVibration <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrvibratecontrollerpico)
+
+---
+
+### xrVibrateControllerPico
+
+_Vibrates the specified controller for a specified frequency, strength and time._
 
 ```c
-xrVibrateControllerEventPico
+XrResult xrVibrateControllerPico(
+    XrInstance instance,
+    int device,
+    int frequency,
+    float strength,
+    int time
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
+| frequency | vibration frequency: 50 - 500 Hz              |
+| strength  | vibrate strength: 0 - 1                       |
+| time      | time of vibration in MS                       |
 
 External name: Pxr_SetControllerVibrationEvent <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerVibrationEvent)
+
+---
+
+### xrSetPhyControllerEnterPairingPico
+
+_Not tested_
 
 ```c
-xrSetPhyControllerEnterPairingPico
+XrResult xrSetPhyControllerEnterPairingPico(
+    XrInstance instance,
+    int device
+)
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerEnterPairing <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L488)
+
+---
+
+### xrSetPhyControllerStopPairingPico
+
+_Not tested_
 
 ```c
-xrSetPhyControllerStopPairingPico
+XrResult xrSetPhyControllerStopPairingPico(
+    XrInstance instance,
+    int device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerStopPairing <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L861)
+
+---
+
+### xrSetPhyControllerUpgradePico
+
+_Not tested_
 
 ```c
-xrSetPhyControllerUpgradePico
+XrResult xrSetPhyControllerUpgradePico(
+    XrInstance instance,
+    int devicetype,
+    int rule,
+    char* station_path_by_char,
+    char* controller_path_by_char
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetControllerUpgrade <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L861)
+
+---
+
+### xrSetPhyControllerUnbindPico
+
+_Not tested_
 
 ```c
-xrSetPhyControllerUnbindPico
+XrResult xrSetPhyControllerUnbindPico(
+    XrInstance instance,
+    int device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerUnbind <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L863)
+
+---
+
+### xrSetPhyControllerEnableKeyPico
+
+_Disables or enables a key on the specified controller_
 
 ```c
-xrSetPhyControllerEnableKeyPico
+XrResult xrSetPhyControllerEnableKeyPico(
+    XrInstance instance,
+    bool isEnable,
+    XrControllerKeyMap Key
+);
 ```
 
+| Parameter | Description                                                           |
+| --------- | --------------------------------------------------------------------- |
+| isEnabled | Key blocked                                                           |
+| Key       | [XrControllerKeyMap](./include_OpenXR/openxr_pico.h?plain=1#L19) enum |
+
 External name: Pxr_SetControllerEnableKey <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrsetphycontrollerenablekeypico-new)
+
+---
+
+### xrSetVirtualKeyPico
 
 ```c
 xrSetVirtualKeyPico
@@ -141,47 +369,121 @@ xrSetVirtualKeyPico
 
 Status: **To be RE'd**
 
+---
+
+### xrStartPhyControllerVCMotorPico
+
+_Enables audio-based vibration through audio file path._
+
 ```c
-xrStartPhyControllerVCMotorPico
+XrResult xrStartPhyControllerVCMotorPico(char* file, EPICOXRVibrateController slot)
 ```
+
+| Parameter | Description                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------------- |
+| file      | Audio file path                                                                                           |
+| slot      | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
 
 External name: Pxr_StartControllerVCMotor <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartControllerVCMotor)
+
+---
+
+### xrStopPhyControllerVCMotorPico
 
 ```c
-xrStopPhyControllerVCMotorPico
+XrResult xrStopPhyControllerVCMotorPico(
+    XrInstance instance,
+    int clientId
+);
 ```
+
+| Parameter | Description                                                                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| clientId  | a reserved parameter, set it to the sourceId returned by another vibration control API to stop the corresponding vibration, or set it to 0 to stop all vibrations. |
 
 External name: Pxr_StopControllerVCMotor <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StopControllerVCMotor)
+
+---
+
+### xrSetControllerAmpPico
+
+_Sets the amplitude of audio-based vibration. You can change the vibration amplitude during audio playback._
 
 ```c
-xrSetControllerAmpPico
+XrResult xrSetControllerAmpPico(
+    XrInstance instance,
+    float mode
+);
 ```
+
+| Parameter | Description                                        |
+| --------- | -------------------------------------------------- |
+| device    | Vibration amplitude level. The range is 0.0 to 2.0 |
 
 External name: Pxr_SetControllerAmp <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerAmp)
+
+---
+
+### xrSetMotorDelayPico
+
+_Not tested_
 
 ```c
-xrSetMotorDelayPico
+XrResult xrSetMotorDelayPico(
+    XrInstance instance,
+    int delay
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetControllerDelay <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L508)
+
+---
+
+### xrGetVibrateDelayTimePico
+
+_Not tested_
 
 ```c
-xrGetVibrateDelayTimePico
+XrResult xrGetVibrateDelayTimePico(
+    XrInstance instance,
+    int* length
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_GetVibrateDelayTime <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L509)
+
+---
+
+### xrStartVibrateBySharemPico
+
+_Not tested_
 
 ```c
-xrStartVibrateBySharemPico
+XrResult xrStartVibrateBySharemPico(
+    XrInstance instance,
+    float* data,
+    PxrVibrate_config* parameter,
+    int* source_id
+);
 ```
 
+**Parameters not documented**
+
 External name: Pxr_StartVibrateBySharemF and Pxr_StartVibrateBySharemU <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L510)
+
+---
+
+### xrGetVibrateSharemPico
 
 ```c
 xrGetVibrateSharemPico
@@ -190,12 +492,31 @@ xrGetVibrateSharemPico
 External name: Pxr_GetVibrateSharem <br>
 Status: **To be RE'd**
 
+---
+
+### xrStartVibrateByPHFPico
+
+_Plays PHF vibration data._
+
 ```c
-xrStartVibrateByPHFPico
+XrResult xrStartVibrateByPHFPico(
+    XrInstance instance,
+    char* data,
+    int buffersize,
+    int* source_id,
+    VibrateInfo vibrateInfo
+);
 ```
 
+**Conflicting documentation for parameters** <br>
+Refer to [VibrateInfo](./include/PxrTypes.h?plain=1#L506) for the struct.
+
 External name: Pxr_StartVibrateByPHF <br>
-Status: **To be RE'd**
+Status: [Documented by PICO (not up to date?)](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByPHF)
+
+---
+
+### xrGetPHFSharedMemPico
 
 ```c
 xrGetPHFSharedMemPico
@@ -204,19 +525,49 @@ xrGetPHFSharedMemPico
 External name: Pxr_GetPHFSharedMem <br>
 Status: **To be RE'd**
 
+---
+
+### xrPauseVibratePico
+
+_Pauses the PHF vibration data._
+
 ```c
-xrPauseVibratePico
+XrResult xrPauseVibratePico(
+    XrInstance instance,
+    int source_id
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| source_id | ID returned by another vibration control API. |
 
 External name: Pxr_PauseVibrate <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_PauseVibrate)
+
+---
+
+### xrResumeVibratePico
+
+_Resumes PHF vibration data._
 
 ```c
-xrResumeVibratePico
+XrResult xrResumeVibratePico(
+    XrInstance instance,
+    int source_id
+);
 ```
 
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| source_id | ID returned by another vibration control API. |
+
 External name: Pxr_ResumeVibrate <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_ResumeVibrate)
+
+---
+
+### xrReleaseControllerBufferPico
 
 ```c
 xrReleaseControllerBufferPico
@@ -225,117 +576,328 @@ xrReleaseControllerBufferPico
 External name: Pxr_ReleaseControllerBuffer <br>
 Status: **To be RE'd**
 
+---
+
+### xrStartVibrateByCachePico
+
+_Plays the cached audio vibration data._
+
 ```c
-xrStartVibrateByCachePico
+XrResult xrStartVibrateByCachePico(
+    XrInstance instance,
+    int source_id
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| source_id | ID returned by another vibration control API. |
 
 External name: Pxr_StartVibrateByCache <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByCache)
+
+---
+
+### xrClearVibrateByCachePico
+
+_Clears the cached audio vibration data._
 
 ```c
-xrClearVibrateByCachePico
+XrResult xrClearVibrateByCachePico(
+    XrInstance instance,
+    int source_id
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| source_id | ID returned by another vibration control API. |
 
 External name: Pxr_ClearVibrateByCache <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_ClearVibrateByCache)
+
+---
+
+### xrSetAppHandTrackingEnabledPico
+
+_Not tested_
 
 ```c
-xrSetAppHandTrackingEnabledPico
+XrResult xrSetAppHandTrackingEnabledPico(
+    XrInstance instance,
+    bool handTrackingEnabled
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetAppHandTrackingEnabled <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L519)
+
+---
+
+### xrGetActiveInputDeviceTypePico
+
+_Not tested_
 
 ```c
-xrGetActiveInputDeviceTypePico
+XrResult xrGetActiveInputDeviceTypePico(
+    XrInstance instance,
+    PxrHandType handId,
+    int coordinateFlag,
+    PxrHandState* handtrackHandState
+);
 ```
 
+**Parameters not documented** <br>
+See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
+
 External name: Pxr_GetActiveInputDeviceType <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L520)
+
+---
+
+### xrGetHandTrackingEnabledPico
+
+_Not tested_
 
 ```c
-xrGetHandTrackingEnabledPico
+XrResult xrGetHandTrackingEnabledPico(
+    XrInstance instance,
+    bool* handTrackingEnabled
+);
 ```
 
 External name: Pxr_GetHandTrackingEnabled <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L521)
+
+---
+
+### xrGetHandTrackingHandStatePico
+
+_Not tested_
 
 ```c
-xrGetHandTrackingHandStatePico
+XrResult xrGetHandTrackingHandStatePico(
+    XrInstance instance,
+    PxrHandType handId,
+    int coordinateflag,
+    PxrHandState* handtrackinghandState
+);
 ```
+
+**Parameters not documented** <br>
+See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
 
 External name: Pxr_GetHandTrackingHandState <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L522)
+
+---
+
+### xrGetHandTrackingSkeletonPico
+
+_Not tested_
 
 ```c
-xrGetHandTrackingSkeletonPico
+XrResult xrGetHandTrackingSkeletonPico(
+    XrInstance instance,
+    PxrSkeletonType,
+    PxrSkeleton* handtrackSkeleton
+);
 ```
+
+**Parameters not documented** <br>
+See [PxrSkeletonType](./include/PxrInput.h?plain=1#L204) and [PxrSkeleton](./include/PxrInput.h?plain=1#L328)
 
 External name: Pxr_GetHandTrackingSkeleton <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L523)
+
+---
+
+### xrGetHandTrackingMeshPico
+
+_Not tested_
 
 ```c
-xrGetHandTrackingMeshPico
+XrResult xrGetHandTrackingMeshPico(
+    XrInstance instance,
+    PxrMeshType handtrackMeshType,
+    PxrHandMesh* handtrackHandMesh
+)
 ```
+
+**Parameters not documented** <br>
+See [PxrMeshType](./include/PxrInput.h?plain=1#L209) and [PxrHandMesh](./include/PxrInput.h?plain=1#L340)
 
 External name: Pxr_GetHandTrackingMesh <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L524)
+
+---
+
+### xrGetControllerSensorDataPredictPICO
+
+_Not tested_
 
 ```c
-xrGetControllerSensorDataPredictPICO
+XrResult xrGetControllerSensorDataPredictPICO(
+    XrInstance instance,
+    int controllerHandle,
+    float headSensorData[],
+    float predictTime,
+    float* data
+);
 ```
+
+**Parameters not documented**
 
 External name: getControllerSensorDataPredict <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
+
+---
+
+### xrSetControllerMainHandlePICO
+
+_Sets the main controller._
 
 ```c
-xrSetControllerMainHandlePICO
+XrResult xrSetControllerMainHandlePICO(
+    XrInstance instance,
+    uint32_t device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerMainInputHandle <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a95cd83871aeee5ccb75f62dc7dea3b24)
+
+---
+
+### xrGetControllerMainHandlePICO
+
+_Gets the main controller_
 
 ```c
-xrGetControllerMainHandlePICO
+XrResult xrGetControllerMainHandlePICO(
+    XrInstance instance,
+    uint32_t* device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_GetControllerMainInputHandle <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a12d599740d6397af7bd62a8927b4adb0)
+
+---
+
+### xrGetControllerConnectionStatePICO
+
+_Gets the connection status of a controller_
 
 ```c
-xrGetControllerConnectionStatePICO
+XrResult xrGetControllerConnectionStatePICO(
+    XrInstance instance,
+    uint8_t controllerHandle,
+    uint8_t* status
+);
 ```
+
+| Parameter        | Description                                   |
+| ---------------- | --------------------------------------------- |
+| controllerHandle | Left controller = 0 <br> Right controller = 1 |
+| status           | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_GetControllerConnectStatus <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetcontrollerconnectionstatepico)
+
+---
+
+### xrGetControllerInfoPICO
+
+_Gets the information about a specified controller._
 
 ```c
-xrGetControllerInfoPICO
+XrResult xrGetControllerInfoPICO(
+    XrInstance instance,
+    uint32_t device,
+    PxrControllerInfo* info
+);
 ```
+
+| Parameter | Description                                                     |
+| --------- | --------------------------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1                   |
+| info      | Refer to [PxrControllerInfo](./include/PxrInput.h?plain=1#L186) |
 
 External name: Pxr_GetControllerinfo <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a9d51f251f137aefde686c5489765b2b7)
+
+---
+
+### xrResetControllerPICO
+
+_Not tested_
 
 ```c
-xrResetControllerPICO
+XrResult xrResetControllerPICO(
+    XrInstance instance,
+    uint32_t device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_ResetController <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2601)
+
+---
+
+### xrSetArmModelParametersPICO
+
+_Not tested_
 
 ```c
-xrSetArmModelParametersPICO
+XrResult xrSetArmModelParametersPICO(
+    XrInstance instance,
+    PxrGazeType gazeType,
+    PxrArmModelType armmodelType,
+    float elbowHeight,
+    float elbowDepth,
+    float pointerTiltAngle
+);
 ```
 
+**Parameters not documented**
+
 External name: Pxr_SetArmModelParameters <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2604)
+
+---
+
+### xrGetControllerHandnessPICO
+
+_Not tested_
 
 ```c
-xrGetControllerHandnessPICO
+XrResult xrGetControllerHandnessPICO(
+    XrInstance instance,
+    int* handness
+);
 ```
 
 External name: Pxr_GetControllerHandness <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2604)
+
+---
+
+### xrGetControllerTypePICO
 
 ```c
 xrGetControllerTypePICO
@@ -344,54 +906,159 @@ xrGetControllerTypePICO
 External name: getControllerType <br>
 Status: **To be RE'd**
 
+---
+
+### xrSetControllerVibratePICO
+
+_Sets vibration for a specified controller._
+
 ```c
-xrSetControllerVibratePICO
+XrResult xrSetControllerVibratePICO(
+    XrInstance instance,
+    uint32_t device,
+    float strength,
+    int time
+);
 ```
+
+| Parameter | Description                                                                                                                 |
+| --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1                                                                               |
+| strength  | Vibration amplitude. The valid value ranges from 0.0f to 1.0f. The greater the value, the stronger the vibration amplitude. |
+| time      | Vibration duration. The valid value ranges from 0 to 65535 (in milliseconds).                                               |
 
 External name: Pxr_SetControllerVibration <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a29b92a99751ab8830d1b266ae5135fde)
+
+---
+
+### xrSetControllerVibrateEventPICO
+
+_Vibrates the specified controller for a specified frequency, strength and time._
 
 ```c
-xrSetControllerVibrateEventPICO
+XrResult xrSetControllerVibrateEventPICO(
+    XrInstance instance,
+    int device,
+    int frequency,
+    float strength,
+    int time
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
+| frequency | vibration frequency: 50 - 500 Hz              |
+| strength  | vibrate strength: 0 - 1                       |
+| time      | time of vibration in MS                       |
 
 External name: Pxr_SetControllerVibrationEvent <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerVibrationEvent)
+
+---
+
+### xrSetControllerEnterPairingPICO
+
+_Not tested_
 
 ```c
-xrSetControllerEnterPairingPICO
+XrResult xrSetControllerEnterPairingPICO(
+    XrInstance instance,
+    uint32_t device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerEnterPairing <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a501fc44a5990f5b45f7bd0d3758cd61d)
+
+---
+
+### xrSetControllerStopPairingPICO
+
+_Not tested_
 
 ```c
-xrSetControllerStopPairingPICO
+XrResult xrSetControllerStopPairingPICO(
+    XrInstance instance,
+    uint32_t device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerStopPairing <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#aaa8d98fa1a7b91589a31fcf2a7a671b7)
+
+---
+
+### xrSetControllerUpgradePICO
+
+_Not tested_
 
 ```c
-xrSetControllerUpgradePICO
+XrResult xrSetControllerUpgradePICO(
+    XrInstance instance,
+    uint32_t device,
+    int rule,
+    char* station_path_by_char,
+    char* controller_path_by_char
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetControllerUpgrade <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#ad4405376f56f06ac2a73b18760efe84f)
+
+---
+
+### xrSetControllerUnbindPICO
+
+_Not tested_
 
 ```c
-xrSetControllerUnbindPICO
+XrResult xrSetControllerUnbindPICO(
+    XrInstance instance,
+    uint32_t device
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| device    | Left controller = 0 <br> Right controller = 1 |
 
 External name: Pxr_SetControllerUnbind <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#ad0a4668857cf365ab008ba6b96a6a587)
+
+---
+
+### xrSetControllerEnableKeyPICO
+
+_Enables/disables the specified controller key._
 
 ```c
-xrSetControllerEnableKeyPICO
+XrResult xrSetControllerEnableKeyPICO(
+    bool isEnable,
+    PxrControllerKeyMap key
+);
 ```
 
+| Parameter | Description                                                      |
+| --------- | ---------------------------------------------------------------- |
+| isEnable  | Whether to enable/disable the specified key                      |
+| key       | Refer to [PxrControllerKeyMap](./include/PxrInput.h?plain=1#L19) |
+
 External name: Pxr_SetControllerEnableKey <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a75859deb3d1097a444ae985c926a218a)
+
+---
 
 ```c
 xrStartPhyControllerVCMotorPICO
@@ -400,12 +1067,16 @@ xrStartPhyControllerVCMotorPICO
 External name: Pxr_StartControllerVCMotor <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStopPhyControllerVCMotorPICO
 ```
 
 External name: Pxr_StopControllerVCMotor <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetControllerAmpPICO
@@ -414,12 +1085,16 @@ xrSetControllerAmpPICO
 External name: Pxr_SetControllerAmp <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetMotorDelayPICO
 ```
 
 External name: Pxr_SetControllerDelay <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetVibrateDelayTimePICO
@@ -428,12 +1103,16 @@ xrGetVibrateDelayTimePICO
 External name: Pxr_GetVibrateDelayTime <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartVibrateBySharemPICO
 ```
 
 External name: Pxr_StartVibrateBySharemF and Pxr_StartVibrateBySharemU <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetVibrateSharemPICO
@@ -442,12 +1121,16 @@ xrGetVibrateSharemPICO
 External name: Pxr_GetVibrateSharem <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartVibrateByPHFPICO
 ```
 
 External name: Pxr_StartVibrateByPHF <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetPHFSharedMemPICO
@@ -456,12 +1139,16 @@ xrGetPHFSharedMemPICO
 External name: Pxr_GetPHFSharedMem <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrPauseVibratePICO
 ```
 
 External name: Pxr_PauseVibrate <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrResumeVibratePICO
@@ -470,6 +1157,8 @@ xrResumeVibratePICO
 External name: Pxr_ResumeVibrate <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrReleaseControllerBufferPICO
 ```
@@ -477,11 +1166,15 @@ xrReleaseControllerBufferPICO
 External name: Pxr_ReleaseControllerBuffer <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrCreateControllerClientPICO
 ```
 
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStartVibrateByCachePICO
@@ -490,12 +1183,16 @@ xrStartVibrateByCachePICO
 External name: Pxr_StartVibrateByCache <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrClearVibrateByCachePICO
 ```
 
 External name: Pxr_ClearVibrateByCache <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrUpdateVibrateParamsPICO
@@ -504,12 +1201,16 @@ xrUpdateVibrateParamsPICO
 External name: Pxr_UpdateVibrateParams <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrCreateHapticStreamPICO
 ```
 
 External name: Pxr_CreateHapticStream <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrWriteHapticStreamPICO
@@ -518,12 +1219,16 @@ xrWriteHapticStreamPICO
 External name: Pxr_WriteHapticStream <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetPHFHapticSpeedPICO
 ```
 
 External name: Pxr_SetPHFHapticSpeed <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetPHFHapticSpeedPICO
@@ -532,12 +1237,16 @@ xrGetPHFHapticSpeedPICO
 External name: Pxr_GetPHFHapticSpeed <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetCurrentFrameSequencePICO
 ```
 
 External name: Pxr_GetCurrentFrameSequence <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStartPHFHapticPICO
@@ -546,12 +1255,16 @@ xrStartPHFHapticPICO
 External name: Pxr_StartPHFHaptic <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStopPHFHapticPICO
 ```
 
 External name: Pxr_StopPHFHaptic <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrRemovePHFHapticPICO
@@ -560,12 +1273,16 @@ xrRemovePHFHapticPICO
 External name: Pxr_RemovePHFHaptic <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetPHFStreamMemPICO
 ```
 
 External name: Pxr_GetPHFStreamMem <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetHandTrackerSettingStatePICO
@@ -574,6 +1291,8 @@ xrGetHandTrackerSettingStatePICO
 External name: Pxr_GetHandTrackerSettingState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetHandTrackerActiveInputTypePICO
 ```
@@ -581,11 +1300,15 @@ xrGetHandTrackerActiveInputTypePICO
 External name Pxr_GetHandTrackerActiveInputType <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetEyeTrackerModePICO
 ```
 
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetEyeTrackerModePICO
@@ -594,11 +1317,15 @@ xrGetEyeTrackerModePICO
 External name: Pxr_GetTrackingMode <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetEyeTrackerDataPICO
 ```
 
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetBodyTrackerStaticCalibStatePICO
@@ -607,12 +1334,16 @@ xrSetBodyTrackerStaticCalibStatePICO
 External name: Pxr_SetBodyTrackingStaticCalibState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetBodyTrackerModePICO
 ```
 
 External name: Pxr_SetBodyTrackingMode <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetBodyTrackerPosePICO
@@ -621,12 +1352,16 @@ xrGetBodyTrackerPosePICO
 External name: Pxr_GetBodyTrackingPose <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetBodyTrackerImuDataPICO
 ```
 
 External name: Pxr_GetBodyTrackingImuData <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetBodyTrackerConnectStatePICO
@@ -635,12 +1370,16 @@ xrGetBodyTrackerConnectStatePICO
 External name: Pxr_GetBodyTrackingState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetBodyTrackerBatteryPICO
 ```
 
 External name: Pxr_GetFitnessBandBattery <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetBodyTrackerCalibStatePICO
@@ -649,12 +1388,16 @@ xrGetBodyTrackerCalibStatePICO
 External name: Pxr_GetFitnessBandCalibState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetBodyTrackingAlgParamPICO
 ```
 
 External name: Pxr_SetBodyTrackingAlgParam <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrCreateBodyTrackerBD
@@ -663,12 +1406,16 @@ xrCreateBodyTrackerBD
 External name: Pxr_StartBodyTracking <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrDestroyBodyTrackerBD
 ```
 
 External name: Pxr_StopBodyTracking <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrLocateBodyJointsBD
@@ -677,12 +1424,16 @@ xrLocateBodyJointsBD
 External name: Pxr_GetBodyTrackingData <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartBodyTrackingCalibAppBD
 ```
 
 External name: Pxr_StartBodyTrackingCalibApp <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetBodyTrackingStateBD
@@ -691,12 +1442,16 @@ xrGetBodyTrackingStateBD
 External name: Pxr_GetBodyTrackingState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetMotionTrackerConnectStateBD
 ```
 
 External name: Pxr_GetMotionTrackerConnectState <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetMotionTrackerTypeBD
@@ -705,12 +1460,16 @@ xrGetMotionTrackerTypeBD
 External name: Pxr_GetMotionTrackerType <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetMotionTrackerModeBD
 ```
 
 External name: Pxr_GetMotionTrackerMode <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetMotionTrackerLocationsBD
@@ -719,12 +1478,16 @@ xrGetMotionTrackerLocationsBD
 External name: Pxr_GetMotionTrackerLocations <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrCheckMotionTrackerModeAndNumberBD
 ```
 
 External name: Pxr_CheckMotionTrackerModeAndNumber <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetExtDevTrackerConnectStateBD
@@ -733,12 +1496,16 @@ xrGetExtDevTrackerConnectStateBD
 External name: Pxr_GetExtDevTrackerConnectState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetExtDevTrackerMotorVibrateBD
 ```
 
 External name: Pxr_SetExtDevTrackerMotorVibrate <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetExtDevTrackerPassDataStateBD
@@ -747,12 +1514,16 @@ xrSetExtDevTrackerPassDataStateBD
 External name: Pxr_SetExtDevTrackerPassDataState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetExtDevTrackerByPassDataBD
 ```
 
 External name: Pxr_SetExtDevTrackerByPassData <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetExtDevTrackerByPassDataBD
@@ -761,12 +1532,16 @@ xrGetExtDevTrackerByPassDataBD
 External name: Pxr_GetExtDevTrackerByPassData <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetExtDevTrackerBatteryBD
 ```
 
 External name: Pxr_GetExtDevTrackerKeyData <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetExtDevTrackerKeyDataBD
@@ -775,12 +1550,16 @@ xrGetExtDevTrackerKeyDataBD
 External name: Pxr_GetExtDevTrackerKeyData <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetIPDPICO
 ```
 
 External name: Pxr_SetIPD <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetIPDPICO
@@ -789,12 +1568,16 @@ xrGetIPDPICO
 External name: Pxr_GetIPD <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetTrackingIPDEnabledPICO
 ```
 
 External name: Pxr_SetTrackingIPDEnabled <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetTrackingIPDEnabledPICO
@@ -803,12 +1586,16 @@ xrGetTrackingIPDEnabledPICO
 External name: Pxr_GetTrackingIPDEnabled <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetEyeTrackingAutoIPDPICO
 ```
 
 External name: Pxr_GetEyeTrackingAutoIPD <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetFrustumParametersPICO
@@ -817,12 +1604,16 @@ xrGetFrustumParametersPICO
 External name: Pxr_GetFrustum <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetFrustumParametersPICO
 ```
 
 External name: Pxr_SetFrustum <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetConfigPICO
@@ -831,12 +1622,16 @@ xrGetConfigPICO
 External name: Pxr_GetConfig <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetConfigPICO
 ```
 
 External name: Pxr_SetConfig <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetConfigsPICO
@@ -845,12 +1640,16 @@ xrGetConfigsPICO
 External name: Pxr_GetConfigs <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetConfigsPICO
 ```
 
 External name: Pxr_SetConfigs <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetFoveationConfigPICO
@@ -859,6 +1658,8 @@ xrGetFoveationConfigPICO
 External name: getFoveationConfig <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetMainClientInfoPICO
 ```
@@ -866,11 +1667,15 @@ xrGetMainClientInfoPICO
 External name: Pxr_GetMainClientInfo <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetPerformanceInfoPICO
 ```
 
 Status: **To be RE'd**
+
+---
 
 ```c
 xrResetSensorPICO
@@ -879,6 +1684,8 @@ xrResetSensorPICO
 External name: Pxr_ResetSensor <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetTrackingModePICO
 ```
@@ -886,17 +1693,23 @@ xrSetTrackingModePICO
 External name: Pxr_SetTrackingMode <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartFoveationPICO
 ```
 
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStopFoveationPICO
 ```
 
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetEyeTrackingDataPICO
@@ -905,12 +1718,16 @@ xrGetEyeTrackingDataPICO
 External name: Pxr_GetEyeTrackingData and Pxr_GetEyeTrackingData1 <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetTrackingModePICO
 ```
 
 External name: Pxr_GetTrackingMode <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetFaceTrackingDataPICO
@@ -919,12 +1736,16 @@ xrGetFaceTrackingDataPICO
 External name: Pxr_GetFaceTrackingState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetEyeTrackingStatePICO
 ```
 
 External name: Pxr_GetEyeTrackingState <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetFaceTrackingStatePICO
@@ -933,12 +1754,16 @@ xrGetFaceTrackingStatePICO
 External name: Pxr_GetFaceTrackingState <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetPupilDistancePICO
 ```
 
 External name: Pxr_GetPupilDistance <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStartEyeTrackingPICO
@@ -947,12 +1772,16 @@ xrStartEyeTrackingPICO
 External name: Pxr_StartEyeTracking <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStopEyeTrackingPICO
 ```
 
 External name: Pxr_StopEyeTracking <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetTrackingStatusPICO
@@ -961,12 +1790,16 @@ xrSetTrackingStatusPICO
 External name: Pxr_SetTrackingStatus <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetEyeOpennessPICO
 ```
 
 External name: Pxr_GetEyeOpenness <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetEyePupilInfoPICO
@@ -975,12 +1808,16 @@ xrGetEyePupilInfoPICO
 External name: Pxr_GetEyePupilInfo <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetPerEyePosePICO
 ```
 
 External name: Pxr_GetPerEyePose <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetBlinkPICO
@@ -989,12 +1826,16 @@ xrGetBlinkPICO
 External name: Pxr_GetEyeBlink <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetControllerPositionPICO
 ```
 
 External name: Pxr_SetControllerPosition <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrBoundaryTestNodePICO
@@ -1003,12 +1844,16 @@ xrBoundaryTestNodePICO
 External name: Pxr_BoundaryTestNode <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrBoundaryTestPointPICO
 ```
 
 External name: Pxr_TestPointIsInBoundary <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetBoundaryGeometryPICO
@@ -1017,12 +1862,16 @@ xrGetBoundaryGeometryPICO
 External name: Pxr_GetBoundaryGeometry <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetBoundaryDimensionsPICO
 ```
 
 External name: Pxr_GetBoundaryDimensions <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetSeeThroughDataPICO
@@ -1031,12 +1880,16 @@ xrGetSeeThroughDataPICO
 External name: Pxr_GetSeeThroughData <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrInvokeFunctionsPICO
 ```
 
 External name: Pxr_InvokeFunctions <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStartMRModeBD
@@ -1045,12 +1898,16 @@ xrStartMRModeBD
 External name: Pxr_StartMRMode <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStopMRModeBD
 ```
 
 External name: Pxr_StopMRMode <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStopSpatialRecognitionBD
@@ -1059,12 +1916,16 @@ xrStopSpatialRecognitionBD
 External name: Pxr_StopSpatialRecognition <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetMrConfigurationBD
 ```
 
 External name: Pxr_SetMrConfiguration <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrCreateSpatialAnchorSpaceBD
@@ -1073,12 +1934,16 @@ xrCreateSpatialAnchorSpaceBD
 External name: Pxr_CreateSpatialAnchor <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrDestroySpatialAnchorBD
 ```
 
 External name: Pxr_DestroySpatialAnchor <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetSpatialAnchorPropertyBD
@@ -1087,12 +1952,16 @@ xrSetSpatialAnchorPropertyBD
 External name: Pxr_SetSpatialAnchorProperty <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetSpatialAnchorPropertyBD
 ```
 
 External name: Pxr_GetSpatialAnchorProperty <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetSpatialAnchorTagBD
@@ -1101,12 +1970,16 @@ xrSetSpatialAnchorTagBD
 External name: Pxr_SetSpatialAnchorTag <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetSpatialAnchorTagBD
 ```
 
 External name: Pxr_GetSpatialAnchorTag <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetSpatialAnchorUuidBD
@@ -1115,12 +1988,16 @@ xrGetSpatialAnchorUuidBD
 External name: Pxr_GetSpatialAnchorUuid <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSaveSpatialAnchorBD
 ```
 
 External name: Pxr_SaveSpatialAnchor <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrDeleteSpatialAnchorBD
@@ -1129,12 +2006,16 @@ xrDeleteSpatialAnchorBD
 External name: Pxr_DeleteSpatialAnchor <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrLoadSpatialAnchorByIdBD
 ```
 
 External name: Pxr_LoadSpatialAnchorById <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetSpatialAnchorLoadResultsBD
@@ -1143,12 +2024,16 @@ xrGetSpatialAnchorLoadResultsBD
 External name: Pxr_GetSpatialAnchorLoadResults <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrExportSpatialInstanceBD
 ```
 
 External name: Pxr_ExportSpatialInstance <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrImportSpatialInstanceBD
@@ -1157,12 +2042,16 @@ xrImportSpatialInstanceBD
 External name: Pxr_ImportSpatialInstance <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartRoomCaptureBD
 ```
 
 External name: Pxr_StartRoomCapture <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrCreateRoomSceneDataBD
@@ -1171,12 +2060,16 @@ xrCreateRoomSceneDataBD
 External name: Pxr_CreateRoomSceneData <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrDestroyRoomSceneDataBD
 ```
 
 External name: Pxr_DestroyRoomSceneData <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSaveRoomSceneDataBD
@@ -1185,12 +2078,16 @@ xrSaveRoomSceneDataBD
 External name: Pxr_SaveRoomSceneData <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartHumanOcclusionBD
 ```
 
 External name: Pxr_StartHumanOcclusion <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrAcquire_occlusion_infoBD
@@ -1199,12 +2096,16 @@ xrAcquire_occlusion_infoBD
 External name Pxr_AcquireMeshingInfo <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStopHumanOcclusionBD
 ```
 
 External name: Pxr_StopHumanOcclusion <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetMrcPosePICO
@@ -1213,12 +2114,16 @@ xrGetMrcPosePICO
 External name: Pxr_GetMrcPose <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetMrcPosePICO
 ```
 
 External name: Pxr_SetMrcPose <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetIsSupportMovingMrcPICO
@@ -1227,12 +2132,16 @@ xrSetIsSupportMovingMrcPICO
 External name: Pxr_SetIsSupportMovingMrc <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetExternalCameraInfoBD
 ```
 
 External name: Pxr_GetExternalCameraInfo <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrPassthroughLayerSetStylePICO
@@ -1241,12 +2150,16 @@ xrPassthroughLayerSetStylePICO
 External name: Pxr_SetPassthroughStyle <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrCreateAnchorEntityBD
 ```
 
 External name: Pxr_CreateAnchorEntity <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrDestroyAnchorEntityBD
@@ -1255,12 +2168,16 @@ xrDestroyAnchorEntityBD
 External name: Pxr_DestroyAnchorEntity <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrCreateAnchorSpaceBD
 ```
 
 External name: Pxr_CreateAnchorEntity <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetAnchorEntityUuidBD
@@ -1269,12 +2186,16 @@ xrGetAnchorEntityUuidBD
 External name: Pxr_GetAnchorEntityUuid <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrAddAnchorComponentBD
 ```
 
 External name: Pxr_AddAnchorComponent <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrRemoveAnchorComponentBD
@@ -1283,12 +2204,16 @@ xrRemoveAnchorComponentBD
 External name: Pxr_RemoveAnchorComponent <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetAnchorComponentFlagsBD
 ```
 
 External name: Pxr_GetAnchorComponentFlags <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetAnchorSceneLabelBD
@@ -1297,12 +2222,16 @@ xrGetAnchorSceneLabelBD
 External name: Pxr_GetAnchorSceneLabel <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetAnchorPlaneBoundaryInfoBD
 ```
 
 External name: Pxr_GetAnchorPlaneBoundaryInfo <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetAnchorPlanePolygonInfoBD
@@ -1311,12 +2240,16 @@ xrGetAnchorPlanePolygonInfoBD
 External name: Pxr_GetAnchorPlanePolygonInfo <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetAnchorBoxInfoBD
 ```
 
 External name: Pxr_GetAnchorBoxInfo <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrPersistAnchorEntityBD
@@ -1325,12 +2258,16 @@ xrPersistAnchorEntityBD
 External name: Pxr_PersistAnchorEntity <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrUnpersistAnchorEntityBD
 ```
 
 External name: Pxr_UnpersistAnchorEntity <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrClearPersistedAnchorEntityBD
@@ -1339,12 +2276,16 @@ xrClearPersistedAnchorEntityBD
 External name: Pxr_ClearPersistedAnchorEntity <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrLoadAnchorEntityBD
 ```
 
 External name: Pxr_LoadAnchorEntity <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetAnchorEntityLoadResultsBD
@@ -1353,12 +2294,16 @@ xrGetAnchorEntityLoadResultsBD
 External name: Pxr_GetAnchorEntityLoadResults <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrStartSemiAutoRoomCaptureBD
 ```
 
 External name: Pxr_StartSemiAutoRoomCapture <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStopSemiAutoRoomCaptureBD
@@ -1367,12 +2312,16 @@ xrStopSemiAutoRoomCaptureBD
 External name: Pxr_StopSemiAutoRoomCapture <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetFloorHeightBD
 ```
 
 External name: Pxr_SetFloorHeight <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrSetCeilingHeightBD
@@ -1381,12 +2330,16 @@ xrSetCeilingHeightBD
 External name: Pxr_SetCeilingHeight <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrSetFloorCornerBD
 ```
 
 External name: Pxr_SetFloorCorner <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrGetSemiAutoRoomCaptureCandidatesBD
@@ -1395,12 +2348,16 @@ xrGetSemiAutoRoomCaptureCandidatesBD
 External name: Pxr_GetSemiAutoRoomCaptureCandidates <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrGetSpatialTrackingStateBD
 ```
 
 External name: Pxr_GetSpatialTrackingState <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrBeginSpatialLocalizationBD
@@ -1409,12 +2366,16 @@ xrBeginSpatialLocalizationBD
 External name: Pxr_BeginSpatialLocalization <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrEndSpatialLocalizationBD
 ```
 
 External name: Pxr_EndSpatialLocalization <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrBeginSpatialMapCreationBD
@@ -1423,12 +2384,16 @@ xrBeginSpatialMapCreationBD
 External name: Pxr_BeginSpatialMapCreation <br>
 Status: **To be RE'd**
 
+---
+
 ```c
 xrEndSpatialMapCreationBD
 ```
 
 External name: Pxr_EndSpatialMapCreation <br>
 Status: **To be RE'd**
+
+---
 
 ```c
 xrStartSpatialSceneCaptureBD

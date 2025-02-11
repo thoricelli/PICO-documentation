@@ -503,4 +503,9 @@ enum GetDataType {
     PXR_GET_LIP_DATA = 4,        // Lipsync
     PXR_GET_FACELIP_DATA = 5,        // FT|Lipsync
 };
+typedef struct VibrateInfo {
+    uint slot;
+    uint reversal;
+    float amp;
+} VibrateInfo_;
 #endif  // PXR_TYPES_H
