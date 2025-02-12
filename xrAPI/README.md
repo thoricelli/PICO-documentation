@@ -72,6 +72,34 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrUpdateVibrateParamsPICO](#xrupdatevibrateparamspico)
     - [xrCreateHapticStreamPICO](#xrcreatehapticstreampico)
     - [xrWriteHapticStreamPICO](#xrwritehapticstreampico)
+    - [xrSetPHFHapticSpeedPICO](#xrsetphfhapticspeedpico)
+    - [xrGetPHFHapticSpeedPICO](#xrgetphfhapticspeedpico)
+    - [xrGetCurrentFrameSequencePICO](#xrgetcurrentframesequencepico)
+    - [xrStartPHFHapticPICO](#xrstartphfhapticpico)
+    - [xrStopPHFHapticPICO](#xrstopphfhapticpico)
+    - [xrRemovePHFHapticPICO](#xrremovephfhapticpico)
+    - [xrGetPHFStreamMemPICO](#xrgetphfstreammempico)
+  - [Hand tracking (XR_PICO_hand_tracking)](#hand-tracking-xr_pico_hand_tracking)
+    - [xrGetHandTrackerSettingStatePICO](#xrgethandtrackersettingstatepico)
+    - [xrGetHandTrackerActiveInputTypePICO](#xrgethandtrackeractiveinputtypepico)
+  - [Eye tracking (No extension)](#eye-tracking-no-extension)
+    - [xrSetEyeTrackerModePICO](#xrseteyetrackermodepico)
+    - [xrGetEyeTrackerModePICO](#xrgeteyetrackermodepico)
+    - [xrGetEyeTrackerDataPICO](#xrgeteyetrackerdatapico)
+  - [Body tracking (XR_PICO_body_tracking)](#body-tracking-xr_pico_body_tracking)
+    - [xrSetBodyTrackerStaticCalibStatePICO](#xrsetbodytrackerstaticcalibstatepico)
+    - [xrSetBodyTrackerModePICO](#xrsetbodytrackermodepico)
+    - [xrGetBodyTrackerPosePICO](#xrgetbodytrackerposepico)
+    - [xrGetBodyTrackerImuDataPICO](#xrgetbodytrackerimudatapico)
+    - [xrGetBodyTrackerConnectStatePICO](#xrgetbodytrackerconnectstatepico)
+    - [xrGetBodyTrackerBatteryPICO](#xrgetbodytrackerbatterypico)
+    - [xrGetBodyTrackerCalibStatePICO](#xrgetbodytrackercalibstatepico)
+    - [xrSetBodyTrackingAlgParamPICO](#xrsetbodytrackingalgparampico)
+    - [xrCreateBodyTrackerBD](#xrcreatebodytrackerbd)
+    - [xrDestroyBodyTrackerBD](#xrdestroybodytrackerbd)
+    - [xrLocateBodyJointsBD](#xrlocatebodyjointsbd)
+    - [xrStartBodyTrackingCalibAppBD](#xrstartbodytrackingcalibappbd)
+    - [xrGetBodyTrackingStateBD](#xrgetbodytrackingstatebd)
 
 # PICO Extensions
 
@@ -1423,7 +1451,7 @@ xrUpdateVibrateParamsPICO(
     int sourceId,
     EPICOXRVibrateController slot,
     EPICOXRChannelFlip slotConfig,
-    float AmpValue
+    float ampValue
 );
 ```
 
@@ -1432,7 +1460,7 @@ xrUpdateVibrateParamsPICO(
 | sourceId   | ID returned by another vibration control API.                                                             |
 | slot       | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
 | slotconfig | Specifies whether to enable audio channel inversion. <br> No = 0 <br> Yes = 1                             |
-| AmpValue   | Vibration amplitude level. The range is 0.0 to 2.0.                                                       |
+| ampValue   | Vibration amplitude level. The range is 0.0 to 2.0.                                                       |
 
 > [!NOTE]
 > When slotConfig = 1, the left controller vibrates with the audio source from right soundtrack, and vice versa.
@@ -1462,9 +1490,19 @@ XrResult xrCreateHapticStreamPICO(
     int reversal,
     float amp,
     float speed,
-    int sourceId
+    int* sourceId
 );
 ```
+
+| Parameter       | Description                                                                                               |
+| --------------- | --------------------------------------------------------------------------------------------------------- |
+| PHFVersion      | String, the version of the PHF ( PICO Haptic File).                                                       |
+| frameDurationMS | Interval of each frame.                                                                                   |
+| slot            | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
+| reversal        | Not used currently. Set to 0 by default.                                                                  |
+| amp             | Vibration amplitude level. The range is 0.0 to 2.0                                                        |
+| speed           | Speed of the haptic stream.                                                                               |
+| sourceId        | returns a unique control ID for the corresponding vibration.                                              |
 
 > [!NOTE]
 > Requires XR_PICO_controller_interaction extension to be enabled
@@ -1479,234 +1517,542 @@ Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/clien
 _Writes vibration data in the corresponding stream._
 
 ```c
-xrWriteHapticStreamPICO
+XrResult xrWriteHapticStreamPICO(
+    XrInstance instance,
+    int sourceId,
+    FPHFJsonData frames,
+    int from,
+    int numFrames
+);
 ```
+
+| Parameter | Description                                                      |
+| --------- | ---------------------------------------------------------------- |
+| sourceId  | ID returned by another vibration control API.                    |
+| frames    | PHF data.                                                        |
+| from      | Specifies from which element of the array to start sending from. |
+| numFrames | Specifies how many elements to send.                             |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_WriteHapticStream <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_WriteHapticStream)
 
 ---
 
+### xrSetPHFHapticSpeedPICO
+
+_Sets the PHF haptic speed._
+
 ```c
-xrSetPHFHapticSpeedPICO
+XrResult xrSetPHFHapticSpeedPICO(
+    XrInstance instance,
+    int sourceId,
+    float speed
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| sourceId  | ID returned by another vibration control API. |
+| speed     | Speed of the haptic stream.                   |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetPHFHapticSpeed <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetPHFHapticSpeed)
 
 ---
 
+### xrGetPHFHapticSpeedPICO
+
 ```c
-xrGetPHFHapticSpeedPICO
+XrResult xrGetPHFHapticSpeedPICO(
+    XrInstance instance,
+    int sourceId,
+    float* speed
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| sourceId  | ID returned by another vibration control API. |
+| speed     | Speed of the haptic stream.                   |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetPHFHapticSpeed <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetPHFHapticSpeed)
 
 ---
 
+### xrGetCurrentFrameSequencePICO
+
+_Removes PHF haptic._
+
 ```c
-xrGetCurrentFrameSequencePICO
+XrResult xrGetCurrentFrameSequencePICO(
+    XrInstance instance,
+    int sourceId,
+    uint64_t* frameSequence
+);
 ```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetCurrentFrameSequence <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2666)
 
 ---
 
+### xrStartPHFHapticPICO
+
+_Starts PHF haptic._
+
 ```c
-xrStartPHFHapticPICO
+XrResult xrStartPHFHapticPICO(
+    XrInstance instance,
+    int sourceId
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| sourceId  | ID returned by another vibration control API. |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_StartPHFHaptic <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartPHFHaptic)
 
 ---
 
+### xrStopPHFHapticPICO
+
+_Stops PHF haptic._
+
 ```c
-xrStopPHFHapticPICO
+XrResult xrStopPHFHapticPICO(
+    XrInstance instance,
+    int sourceId
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| sourceId  | ID returned by another vibration control API. |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_StopPHFHaptic <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StopPHFHaptic)
 
 ---
 
+### xrRemovePHFHapticPICO
+
+_Removes PHF haptic._
+
 ```c
-xrRemovePHFHapticPICO
+XrResult xrRemovePHFHapticPICO(
+    XrInstance instance,
+    int sourceId
+);
 ```
+
+| Parameter | Description                                   |
+| --------- | --------------------------------------------- |
+| sourceId  | ID returned by another vibration control API. |
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_RemovePHFHaptic <br>
 Status: **To be RE'd**
 
 ---
 
+### xrGetPHFStreamMemPICO
+
 ```c
 xrGetPHFStreamMemPICO
 ```
+
+> [!NOTE]
+> Requires XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetPHFStreamMem <br>
 Status: **To be RE'd**
 
 ---
 
+## Hand tracking (XR_PICO_hand_tracking)
+
+### xrGetHandTrackerSettingStatePICO
+
+_Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrGetHandTrackerSettingStatePICO
+XrResult xrGetHandTrackerSettingStatePICO(
+    XrInstance instance,
+    bool* enable
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_hand_tracking extension to be enabled
 
 External name: Pxr_GetHandTrackerSettingState <br>
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L528)
+
+---
+
+### xrGetHandTrackerActiveInputTypePICO
+
+_Not tested_
+
+```c
+XrResult xrGetHandTrackerActiveInputTypePICO(
+    XrInstance instance,
+    PxrActiveInputDeviceType* activeInputType
+);
+```
+
+**Parameters not documented**
+
+See [PxrActiveInputDeviceType](./include/PxrInput.h?plain=1#L529).
+
+> [!NOTE]
+> Requires XR_PICO_hand_tracking extension to be enabled
+
+External name: Pxr_GetHandTrackerActiveInputType <br>
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L529)
+
+---
+
+## Eye tracking (No extension)
+
+### xrSetEyeTrackerModePICO
+
+```c
+XrResult xrSetEyeTrackerModePICO(
+    XrInstance instance,
+    int param_2 //Probably PxrTrackingModeFlags.
+);
+```
+
 Status: **To be RE'd**
 
 ---
 
-```c
-xrGetHandTrackerActiveInputTypePICO
-```
-
-External name Pxr_GetHandTrackerActiveInputType <br>
-Status: **To be RE'd**
-
----
+### xrGetEyeTrackerModePICO
 
 ```c
-xrSetEyeTrackerModePICO
+XrResult xrGetEyeTrackerModePICO(
+    XrInstance instance,
+    int param_2 //Probably PxrTrackingModeFlags.
+);
 ```
 
 Status: **To be RE'd**
 
 ---
 
-```c
-xrGetEyeTrackerModePICO
-```
-
-External name: Pxr_GetTrackingMode <br>
-Status: **To be RE'd**
-
----
+### xrGetEyeTrackerDataPICO
 
 ```c
-xrGetEyeTrackerDataPICO
+XrResult xrGetEyeTrackerDataPICO(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
 ```
 
 Status: **To be RE'd**
 
 ---
 
+## Body tracking (XR_PICO_body_tracking)
+
+### xrSetBodyTrackerStaticCalibStatePICO
+
+_Not tested_
+
 ```c
-xrSetBodyTrackerStaticCalibStatePICO
+XrResult xrSetBodyTrackerStaticCalibStatePICO(
+    XrInstance instance,
+    int calibstate
+);
 ```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_SetBodyTrackingStaticCalibState <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L550)
 
 ---
 
+### xrSetBodyTrackerModePICO
+
+_Not tested_
+
 ```c
-xrSetBodyTrackerModePICO
+XrResults xrSetBodyTrackerModePICO(
+    XrInstance instance,
+    int mode
+);
 ```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_SetBodyTrackingMode <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2766C1-L2766C68)
 
 ---
 
+### xrGetBodyTrackerPosePICO
+
+_Gets data for all user joints._
+
 ```c
-xrGetBodyTrackerPosePICO
+XrResult xrGetBodyTrackerPosePICO(
+    XrInstance instance,
+    PxrBodyTrackingResult* res
+);
 ```
+
+**Parameters not documented**
+
+See [PxrBodyTrackingResult](./include/PxrInput.h?plain=1#L426).
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingPose <br>
-Status: **To be RE'd**
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L550)
 
 ---
 
+### xrGetBodyTrackerImuDataPICO
+
+_Not tested_
+
 ```c
-xrGetBodyTrackerImuDataPICO
+XrResult xrGetBodyTrackerImuDataPICO(
+    XrInstance instance,
+    int deviceId,
+    PxrBodyTrackingImu res
+);
 ```
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingImuData <br>
+Status: [Only available in header source code](./include/PxrInput.h?plain=1#L552)
+
+---
+
+### xrGetBodyTrackerConnectStatePICO
+
+```c
+XrResult xrGetBodyTrackerConnectStatePICO(
+    XrInstance instance,
+    bool trackerId,
+);
+```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
+
 Status: **To be RE'd**
 
 ---
 
-```c
-xrGetBodyTrackerConnectStatePICO
-```
+### xrGetBodyTrackerBatteryPICO
 
-External name: Pxr_GetBodyTrackingState <br>
-Status: **To be RE'd**
-
----
+_Not tested_
 
 ```c
-xrGetBodyTrackerBatteryPICO
+XrResult xrGetBodyTrackerBatteryPICO(
+    XrInstance instance,
+    int trackerId,
+    int* battery
+);
 ```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetFitnessBandBattery <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2772)
 
 ---
 
+### xrGetBodyTrackerCalibStatePICO
+
+_Not tested_
+
 ```c
-xrGetBodyTrackerCalibStatePICO
+XrResult xrGetBodyTrackerCalibStatePICO(
+    XrInstance instance,
+    int* calibrated
+);
 ```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetFitnessBandCalibState <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2775)
 
 ---
 
+### xrSetBodyTrackingAlgParamPICO
+
+_Not tested_
+
 ```c
-xrSetBodyTrackingAlgParamPICO
+XrResult xrSetBodyTrackingAlgParamPICO(
+    XrInstance instance,
+    BodyTrackingAlgParamType algParamType,
+    BodyTrackingAlgParam* param
+);
 ```
+
+**Parameters not documented**
+
+See [BodyTrackingAlgParamType](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L1581) and [BodyTrackingAlgParam](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L1587).
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_SetBodyTrackingAlgParam <br>
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2781)
+
+---
+
+### xrCreateBodyTrackerBD
+
+```c
+XrResult xrCreateBodyTrackerBD(
+    XrInstance instance,
+    int* param_2
+    long* param_3
+);
+```
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
+
 Status: **To be RE'd**
 
 ---
 
+### xrDestroyBodyTrackerBD
+
 ```c
-xrCreateBodyTrackerBD
+XrResult xrDestroyBodyTrackerBD(
+    XrInstance instance,
+);
 ```
 
-External name: Pxr_StartBodyTracking <br>
 Status: **To be RE'd**
 
 ---
 
-```c
-xrDestroyBodyTrackerBD
-```
+### xrLocateBodyJointsBD
 
-External name: Pxr_StopBodyTracking <br>
-Status: **To be RE'd**
-
----
+_Gets body tracking data._
 
 ```c
-xrLocateBodyJointsBD
+XrResult xrLocateBodyJointsBD(
+    XrInstance instance,
+    BodyTrackingGetDataInfo getInfo,
+    BodyTrackingData data
+);
 ```
+
+**Parameters not documented**
+
+See [BodyTrackingGetDataInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L644) and [BodyTrackingData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L693).
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingData <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5412)
 
 ---
 
+### xrStartBodyTrackingCalibAppBD
+
+_Not tested_
+
 ```c
-xrStartBodyTrackingCalibAppBD
+XrResult xrStartBodyTrackingCalibAppBD(
+    XrInstance instance,
+    char* calibFlagString,
+    int calibMode
+);
 ```
+
+**Parameters not documented**
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_StartBodyTrackingCalibApp <br>
-Status: **To be RE'd**
+Status: [Only available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5400)
 
 ---
 
+### xrGetBodyTrackingStateBD
+
+_Gets the state of body tracking._
+
 ```c
-xrGetBodyTrackingStateBD
+XrResult xrGetBodyTrackingStateBD(
+    XrInstance instance,
+    bool* isTracking,
+    BodyTrackingState state
+);
 ```
 
+| Parameter     | Description                                                                                                                                                                                                                   |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isTracking    | A bool that indicates whether body tracking is working                                                                                                                                                                        |
+| trackingState | The body tracking state information. See [BodyTrackingState](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L602). |
+
+> [!NOTE]
+> Requires XR_PICO_body_tracking extension to be enabled
+
 External name: Pxr_GetBodyTrackingState <br>
-Status: **To be RE'd**
+Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#b87b2ff0)
 
 ---
 
