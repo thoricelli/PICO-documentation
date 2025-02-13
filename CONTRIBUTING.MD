@@ -14,11 +14,12 @@ When writing documentation please make sure to at least include:
 
 - **Sources to documentation** <br>
   If you used existing code on Github, local code in this repository, PICO docs, or otherwise then please make sure to link it.
-- **Caution labels with dangerous function calls or processes.**
-  > [!CAUTION]
-  > If a function call may be dangerous to execute or a process may cause damage then please include a warning bubble by using [!CAUTION].
 - **When applicable, include the _full_ path of the library or APK you reverse engineered.** <br>
   eg: /system/lib/libeyetrackingclient.pxr.so
+- **Caution labels with dangerous function calls or processes.**
+
+> [!CAUTION]
+> If a function call may be dangerous to execute or a process may cause damage then please include a warning bubble by using `>[!CAUTION]`
 
 # Contact
 
