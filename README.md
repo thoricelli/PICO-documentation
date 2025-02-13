@@ -1,3 +1,8 @@
+## Under construction
+
+Hi! Setting up.
+All the pages are still under construction since I am still gathering documentation.
+
 # PICO-documentation
 
 A repository that aims to document the internals of PICO devices.
@@ -9,12 +14,11 @@ A repository that aims to document the internals of PICO devices.
 - [Settings](/settings/README.md)
   - Contains documentation for the setprop and settings of the PICO.
 
-## Under construction
+# Contributing
 
-Hi! Setting up.
-All the pages are still under construction since I am still gathering documentation.
+Check [contributing](./CONTRIBUTING.MD) for pull requests.
 
-# Usefull links
+# Useful links
 
 - [Curoviyxru's reverse engineering efforts](https://pico.crx.moe/docs/intro/)
   - Curoviyxru is responsible for [OVRPort](https://t.me/ovrport), a way to play Quest games on the PICO, including other reverse engineering efforts.
