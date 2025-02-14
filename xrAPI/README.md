@@ -12,11 +12,11 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
 
 - [PICO Extensions](#pico-extensions)
 - [PICO Specific XR functions](#pico-specific-xr-functions)
-  - [Misc](#misc)
+  - [Settings](#settings)
     - [xrLogSdkApiPICO](#xrlogsdkapipico)
     - [xrPerfSettingsSetPerformanceLevelEXT](#xrperfsettingssetperformancelevelext)
     - [xrPerfSettingsGetPerformanceLevelEXT](#xrperfsettingsgetperformancelevelext)
-  - [Controller functionality (XR\_PICO\_android\_controller\_function\_ext\_enable)](#controller-functionality-xr_pico_android_controller_function_ext_enable)
+  - [Controller functionality (XR_PICO_android_controller_function_ext_enable)](#controller-functionality-xr_pico_android_controller_function_ext_enable)
     - [xrGetControllerSensorDataPredictPico](#xrgetcontrollersensordatapredictpico)
     - [xrSetEngineVersionPico](#xrsetengineversionpico)
     - [xrSetMainControllerHandlePico](#xrsetmaincontrollerhandlepico)
@@ -48,10 +48,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrClearVibrateByCachePico](#xrclearvibratebycachepico)
     - [xrSetAppHandTrackingEnabledPico](#xrsetapphandtrackingenabledpico)
     - [xrGetActiveInputDeviceTypePico](#xrgetactiveinputdevicetypepico)
-    - [xrGetHandTrackingEnabledPico](#xrgethandtrackingenabledpico)
-    - [xrGetHandTrackingHandStatePico](#xrgethandtrackinghandstatepico)
-    - [xrGetHandTrackingSkeletonPico](#xrgethandtrackingskeletonpico)
-  - [Controller interaction (XR\_PICO\_controller\_interaction)](#controller-interaction-xr_pico_controller_interaction)
+  - [Controller interaction (XR_PICO_controller_interaction)](#controller-interaction-xr_pico_controller_interaction)
     - [xrGetHandTrackingMeshPico](#xrgethandtrackingmeshpico)
     - [xrGetControllerSensorDataPredictPICO](#xrgetcontrollersensordatapredictpico-1)
     - [xrSetControllerMainHandlePICO](#xrsetcontrollermainhandlepico)
@@ -80,14 +77,13 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrStopPHFHapticPICO](#xrstopphfhapticpico)
     - [xrRemovePHFHapticPICO](#xrremovephfhapticpico)
     - [xrGetPHFStreamMemPICO](#xrgetphfstreammempico)
-  - [Hand tracking (XR\_PICO\_hand\_tracking)](#hand-tracking-xr_pico_hand_tracking)
+  - [Hand tracking (XR_PICO_hand_tracking)](#hand-tracking-xr_pico_hand_tracking)
+    - [xrGetHandTrackingEnabledPico](#xrgethandtrackingenabledpico)
+    - [xrGetHandTrackingHandStatePico](#xrgethandtrackinghandstatepico)
+    - [xrGetHandTrackingSkeletonPico](#xrgethandtrackingskeletonpico)
     - [xrGetHandTrackerSettingStatePICO](#xrgethandtrackersettingstatepico)
     - [xrGetHandTrackerActiveInputTypePICO](#xrgethandtrackeractiveinputtypepico)
-  - [Eye tracking (No extension)](#eye-tracking-no-extension)
-    - [xrSetEyeTrackerModePICO](#xrseteyetrackermodepico)
-    - [xrGetEyeTrackerModePICO](#xrgeteyetrackermodepico)
-    - [xrGetEyeTrackerDataPICO](#xrgeteyetrackerdatapico)
-  - [Body tracking (XR\_PICO\_body\_tracking)](#body-tracking-xr_pico_body_tracking)
+  - [Body tracking (XR_PICO_body_tracking)](#body-tracking-xr_pico_body_tracking)
     - [xrSetBodyTrackerStaticCalibStatePICO](#xrsetbodytrackerstaticcalibstatepico)
     - [xrSetBodyTrackerModePICO](#xrsetbodytrackermodepico)
     - [xrGetBodyTrackerPosePICO](#xrgetbodytrackerposepico)
@@ -113,7 +109,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetExtDevTrackerByPassDataBD](#xrgetextdevtrackerbypassdatabd)
     - [xrGetExtDevTrackerBatteryBD](#xrgetextdevtrackerbatterybd)
     - [xrGetExtDevTrackerKeyDataBD](#xrgetextdevtrackerkeydatabd)
-  - [Tracking \& IPD (no extension)](#tracking--ipd-no-extension)
+  - [Tracking \& IPD](#tracking--ipd)
     - [xrSetIPDPICO](#xrsetipdpico)
     - [xrGetIPDPICO](#xrgetipdpico)
     - [xrSetTrackingIPDEnabledPICO](#xrsettrackingipdenabledpico)
@@ -121,12 +117,12 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetEyeTrackingAutoIPDPICO](#xrgeteyetrackingautoipdpico)
     - [xrGetFrustumParametersPICO](#xrgetfrustumparameterspico)
     - [xrSetFrustumParametersPICO](#xrsetfrustumparameterspico)
-  - [Configs (no extensions)](#configs-no-extensions)
+  - [Configs](#configs)
     - [xrGetConfigPICO](#xrgetconfigpico)
     - [xrSetConfigPICO](#xrsetconfigpico)
     - [xrGetConfigsPICO](#xrgetconfigspico)
     - [xrSetConfigsPICO](#xrsetconfigspico)
-  - [Title TDB](#title-tdb)
+  - [Foveation \& Tracking](#foveation--tracking)
     - [xrGetFoveationConfigPICO](#xrgetfoveationconfigpico)
     - [xrGetMainClientInfoPICO](#xrgetmainclientinfopico)
     - [xrGetPerformanceInfoPICO](#xrgetperformanceinfopico)
@@ -134,7 +130,10 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrSetTrackingModePICO](#xrsettrackingmodepico)
     - [xrStartFoveationPICO](#xrstartfoveationpico)
     - [xrStopFoveationPICO](#xrstopfoveationpico)
-  - [Eye \& face tracking (no extension)](#eye--face-tracking-no-extension)
+  - [Eye \& face tracking](#eye--face-tracking)
+    - [xrSetEyeTrackerModePICO](#xrseteyetrackermodepico)
+    - [xrGetEyeTrackerModePICO](#xrgeteyetrackermodepico)
+    - [xrGetEyeTrackerDataPICO](#xrgeteyetrackerdatapico)
     - [xrGetEyeTrackingDataPICO](#xrgeteyetrackingdatapico)
     - [xrGetTrackingModePICO](#xrgettrackingmodepico)
     - [xrGetFaceTrackingDataPICO](#xrgetfacetrackingdatapico)
@@ -148,6 +147,73 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetEyePupilInfoPICO](#xrgeteyepupilinfopico)
     - [xrGetPerEyePosePICO](#xrgetpereyeposepico)
     - [xrGetBlinkPICO](#xrgetblinkpico)
+  - [Boundary \& Misc](#boundary--misc)
+    - [xrSetControllerPositionPICO](#xrsetcontrollerpositionpico)
+    - [xrBoundaryTestNodePICO](#xrboundarytestnodepico)
+    - [xrBoundaryTestPointPICO](#xrboundarytestpointpico)
+    - [xrGetBoundaryGeometryPICO](#xrgetboundarygeometrypico)
+    - [xrGetBoundaryDimensionsPICO](#xrgetboundarydimensionspico)
+    - [xrGetSeeThroughDataPICO](#xrgetseethroughdatapico)
+    - [xrInvokeFunctionsPICO](#xrinvokefunctionspico)
+  - [Mixed Reality](#mixed-reality)
+    - [xrStartMRModeBD](#xrstartmrmodebd)
+    - [xrStopMRModeBD](#xrstopmrmodebd)
+    - [xrStopSpatialRecognitionBD](#xrstopspatialrecognitionbd)
+    - [xrSetMrConfigurationBD](#xrsetmrconfigurationbd)
+    - [xrCreateSpatialAnchorSpaceBD](#xrcreatespatialanchorspacebd)
+    - [xrDestroySpatialAnchorBD](#xrdestroyspatialanchorbd)
+    - [xrSetSpatialAnchorPropertyBD](#xrsetspatialanchorpropertybd)
+    - [xrGetSpatialAnchorPropertyBD](#xrgetspatialanchorpropertybd)
+    - [xrSetSpatialAnchorTagBD](#xrsetspatialanchortagbd)
+    - [xrGetSpatialAnchorTagBD](#xrgetspatialanchortagbd)
+    - [xrGetSpatialAnchorUuidBD](#xrgetspatialanchoruuidbd)
+    - [xrSaveSpatialAnchorBD](#xrsavespatialanchorbd)
+    - [xrDeleteSpatialAnchorBD](#xrdeletespatialanchorbd)
+    - [xrLoadSpatialAnchorByIdBD](#xrloadspatialanchorbyidbd)
+    - [xrGetSpatialAnchorLoadResultsBD](#xrgetspatialanchorloadresultsbd)
+    - [xrExportSpatialInstanceBD](#xrexportspatialinstancebd)
+    - [xrImportSpatialInstanceBD](#xrimportspatialinstancebd)
+    - [xrStartRoomCaptureBD](#xrstartroomcapturebd)
+    - [xrCreateRoomSceneDataBD](#xrcreateroomscenedatabd)
+    - [xrDestroyRoomSceneDataBD](#xrdestroyroomscenedatabd)
+    - [xrSaveRoomSceneDataBD](#xrsaveroomscenedatabd)
+    - [xrStartHumanOcclusionBD](#xrstarthumanocclusionbd)
+    - [xrAcquire_occlusion_infoBD](#xracquire_occlusion_infobd)
+    - [xrStopHumanOcclusionBD](#xrstophumanocclusionbd)
+    - [xrGetMrcPosePICO](#xrgetmrcposepico)
+    - [xrSetMrcPosePICO](#xrsetmrcposepico)
+    - [xrSetIsSupportMovingMrcPICO](#xrsetissupportmovingmrcpico)
+    - [xrGetExternalCameraInfoBD](#xrgetexternalcamerainfobd)
+    - [xrPassthroughLayerSetStylePICO](#xrpassthroughlayersetstylepico)
+    - [xrCreateAnchorEntityBD](#xrcreateanchorentitybd)
+    - [xrDestroyAnchorEntityBD](#xrdestroyanchorentitybd)
+    - [xrCreateAnchorSpaceBD](#xrcreateanchorspacebd)
+    - [xrGetAnchorEntityUuidBD](#xrgetanchorentityuuidbd)
+    - [xrAddAnchorComponentBD](#xraddanchorcomponentbd)
+    - [xrRemoveAnchorComponentBD](#xrremoveanchorcomponentbd)
+    - [xrGetAnchorComponentFlagsBD](#xrgetanchorcomponentflagsbd)
+    - [xrGetAnchorSceneLabelBD](#xrgetanchorscenelabelbd)
+    - [xrGetAnchorPlaneBoundaryInfoBD](#xrgetanchorplaneboundaryinfobd)
+    - [xrGetAnchorPlanePolygonInfoBD](#xrgetanchorplanepolygoninfobd)
+    - [xrGetAnchorBoxInfoBD](#xrgetanchorboxinfobd)
+    - [xrPersistAnchorEntityBD](#xrpersistanchorentitybd)
+    - [xrUnpersistAnchorEntityBD](#xrunpersistanchorentitybd)
+    - [xrClearPersistedAnchorEntityBD](#xrclearpersistedanchorentitybd)
+    - [xrLoadAnchorEntityBD](#xrloadanchorentitybd)
+    - [xrGetAnchorEntityLoadResultsBD](#xrgetanchorentityloadresultsbd)
+  - [Room capture and Spatial mapping](#room-capture-and-spatial-mapping)
+    - [xrStartSemiAutoRoomCaptureBD](#xrstartsemiautoroomcapturebd)
+    - [xrStopSemiAutoRoomCaptureBD](#xrstopsemiautoroomcapturebd)
+    - [xrSetFloorHeightBD](#xrsetfloorheightbd)
+    - [xrSetCeilingHeightBD](#xrsetceilingheightbd)
+    - [xrSetFloorCornerBD](#xrsetfloorcornerbd)
+    - [xrGetSemiAutoRoomCaptureCandidatesBD](#xrgetsemiautoroomcapturecandidatesbd)
+    - [xrGetSpatialTrackingStateBD](#xrgetspatialtrackingstatebd)
+    - [xrBeginSpatialLocalizationBD](#xrbeginspatiallocalizationbd)
+    - [xrEndSpatialLocalizationBD](#xrendspatiallocalizationbd)
+    - [xrBeginSpatialMapCreationBD](#xrbeginspatialmapcreationbd)
+    - [xrEndSpatialMapCreationBD](#xrendspatialmapcreationbd)
+    - [Pxr_StartSpatialSceneCapture](#pxr_startspatialscenecapture)
 
 # PICO Extensions
 
@@ -207,17 +273,19 @@ For the original OpenXR header used by PICO see [here](./include_openXR/openxr_p
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
 
-## Misc
+## Settings
 
 ### xrLogSdkApiPICO
 
 ```c
-xrLogSdkApiPICO
+XrResult xrLogSdkApiPICO(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_LogPluginApi <br>
 Status: **To be RE'd.** <br>
-Note: No source code available anywhere.
 
 ---
 
@@ -1000,69 +1068,6 @@ Status: [Available in header source code](./include/PxrInput.h?plain=1#L520)
 
 ---
 
-### xrGetHandTrackingEnabledPico
-
-_Not tested_
-
-```c
-XrResult xrGetHandTrackingEnabledPico(
-    XrInstance instance,
-    bool* handTrackingEnabled
-);
-```
-
-> [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
-
-External name: Pxr_GetHandTrackingEnabled <br>
-Status: [Available in header source code](./include/PxrInput.h?plain=1#L521)
-
----
-
-### xrGetHandTrackingHandStatePico
-
-_Not tested_
-
-```c
-XrResult xrGetHandTrackingHandStatePico(
-    XrInstance instance,
-    PxrHandType handId,
-    int coordinateflag,
-    PxrHandState* handtrackinghandState
-);
-```
-
-**Parameters not documented** <br>
-See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
-
-> [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
-
-External name: Pxr_GetHandTrackingHandState <br>
-Status: [Available in header source code](./include/PxrInput.h?plain=1#L522)
-
----
-
-### xrGetHandTrackingSkeletonPico
-
-_Not tested_
-
-```c
-XrResult xrGetHandTrackingSkeletonPico(
-    XrInstance instance,
-    PxrSkeletonType handtrackingSkeletonType,
-    PxrSkeleton* handtrackSkeleton
-);
-```
-
-**Parameters not documented** <br>
-See [PxrSkeletonType](./include/PxrInput.h?plain=1#L204) and [PxrSkeleton](./include/PxrInput.h?plain=1#L328)
-
-External name: Pxr_GetHandTrackingSkeleton <br>
-Status: [Available in header source code](./include/PxrInput.h?plain=1#L523)
-
----
-
 ## Controller interaction (XR_PICO_controller_interaction)
 
 ### xrGetHandTrackingMeshPico
@@ -1744,6 +1749,69 @@ Status: **To be RE'd**
 
 ## Hand tracking (XR_PICO_hand_tracking)
 
+### xrGetHandTrackingEnabledPico
+
+_Not tested_
+
+```c
+XrResult xrGetHandTrackingEnabledPico(
+    XrInstance instance,
+    bool* handTrackingEnabled
+);
+```
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
+External name: Pxr_GetHandTrackingEnabled <br>
+Status: [Available in header source code](./include/PxrInput.h?plain=1#L521)
+
+---
+
+### xrGetHandTrackingHandStatePico
+
+_Not tested_
+
+```c
+XrResult xrGetHandTrackingHandStatePico(
+    XrInstance instance,
+    PxrHandType handId,
+    int coordinateflag,
+    PxrHandState* handtrackinghandState
+);
+```
+
+**Parameters not documented** <br>
+See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
+
+> [!NOTE]
+> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+
+External name: Pxr_GetHandTrackingHandState <br>
+Status: [Available in header source code](./include/PxrInput.h?plain=1#L522)
+
+---
+
+### xrGetHandTrackingSkeletonPico
+
+_Not tested_
+
+```c
+XrResult xrGetHandTrackingSkeletonPico(
+    XrInstance instance,
+    PxrSkeletonType handtrackingSkeletonType,
+    PxrSkeleton* handtrackSkeleton
+);
+```
+
+**Parameters not documented** <br>
+See [PxrSkeletonType](./include/PxrInput.h?plain=1#L204) and [PxrSkeleton](./include/PxrInput.h?plain=1#L328)
+
+External name: Pxr_GetHandTrackingSkeleton <br>
+Status: [Available in header source code](./include/PxrInput.h?plain=1#L523)
+
+---
+
 ### xrGetHandTrackerSettingStatePICO
 
 _Not tested_
@@ -1790,48 +1858,6 @@ Status: [Available in header source code](./include/PxrInput.h?plain=1#L529)
 
 ---
 
-## Eye tracking (No extension)
-
-### xrSetEyeTrackerModePICO
-
-```c
-XrResult xrSetEyeTrackerModePICO(
-    XrInstance instance,
-    int param_2 //Probably PxrTrackingModeFlags.
-);
-```
-
-Status: **To be RE'd**
-
----
-
-### xrGetEyeTrackerModePICO
-
-```c
-XrResult xrGetEyeTrackerModePICO(
-    XrInstance instance,
-    int param_2 //Probably PxrTrackingModeFlags.
-);
-```
-
-Status: **To be RE'd**
-
----
-
-### xrGetEyeTrackerDataPICO
-
-```c
-XrResult xrGetEyeTrackerDataPICO(
-    XrInstance instance,
-    long param_2,
-    long param_3
-);
-```
-
-Status: **To be RE'd**
-
----
-
 ## Body tracking (XR_PICO_body_tracking)
 
 ### xrSetBodyTrackerStaticCalibStatePICO
@@ -1860,7 +1886,7 @@ Status: [Available in header source code](./include/PxrInput.h?plain=1#L550)
 _Not tested_
 
 ```c
-XrResults xrSetBodyTrackerModePICO(
+XrResult xrSetBodyTrackerModePICO(
     XrInstance instance,
     int mode
 );
@@ -2399,7 +2425,7 @@ Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/clie
 
 ---
 
-## Tracking & IPD (no extension)
+## Tracking & IPD
 
 ### xrSetIPDPICO
 
@@ -2534,7 +2560,7 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 
 ---
 
-## Configs (no extensions)
+## Configs
 
 ### xrGetConfigPICO
 
@@ -2550,7 +2576,7 @@ XrResult xrGetConfigPICO(
 
 **Parameters not documented**
 
-See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L347).
+See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L347) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
 
 External name: Pxr_GetConfig <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L406)
@@ -2571,7 +2597,7 @@ XrResult xrSetConfigPICO(
 
 **Parameters not documented**
 
-See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L370).
+See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L370) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
 
 External name: Pxr_SetConfig <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L415)
@@ -2617,7 +2643,7 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 
 ---
 
-## Title TDB
+## Foveation & Tracking
 
 ### xrGetFoveationConfigPICO
 
@@ -2649,7 +2675,7 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 XrResult xrGetMainClientInfoPICO(
     XrInstance instance,
     long* param_2
-)
+);
 ```
 
 External name: Pxr_GetMainClientInfo <br>
@@ -2732,7 +2758,47 @@ Status: **To be RE'd**
 
 ---
 
-## Eye & face tracking (no extension)
+## Eye & face tracking
+
+### xrSetEyeTrackerModePICO
+
+```c
+XrResult xrSetEyeTrackerModePICO(
+    XrInstance instance,
+    int param_2 //Probably PxrTrackingModeFlags.
+);
+```
+
+Status: **To be RE'd**
+
+---
+
+### xrGetEyeTrackerModePICO
+
+```c
+XrResult xrGetEyeTrackerModePICO(
+    XrInstance instance,
+    int param_2 //Probably PxrTrackingModeFlags.
+);
+```
+
+Status: **To be RE'd**
+
+---
+
+### xrGetEyeTrackerDataPICO
+
+```c
+XrResult xrGetEyeTrackerDataPICO(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
+```
+
+Status: **To be RE'd**
+
+---
 
 ### xrGetEyeTrackingDataPICO
 
@@ -2879,7 +2945,7 @@ _Not tested_
 XrResult xrStopEyeTrackingPICO(
     XrInstance instance,
     int mode
-)
+);
 ```
 
 **Parameters not documented**
@@ -2989,71 +3055,230 @@ Status: [Available in external source code.](https://github.com/Pico-Developer/P
 
 ---
 
+## Boundary & Misc
+
+### xrSetControllerPositionPICO
+
+_Not tested_
+
 ```c
-xrSetControllerPositionPICO
+XrResult xrSetControllerPositionPICO(
+    XrInstance instance,
+    float x,
+    float y,
+    float z,
+    float w,
+    float px,
+    float py,
+    float pz,
+    int hand,
+    bool valid,
+    int keyEvent
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetControllerPosition <br>
-Status: **To be RE'd**
+Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L563)
 
 ---
 
+### xrBoundaryTestNodePICO
+
+_Not tested_
+
 ```c
-xrBoundaryTestNodePICO
+XrResult xrBoundaryTestNodePICO(
+    XrInstance instance,
+    int node,
+    bool isPlayArea,
+    bool* pisTriggering,
+    float* pclosestDistance,
+    float* ppx,
+    float* ppy,
+    float* ppz,
+    float* pnx,
+    float* pny,
+    float* pnz,
+    int* ret
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_BoundaryTestNode <br>
-Status: **To be RE'd**
+Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L576)
 
 ---
 
+### xrBoundaryTestPointPICO
+
+_Checks whether a tracked point in the coordinate system will trigger the boundary._
+
 ```c
-xrBoundaryTestPointPICO
+XrResult xrBoundaryTestPointPICO(
+    XrInstance instance,
+    float x,
+    float y,
+    float z,
+    bool isPlayArea,
+    bool* pisTriggering,
+    float* pclosestDistance,
+    float* ppx,
+    float* ppy,
+    float* ppz,
+    float* pnx,
+    float* pny,
+    float* pnz,
+    int* ret
+);
 ```
+
+**Parameters conflict with documentation**
 
 External name: Pxr_TestPointIsInBoundary <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in header source code](./include/PxrPlugin.h?plain=1#L590) <br>
+[Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/de/d7f/_pxr_api_8h.html#a72a2411e7c4679e933d41e11e29049c5)
 
 ---
 
+### xrGetBoundaryGeometryPICO
+
+_Gets the collection of boundary points._
+
 ```c
-xrGetBoundaryGeometryPICO
+XrResult xrGetBoundaryGeometryPICO(
+    XrInstance instance,
+    float[]* outPointsFloat,
+    bool isPlayArea,
+    int* ret
+);
 ```
 
-External name: Pxr_GetBoundaryGeometry <br>
-Status: **To be RE'd**
+| Parameter      | Description                                                                                                           |
+| -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| outPointsFloat | The points acquired.                                                                                                  |
+| isPlayArea     | Whether it is an internal rectangular area. <br> true: internal rectangular area <br> false: external custom boundary |
+
+External name: Pxr_GetBoundaryGeometry2 <br>
+Status: <br>
+[Available in header source code](./include/PxrPlugin.h?plain=1#L606) <br>
+[Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/de/d7f/_pxr_api_8h.html#a19d3de546d3fdead4fc29d9a2ce0592c)
 
 ---
 
+### xrGetBoundaryDimensionsPICO
+
+_Not tested_
+
 ```c
-xrGetBoundaryDimensionsPICO
+XrResult xrGetBoundaryDimensionsPICO(
+    XrInstance instance,
+    float* x,
+    float* y,
+    float* z,
+    bool isPlayArea,
+    int* ret
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_GetBoundaryDimensions <br>
-Status: **To be RE'd**
+Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L612)
 
 ---
 
+### xrGetSeeThroughDataPICO
+
+_Not tested_
+
 ```c
-xrGetSeeThroughDataPICO
+XrResult xrGetSeeThroughDataPICO(
+    XrInstance instance,
+    uint8_t* leftEye,
+    uint8_t* rightEye,
+    uint32_t* width,
+    uint32_t* height,
+    uint32_t* exposure,
+    int64_t* start_of_exposure_ts,
+    int* ret
+);
 ```
+
+| Parameter           | Description                                                                                                                 |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| leftEye             | The left eye holds the handle of the SeeThrough camera image. Setting it to 0 indicates not to acquire the left-eye image   |
+| rightEye            | The right eye holds the handle of the SeeThrough camera image. Setting it to 0 indicates not to acquire the right-eye image |
+| width               | The desired image width (in pixels). The output is the actual width acquired                                                |
+| height              | The desired image height (in pixels). The output is the actual height acquired                                              |
+| exposure            | The exposure time acquired                                                                                                  |
+| startTimeOfExposure | The start time of exposure                                                                                                  |
+| ret                 | Whether the acquired data is valid                                                                                          |
 
 External name: Pxr_GetSeeThroughData <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in header source code](./include/PxrPlugin.h?plain=1#L612) <br>
+[Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/de/d7f/_pxr_api_8h.html#a37793078d69282c1a769df5925b81827)
 
 ---
 
+### xrInvokeFunctionsPICO
+
+_Not tested_
+
 ```c
-xrInvokeFunctionsPICO
+XrResult xrInvokeFunctionsPICO(
+    XrInstance instance,
+    xrFunctionName name,
+    void * input,
+    unsigned int size_in,
+    void[]* output,
+    unsigned int size_out
+);
 ```
 
+| No.    | Function name                         |
+| ------ | ------------------------------------- |
+| 0      | XR_SET_SEETHROUGH_VISIBLE             |
+| 1      | XR_SET_GUARDIANSYSTEM_DISABLE         |
+| 2      | No function assigned.                 |
+| 4      | XR_PAUSE_GUARDIANSYSTEM_FOR_STS       |
+| 5-8    | No function assigned.                 |
+| 9      | XR_START_CAMERA_PREVIEW               |
+| 10-11  | No function assigned.                 |
+| 12     | XR_SET_MONO_MODE                      |
+| 13     | XR_GET_BOUNDARY_CONFIGURED            |
+| 14     | XR_SET_BOUNDARY_VISIBLE               |
+| 15     | XR_SET_SEETHROUGH_BACKGROUND          |
+| 16     | XR_GET_BOUNDARY_VISIBLE               |
+| 17     | Sets first 4 output arguments to 0xFF |
+| 18     | No function assigned.                 |
+| 19     | xrInvokeFunctionsPICO ???             |
+| 19-999 | No function assigned.                 |
+| 1000   | ipc?                                  |
+| 1001   | ipc?                                  |
+| 1002   | Unkown function.                      |
+| 1003   | Unkown function.                      |
+
+**Parameters not documented**
+
 External name: Pxr_InvokeFunctions <br>
-Status: **To be RE'd**
+Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L555)
 
 ---
 
+## Mixed Reality
+
+### xrStartMRModeBD
+
 ```c
-xrStartMRModeBD
+XrResult xrStartMRModeBD(
+    XrInstance instance,
+    int param_2
+);
 ```
 
 External name: Pxr_StartMRMode <br>
@@ -3061,8 +3286,12 @@ Status: **To be RE'd**
 
 ---
 
+### xrStopMRModeBD
+
 ```c
-xrStopMRModeBD
+XrResult xrStopMRModeBD(
+    XrInstance instance,
+);
 ```
 
 External name: Pxr_StopMRMode <br>
@@ -3070,8 +3299,12 @@ Status: **To be RE'd**
 
 ---
 
+### xrStopSpatialRecognitionBD
+
 ```c
-xrStopSpatialRecognitionBD
+XrResult xrStopSpatialRecognitionBD(
+    XrInstance instance
+);
 ```
 
 External name: Pxr_StopSpatialRecognition <br>
@@ -3079,8 +3312,16 @@ Status: **To be RE'd**
 
 ---
 
+### xrSetMrConfigurationBD
+
 ```c
-xrSetMrConfigurationBD
+XrResult xrSetMrConfigurationBD(
+    XrInstance instance,
+    int param_2,
+    int param_3,
+    int param_4,
+    long param_5
+);
 ```
 
 External name: Pxr_SetMrConfiguration <br>
@@ -3088,107 +3329,203 @@ Status: **To be RE'd**
 
 ---
 
+### xrCreateSpatialAnchorSpaceBD
+
+_Not tested_
+
 ```c
-xrCreateSpatialAnchorSpaceBD
+XrResult xrCreateSpatialAnchorSpaceBD(
+    XrInstance instance,
+    PxrSpatialAnchorCreateInfo* info,
+    uint64_t* handle
+);
 ```
+
+**Parameters not documented**
+
+See [PxrSpatialAnchorCreateInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L365).
 
 External name: Pxr_CreateSpatialAnchor <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1689)
 
 ---
 
+### xrDestroySpatialAnchorBD
+
+_Not tested_
+
 ```c
-xrDestroySpatialAnchorBD
+XrResult xrDestroySpatialAnchorBD(
+    XrInstance instance,
+    uint64_t handle
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_DestroySpatialAnchor <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1691)
 
 ---
 
+### xrSetSpatialAnchorPropertyBD
+
 ```c
-xrSetSpatialAnchorPropertyBD
+XrResult xrSetSpatialAnchorPropertyBD();
 ```
+
+Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
 
 External name: Pxr_SetSpatialAnchorProperty <br>
-Status: **To be RE'd**
 
 ---
 
+### xrGetSpatialAnchorPropertyBD
+
 ```c
-xrGetSpatialAnchorPropertyBD
+XrResult xrGetSpatialAnchorPropertyBD();
 ```
+
+Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
 
 External name: Pxr_GetSpatialAnchorProperty <br>
-Status: **To be RE'd**
 
 ---
 
+### xrSetSpatialAnchorTagBD
+
 ```c
-xrSetSpatialAnchorTagBD
+XrResult xrSetSpatialAnchorTagBD();
 ```
+
+Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
 
 External name: Pxr_SetSpatialAnchorTag <br>
-Status: **To be RE'd**
 
 ---
 
+### xrGetSpatialAnchorTagBD
+
 ```c
-xrGetSpatialAnchorTagBD
+XrResult xrGetSpatialAnchorTagBD();
 ```
+
+Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
 
 External name: Pxr_GetSpatialAnchorTag <br>
 Status: **To be RE'd**
 
 ---
 
+### xrGetSpatialAnchorUuidBD
+
+_Not tested_
+
 ```c
-xrGetSpatialAnchorUuidBD
+XrResult xrGetSpatialAnchorUuidBD(
+    XrInstance instance,
+    uint64_t handle,
+    PxrSpatialInstanceUuid* uuid
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_GetSpatialAnchorUuid <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1703)
 
 ---
 
+### xrSaveSpatialAnchorBD
+
+_Not tested_
+
 ```c
-xrSaveSpatialAnchorBD
+XrResult xrSaveSpatialAnchorBD(
+    XrInstance instance,
+    PxrSpatialAnchorSaveInfo* info,
+    uint64_t* requestId
+);
 ```
+
+**Parameters not documented**
+
+See [PxrSpatialAnchorSaveInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L373).
 
 External name: Pxr_SaveSpatialAnchor <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1693)
 
 ---
 
+### xrDeleteSpatialAnchorBD
+
+_Not tested_
+
 ```c
-xrDeleteSpatialAnchorBD
+XrResult xrDeleteSpatialAnchorBD(
+    XrInstance instance,
+    PxrSpatialAnchorDeleteInfo* info,
+    uint64_t* requestId
+);
 ```
+
+**Parameters not documented**
+
+See [PxrSpatialAnchorDeleteInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L381).
 
 External name: Pxr_DeleteSpatialAnchor <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1695)
 
 ---
 
+### xrLoadSpatialAnchorByIdBD
+
+_Not tested_
+
 ```c
-xrLoadSpatialAnchorByIdBD
+XrResult xrLoadSpatialAnchorByIdBD(
+    XrInstance instance,
+    PxrSpatialInstanceLoadByIdInfo* info,
+    uint64_t* requestId
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_LoadSpatialAnchorById <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1697)
 
 ---
 
+### xrGetSpatialAnchorLoadResultsBD
+
+_Not tested_
+
 ```c
-xrGetSpatialAnchorLoadResultsBD
+XrResult xrGetSpatialAnchorLoadResultsBD(
+    XrInstance instance,
+    uint64_t requestId,
+    PxrSpatialAnchorLoadResult loadResults
+);
 ```
 
+**Parameters not documented**
+
+See [PxrSpatialAnchorLoadResults](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L493).
+
 External name: Pxr_GetSpatialAnchorLoadResults <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1699)
 
 ---
 
+### xrExportSpatialInstanceBD
+
 ```c
-xrExportSpatialInstanceBD
+XrResult xrExportSpatialInstanceBD(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
 ```
 
 External name: Pxr_ExportSpatialInstance <br>
@@ -3196,8 +3533,14 @@ Status: **To be RE'd**
 
 ---
 
+### xrImportSpatialInstanceBD
+
 ```c
-xrImportSpatialInstanceBD
+XrResult xrImportSpatialInstanceBD(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
 ```
 
 External name: Pxr_ImportSpatialInstance <br>
@@ -3205,152 +3548,336 @@ Status: **To be RE'd**
 
 ---
 
+### xrStartRoomCaptureBD
+
+_Not tested_
+
 ```c
-xrStartRoomCaptureBD
+XrResult xrStartRoomCaptureBD(
+    XrInstance instance
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_StartRoomCapture <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1720)
 
 ---
 
+### xrCreateRoomSceneDataBD
+
 ```c
-xrCreateRoomSceneDataBD
+XrResult xrCreateRoomSceneDataBD(
+    XrInstance instance,
+    PxrSpatialInstanceUuid anchorUuid,
+    int* roomSceneData,
+    int dataLen,
+    unsigned long roomSceneDataHandle
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_CreateRoomSceneData <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1720)
 
 ---
 
+### xrDestroyRoomSceneDataBD
+
 ```c
-xrDestroyRoomSceneDataBD
+XrResult xrDestroyRoomSceneDataBD(
+    XrInstance instance,
+    unsigned long* roomSceneDataHandle
+);
 ```
+
+**Parameters not documented**
 
 External name: Pxr_DestroyRoomSceneData <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1710)
 
 ---
 
+### xrSaveRoomSceneDataBD
+
+_Not tested_
+
 ```c
-xrSaveRoomSceneDataBD
+XrResult xrSaveRoomSceneDataBD(
+    XrInstance instance,
+    PxrRoomSceneDataSaveInfo* saveInfo,
+    unsigned long* requestId
+);
 ```
 
+**Parameters not documented**
+
+See [PxrRoomSceneDataSaveInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L524).
+
 External name: Pxr_SaveRoomSceneData <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1712)
 
 ---
 
+### xrStartHumanOcclusionBD
+
+_Not tested_
+
 ```c
-xrStartHumanOcclusionBD
+XrResult xrStartHumanOcclusionBD(
+    XrInstance instance,
+);
 ```
 
 External name: Pxr_StartHumanOcclusion <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
 
 ---
 
+### xrAcquire_occlusion_infoBD
+
 ```c
-xrAcquire_occlusion_infoBD
+XrResult xrAcquire_occlusion_infoBD(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
 ```
 
-External name Pxr_AcquireMeshingInfo <br>
+External name Pxr_AcquireMeshingInfo? <br>
 Status: **To be RE'd**
 
 ---
 
+### xrStopHumanOcclusionBD
+
+_Not tested_
+
 ```c
-xrStopHumanOcclusionBD
+XrResult xrStopHumanOcclusionBD(
+    XrInstance instance,
+);
 ```
 
 External name: Pxr_StopHumanOcclusion <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
 
 ---
 
+### xrGetMrcPosePICO
+
+_Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrGetMrcPosePICO
+XrResult xrGetMrcPosePICO(
+    XrInstance instance,
+    PxrPosef pose
+);
 ```
+
+**Parameters not documented**
+
+See [PxrPosef](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1388).
 
 External name: Pxr_GetMrcPose <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
 
 ---
 
+### xrSetMrcPosePICO
+
+_Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrSetMrcPosePICO
+XrResult xrSetMrcPosePICO(
+    XrInstance instance,
+    PxrPosef* pose
+);
 ```
+
+**Parameters not documented**
+
+See [PxrPosef](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1388).
 
 External name: Pxr_SetMrcPose <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L2113)
 
 ---
 
+### xrSetIsSupportMovingMrcPICO
+
+_Not tested_
+
 ```c
-xrSetIsSupportMovingMrcPICO
+XrResult xrSetIsSupportMovingMrcPICO(
+    XrInstance instance,
+    bool support
+),
 ```
+
+**Parameters not documented**
 
 External name: Pxr_SetIsSupportMovingMrc <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L2116)
 
 ---
 
+### xrGetExternalCameraInfoBD
+
+_Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrGetExternalCameraInfoBD
+XrResult xrGetExternalCameraInfoBD(
+    XrInstance instance,
+    PxrTrackingOrigin pxrTrackingOrigin,
+    PxrPosef* outPose
+);
 ```
+
+**Parameters not documented**
+
+See [PxrTrackingOrigin](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L857).
+
+See [PxrPosef](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1388).
 
 External name: Pxr_GetExternalCameraInfo <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2791)
 
 ---
 
+### xrPassthroughLayerSetStylePICO
+
+_Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrPassthroughLayerSetStylePICO
+XrResult xrPassthroughLayerSetStylePICO(
+    XrInstance instance,
+    PxrLayerEffect type,
+    float value,
+    float duration
+);
 ```
+
+**Parameters not documented**
+
+See [PxrLayerEffect](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L895).
 
 External name: Pxr_SetPassthroughStyle <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2791)
 
 ---
 
+### xrCreateAnchorEntityBD
+
+_Not tested_
+
 ```c
-xrCreateAnchorEntityBD
+XrResult xrCreateAnchorEntityBD(
+    XrInstance instance,
+    PxrAnchorEntityCreateInfo* info,
+    unsigned long* anchorHandle
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityCreateInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L573).
 
 External name: Pxr_CreateAnchorEntity <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2261)
 
 ---
 
+### xrDestroyAnchorEntityBD
+
+_Not tested_
+
 ```c
-xrDestroyAnchorEntityBD
+XrResult xrDestroyAnchorEntityBD(
+    XrInstance instance,
+    PxrAnchorEntityDestroyInfo* info
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityDestroyInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L580).
 
 External name: Pxr_DestroyAnchorEntity <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2264)
 
 ---
 
+### xrCreateAnchorSpaceBD
+
+_Not tested_
+
 ```c
-xrCreateAnchorSpaceBD
+XrResult xrCreateAnchorSpaceBD(
+    XrInstance instance,
+    PxrAnchorEntityCreateInfo* info,
+    unsigned long* anchorHandle
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityCreateInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L573).
 
 External name: Pxr_CreateAnchorEntity <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2261)
 
 ---
 
+### xrGetAnchorEntityUuidBD
+
+_Gets the universally unique identifier (UUID) of an anchor entity._
+
 ```c
-xrGetAnchorEntityUuidBD
+XrResult xrGetAnchorEntityUuidBD(
+    XrInstance instance,
+    unsigned long anchorHandle,
+    PxrUuid* uuid
+);
 ```
 
+| Parameter    | Description                                               |
+| ------------ | --------------------------------------------------------- |
+| anchorHandle | The the bound actor of the anchor entity to get UUID for. |
+| uuid         | Returns the UUID of the anchor entity.                    |
+
+See [PxrUuid](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L549).
+
 External name: Pxr_GetAnchorEntityUuid <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2270)
 
 ---
 
+### xrAddAnchorComponentBD
+
 ```c
-xrAddAnchorComponentBD
+XrResult xrAddAnchorComponentBD(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_AddAnchorComponent <br>
@@ -3358,8 +3885,13 @@ Status: **To be RE'd**
 
 ---
 
+### xrRemoveAnchorComponentBD
+
 ```c
-xrRemoveAnchorComponentBD
+XrResult xrRemoveAnchorComponentBD(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_RemoveAnchorComponent <br>
@@ -3367,134 +3899,296 @@ Status: **To be RE'd**
 
 ---
 
+### xrGetAnchorComponentFlagsBD
+
+_Gets the components supported by an anchor entity._
+
 ```c
-xrGetAnchorComponentFlagsBD
+XrResult xrGetAnchorComponentFlagsBD(
+    XrInstance instance,
+    unsigned long actorHandle,
+    unsigned long* outAnchorComponentFlag
+);
 ```
+
+| Parameter   | Description                                                                |
+| ----------- | -------------------------------------------------------------------------- |
+| actorHandle | Specifies the handle of the anchor entity to get supported components for. |
+| flag        | Returns the flags of the supported components.                             |
 
 External name: Pxr_GetAnchorComponentFlags <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2273) <br>
+[Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/#PXR_GetAnchorComponentFlags)
 
 ---
 
+### xrGetAnchorSceneLabelBD
+
+_Gets the scene label of an anchor entity._
+
 ```c
-xrGetAnchorSceneLabelBD
+XrResult xrGetAnchorSceneLabelBD(
+    XrInstance instance,
+    unsigned long actorHandle,
+    PxrSceneLabel* label
+);
 ```
+
+| Parameter   | Description                                                                                                                                                                                                       |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| actorHandle | Specifies the handle of the anchor entity.                                                                                                                                                                        |
+| label       | Returns the anchor entity's scene label. <br> See [PxrSceneLabel](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L864). |
 
 External name: Pxr_GetAnchorSceneLabel <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2277) <br>
+[Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/#PXR_GetAnchorSceneLabel)
 
 ---
 
+### xrGetAnchorPlaneBoundaryInfoBD
+
+_Gets the information about the boundary (rectangle) for an anchor entity. Before calling this method, you need to load anchor entities and get the anchor entity load result first. The result contains the actors and UUIDs of anchor entities loaded._
+
 ```c
-xrGetAnchorPlaneBoundaryInfoBD
+XrResult xrGetAnchorPlaneBoundaryInfoBD(
+    XrInstance instance,
+    unsigned long anchorHandle,
+    PxrAnchorPlaneBoundaryInfo* info
+);
 ```
+
+| Parameter    | Description                                                                                                                                                                      |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| anchorHandle | Specifies the handle of the anchor entity.                                                                                                                                       |
+| info         | See [PxrAnchorPlaneBoundaryInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L615). |
 
 External name: Pxr_GetAnchorPlaneBoundaryInfo <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2284) <br>
+[Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/#PXR_GetAnchorEntityUuid)
 
 ---
 
+### xrGetAnchorPlanePolygonInfoBD
+
+_Gets the information about the polygon (irregular plane) for an anchor entity. Before calling this method, you need to load anchor entities and get the anchor entity load result first._
+
 ```c
-xrGetAnchorPlanePolygonInfoBD
+XrResult xrGetAnchorPlanePolygonInfoBD(
+    XrInstance instance,
+    unsigned long anchorHandle,
+    PxrAnchorPlanePolygonInfo info
+);
 ```
+
+| Parameter    | Description                                                                                                                                                                     |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| anchorHandle | Specifies the handle of the anchor entity.                                                                                                                                      |
+| info         | See [PxrAnchorPlanePolygonInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L621). |
 
 External name: Pxr_GetAnchorPlanePolygonInfo <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2284) <br>
+[Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/#PXR_GetAnchorPlanePolygonInfo)
 
 ---
 
+### xrGetAnchorBoxInfoBD
+
+_Not tested_
+
 ```c
-xrGetAnchorBoxInfoBD
+XrResult xrGetAnchorBoxInfoBD(
+    XrInstance instance,
+    unsigned long anchorHandle,
+    PxrAnchorVolumeInfo* info
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorVolumeInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L628).
 
 External name: Pxr_GetAnchorBoxInfo <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2288)
 
 ---
 
+### xrPersistAnchorEntityBD
+
+_Not tested_
+
 ```c
-xrPersistAnchorEntityBD
+XrResult xrPersistAnchorEntityBD(
+    XrInstance instance,
+    PxrAnchorEntityPersistInfo info,
+    unsigned long* taskId
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityPersistInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L640).
 
 External name: Pxr_PersistAnchorEntity <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2291) <br>
+[Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/#0a67613d)
 
 ---
 
+### xrUnpersistAnchorEntityBD
+
+_Unpersists specified anchor entities, which means deleting anchor entities from the location where they are saved. Currently, only supports deleting anchor entities saved in the device's local storage._
+
 ```c
-xrUnpersistAnchorEntityBD
+XrResult xrUnpersistAnchorEntityBD(
+    XrInstance instance,
+    PxrAnchorEntityUnPersistInfo info,
+    unsigned long* taskId
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityUnPersistInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L688).
 
 External name: Pxr_UnpersistAnchorEntity <br>
-Status: **To be RE'd**
+Status: <br>
+[Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2295) <br>
+[Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/#3356925f)
 
 ---
 
+### xrClearPersistedAnchorEntityBD
+
+_Not tested_
+
 ```c
-xrClearPersistedAnchorEntityBD
+XrResult xrClearPersistedAnchorEntityBD(
+    PxrAnchorEntityClearInfo info,
+    unsigned long* taskId
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityClearInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L713).
 
 External name: Pxr_ClearPersistedAnchorEntity <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2295)
 
 ---
 
+### xrLoadAnchorEntityBD
+
 ```c
-xrLoadAnchorEntityBD
+XrResult xrLoadAnchorEntityBD(
+    XrInstance instance,
+    PxrAnchorEntityLoadInfo* info,
+    unsigned long* taskId
+);
 ```
+
+**Parameters not documented**
+
+See [PxrAnchorEntityLoadInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L737).
 
 External name: Pxr_LoadAnchorEntity <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2303)
 
 ---
 
+### xrGetAnchorEntityLoadResultsBD
+
+_Not tested_
+
 ```c
-xrGetAnchorEntityLoadResultsBD
+XrResult xrGetAnchorEntityLoadResultsBD(
+    XrInstance instance,
+    unsigned long taskId,
+    PxrAnchorEntityLoadResults results
+);
 ```
 
+**Parameters not documented**
+
+See [PxrAnchorEntityLoadResults](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L770).
+
 External name: Pxr_GetAnchorEntityLoadResults <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2306)
 
 ---
 
+## Room capture and Spatial mapping
+
+### xrStartSemiAutoRoomCaptureBD
+
+_Not tested_
+
 ```c
-xrStartSemiAutoRoomCaptureBD
+XrResult xrStartSemiAutoRoomCaptureBD(
+    XrInstance instance
+);
 ```
 
 External name: Pxr_StartSemiAutoRoomCapture <br>
-Status: **To be RE'd**
 
 ---
 
+### xrStopSemiAutoRoomCaptureBD
+
+_Not tested_
+
 ```c
-xrStopSemiAutoRoomCaptureBD
+XrResult xrStopSemiAutoRoomCaptureBD(
+    XrInstance instance
+);
 ```
 
 External name: Pxr_StopSemiAutoRoomCapture <br>
-Status: **To be RE'd**
 
 ---
 
+### xrSetFloorHeightBD
+
+_Not tested_
+
 ```c
-xrSetFloorHeightBD
+XrResult xrSetFloorHeightBD(
+    XrInstance instance,
+    int* height
+);
 ```
 
 External name: Pxr_SetFloorHeight <br>
-Status: **To be RE'd**
 
 ---
 
+### xrSetCeilingHeightBD
+
+_Not tested_
+
 ```c
-xrSetCeilingHeightBD
+XrResult xrSetCeilingHeightBD(
+    XrInstance instance,
+    long* height
+);
 ```
 
 External name: Pxr_SetCeilingHeight <br>
-Status: **To be RE'd**
 
 ---
 
+### xrSetFloorCornerBD
+
 ```c
-xrSetFloorCornerBD
+XrResult xrSetFloorCornerBD(
+    XrInstance instance,
+    int* param_2
+),
 ```
 
 External name: Pxr_SetFloorCorner <br>
@@ -3502,8 +4196,14 @@ Status: **To be RE'd**
 
 ---
 
+### xrGetSemiAutoRoomCaptureCandidatesBD
+
 ```c
-xrGetSemiAutoRoomCaptureCandidatesBD
+XrResult xrGetSemiAutoRoomCaptureCandidatesBD(
+    XrInstance instance,
+    long param_2,
+    long param_3
+);
 ```
 
 External name: Pxr_GetSemiAutoRoomCaptureCandidates <br>
@@ -3511,8 +4211,12 @@ Status: **To be RE'd**
 
 ---
 
+### xrGetSpatialTrackingStateBD
+
 ```c
-xrGetSpatialTrackingStateBD
+XrResult xrGetSpatialTrackingStateBD(
+    XrInstance instance
+);
 ```
 
 External name: Pxr_GetSpatialTrackingState <br>
@@ -3520,8 +4224,13 @@ Status: **To be RE'd**
 
 ---
 
+### xrBeginSpatialLocalizationBD
+
 ```c
-xrBeginSpatialLocalizationBD
+XrResult xrBeginSpatialLocalizationBD(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_BeginSpatialLocalization <br>
@@ -3529,8 +4238,13 @@ Status: **To be RE'd**
 
 ---
 
+### xrEndSpatialLocalizationBD
+
 ```c
-xrEndSpatialLocalizationBD
+XrResult xrEndSpatialLocalizationBD(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_EndSpatialLocalization <br>
@@ -3538,8 +4252,13 @@ Status: **To be RE'd**
 
 ---
 
+### xrBeginSpatialMapCreationBD
+
 ```c
-xrBeginSpatialMapCreationBD
+XrResult xrBeginSpatialMapCreationBD(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_BeginSpatialMapCreation <br>
@@ -3547,8 +4266,13 @@ Status: **To be RE'd**
 
 ---
 
+### xrEndSpatialMapCreationBD
+
 ```c
-xrEndSpatialMapCreationBD
+XrResult xrEndSpatialMapCreationBD(
+    XrInstance instance,
+    long param_2
+);
 ```
 
 External name: Pxr_EndSpatialMapCreation <br>
@@ -3556,9 +4280,20 @@ Status: **To be RE'd**
 
 ---
 
+### Pxr_StartSpatialSceneCapture
+
+_Not tested_
+
+> [!IMPORTANT]  
+> Conflict with reverse engineered function signature. <br>
+> This function signature may be incorrect or outdated.
+
 ```c
-xrStartSpatialSceneCaptureBD
+XrResult xrStartSpatialSceneCaptureBD(
+    XrInstance instance,
+    unsigned long* taskId
+);
 ```
 
 External name: Pxr_StartSpatialSceneCapture <br>
-Status: **To be RE'd**
+Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2309)
