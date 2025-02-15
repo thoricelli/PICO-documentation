@@ -1,7 +1,7 @@
 # PICO OpenXR API <!-- omit in toc -->
 
-Content dumped from libpxrruntime.so, used by com.pico.xr.openxr*runtime. <br>
-\_Path: /system/priv-app/XRRuntime/XRRuntime.apk/lib/arm64-v8a/libpxrruntime.so*
+Content dumped from libpxrruntime.so, used by com.pico.xr.openxr\*runtime. <br>
+Path: _/system/priv-app/XRRuntime/XRRuntime.apk/lib/arm64-v8a/libpxrruntime.so_
 
 PICO's OpenXR runtime is documented [here](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/index.html).
 
@@ -12,8 +12,9 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
 
 - [PICO Extensions](#pico-extensions)
 - [PICO Specific XR functions](#pico-specific-xr-functions)
-  - [Settings](#settings)
+  - [Logging](#logging)
     - [xrLogSdkApiPICO](#xrlogsdkapipico)
+  - [Settings (XR_EXT_performance_settings)](#settings-xr_ext_performance_settings)
     - [xrPerfSettingsSetPerformanceLevelEXT](#xrperfsettingssetperformancelevelext)
     - [xrPerfSettingsGetPerformanceLevelEXT](#xrperfsettingsgetperformancelevelext)
   - [Controller functionality (XR_PICO_android_controller_function_ext_enable)](#controller-functionality-xr_pico_android_controller_function_ext_enable)
@@ -97,6 +98,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrLocateBodyJointsBD](#xrlocatebodyjointsbd)
     - [xrStartBodyTrackingCalibAppBD](#xrstartbodytrackingcalibappbd)
     - [xrGetBodyTrackingStateBD](#xrgetbodytrackingstatebd)
+  - [Motion tracking (XR_BD_motion_tracking)](#motion-tracking-xr_bd_motion_tracking)
     - [xrGetMotionTrackerConnectStateBD](#xrgetmotiontrackerconnectstatebd)
     - [xrGetMotionTrackerTypeBD](#xrgetmotiontrackertypebd)
     - [xrGetMotionTrackerModeBD](#xrgetmotiontrackermodebd)
@@ -109,7 +111,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetExtDevTrackerByPassDataBD](#xrgetextdevtrackerbypassdatabd)
     - [xrGetExtDevTrackerBatteryBD](#xrgetextdevtrackerbatterybd)
     - [xrGetExtDevTrackerKeyDataBD](#xrgetextdevtrackerkeydatabd)
-  - [Tracking \& IPD](#tracking--ipd)
+  - [Tracking \& IPD (XR_PICO_ipd)](#tracking--ipd-xr_pico_ipd)
     - [xrSetIPDPICO](#xrsetipdpico)
     - [xrGetIPDPICO](#xrgetipdpico)
     - [xrSetTrackingIPDEnabledPICO](#xrsettrackingipdenabledpico)
@@ -117,7 +119,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetEyeTrackingAutoIPDPICO](#xrgeteyetrackingautoipdpico)
     - [xrGetFrustumParametersPICO](#xrgetfrustumparameterspico)
     - [xrSetFrustumParametersPICO](#xrsetfrustumparameterspico)
-  - [Configs](#configs)
+  - [Configs (XR_PICO_configuration)](#configs-xr_pico_configuration)
     - [xrGetConfigPICO](#xrgetconfigpico)
     - [xrSetConfigPICO](#xrsetconfigpico)
     - [xrGetConfigsPICO](#xrgetconfigspico)
@@ -177,6 +179,9 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrCreateRoomSceneDataBD](#xrcreateroomscenedatabd)
     - [xrDestroyRoomSceneDataBD](#xrdestroyroomscenedatabd)
     - [xrSaveRoomSceneDataBD](#xrsaveroomscenedatabd)
+    - [xrDeleteRoomSceneDataBD](#xrdeleteroomscenedatabd)
+    - [xrGetRoomSceneLoadResultsBD](#xrgetroomsceneloadresultsbd)
+    - [xrLoadRoomSceneBD](#xrloadroomscenebd)
     - [xrStartHumanOcclusionBD](#xrstarthumanocclusionbd)
     - [xrAcquire_occlusion_infoBD](#xracquire_occlusion_infobd)
     - [xrStopHumanOcclusionBD](#xrstophumanocclusionbd)
@@ -214,6 +219,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrBeginSpatialMapCreationBD](#xrbeginspatialmapcreationbd)
     - [xrEndSpatialMapCreationBD](#xrendspatialmapcreationbd)
     - [Pxr_StartSpatialSceneCapture](#pxr_startspatialscenecapture)
+  - [Functions from other vendors that are available](#functions-from-other-vendors-that-are-available)
 
 # PICO Extensions
 
@@ -273,7 +279,7 @@ For the original OpenXR header used by PICO see [here](./include_openXR/openxr_p
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
 
-## Settings
+## Logging
 
 ### xrLogSdkApiPICO
 
@@ -288,6 +294,8 @@ External name: Pxr_LogPluginApi <br>
 Status: **To be RE'd.** <br>
 
 ---
+
+## Settings (XR_EXT_performance_settings)
 
 ### xrPerfSettingsSetPerformanceLevelEXT
 
@@ -305,6 +313,9 @@ XrResult xrPerfSettingsSetPerformanceLevelEXT(
 | ----------------------- | ------------------------------------------------------------------------------------------------------ |
 | XrPerfSettingsDomainEXT | CPU = 1 <br> GPU = 2                                                                                   |
 | XrPerfSettingsLevelEXT  | The performance level<br />Saving = 0<br />Sustained low = 25<br />Sustained high = 50<br />Boost = 75 |
+
+> [!NOTE]
+> Requires the [XR_EXT_performance_settings](https://registry.khronos.org/OpenXR/specs/1.0/man/html/XR_EXT_performance_settings.html) extension to be enabled
 
 External name: Pxr_SetPerformanceLevels <br>
 Status: [Documented by Khronos](https://registry.khronos.org/OpenXR/specs/1.0/man/html/xrPerfSettingsSetPerformanceLevelEXT.html) <br>
@@ -327,6 +338,9 @@ XrResult xrPerfSettingsGetPerformanceLevelEXT(
 | ----------------------- | ------------------------------------------------------------------------------------------------------ |
 | XrPerfSettingsDomainEXT | CPU = 1 <br> GPU = 2                                                                                   |
 | XrPerfSettingsLevelEXT  | The performance level<br />Saving = 0<br />Sustained low = 25<br />Sustained high = 50<br />Boost = 75 |
+
+> [!NOTE]
+> Requires the [XR_EXT_performance_settings](https://registry.khronos.org/OpenXR/specs/1.0/man/html/XR_EXT_performance_settings.html) extension to be enabled
 
 External name: Pxr_GetPerformanceLevels <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/de/d7f/_pxr_api_8h.html#a68478ea6f8a8e353e123ccc1e93822bf) <br>
@@ -352,7 +366,7 @@ XrResult xrGetControllerSensorDataPredictPico(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: getControllerSensorDataPredict <br>
 Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
@@ -373,7 +387,7 @@ XrResult xrSetEngineVersionPico(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetEngineVersionPico <br>
 Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L836) <br>
@@ -397,7 +411,7 @@ XrResult xrSetMainControllerHandlePico(
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrsetmaincontrollerhandlepico)
@@ -420,7 +434,7 @@ XrResult xrGetMainControllerHandlePico(
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetmaincontrollerhandlepico-new)
@@ -445,7 +459,7 @@ XrResult xrGetControllerConnectionStatePico(
 | status           | Disconnected = 0 <br> Connected = 1           |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetControllerConnectStatus <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetcontrollerconnectionstatepico)
@@ -470,7 +484,7 @@ XrResult xrGetPhyControllerInfoPico(
 | controllerinfo | See [struct](./include_openXR/openxr_pico.h?plain=1#L11) here |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetControllerinfo <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetphycontrollerinfopico-new)
@@ -490,7 +504,7 @@ XrResult xrGetPhyControllerTypePico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: getControllerType <br>
 Status: **To be RE'd**
@@ -521,7 +535,7 @@ XrResult xrVibrateControllerPico(
 | controllerHandle | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerVibration <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrvibratecontrollerpico)
@@ -554,7 +568,7 @@ XrResult xrVibrateControllerPico(
 | time      | time of vibration in MS                       |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerVibrationEvent <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerVibrationEvent)
@@ -577,7 +591,7 @@ XrResult xrSetPhyControllerEnterPairingPico(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerEnterPairing <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L488)
@@ -600,7 +614,7 @@ XrResult xrSetPhyControllerStopPairingPico(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerStopPairing <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L861)
@@ -625,7 +639,7 @@ XrResult xrSetPhyControllerUpgradePico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 **Parameters not documented**
 
@@ -650,7 +664,7 @@ XrResult xrSetPhyControllerUnbindPico(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerUnbind <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L863)
@@ -670,7 +684,7 @@ XrResult xrSetPhyControllerEnableKeyPico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 | Parameter | Description                                                           |
 | --------- | --------------------------------------------------------------------- |
@@ -694,7 +708,7 @@ XrResult xrSetVirtualKeyPico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 Status: **To be RE'd**
 
@@ -718,7 +732,7 @@ XrResult xrStartPhyControllerVCMotorPico(
 | slot      | Which controller to vibrate with the audio <br> No = 0 <br> Left = 1 <br> Right = 2 <br> LeftAndRight = 3 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_StartControllerVCMotor <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartControllerVCMotor)
@@ -739,7 +753,7 @@ XrResult xrStopPhyControllerVCMotorPico(
 | clientId  | a reserved parameter, set it to the sourceId returned by another vibration control API to stop the corresponding vibration, or set it to 0 to stop all vibrations. |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_StopControllerVCMotor <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StopControllerVCMotor)
@@ -766,7 +780,7 @@ XrResult xrSetControllerAmpPico(
 | device    | Vibration amplitude level. The range is 0.0 to 2.0 |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerAmp <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerAmp)
@@ -787,7 +801,7 @@ XrResult xrSetMotorDelayPico(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerDelay <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L508)
@@ -812,7 +826,7 @@ XrResult xrGetVibrateDelayTimePico(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetVibrateDelayTime <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L509)
@@ -839,7 +853,7 @@ XrResult xrStartVibrateBySharemPico(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_StartVibrateBySharemF and Pxr_StartVibrateBySharemU <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L510)
@@ -857,7 +871,7 @@ XrResult xrGetVibrateSharemPico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetVibrateSharem <br>
 Status: **To be RE'd**
@@ -886,7 +900,7 @@ XrResult xrStartVibrateByPHFPico(
 Refer to [VibrateInfo](./include/PxrTypes.h?plain=1#L506) for the struct.
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_StartVibrateByPHF <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByPHF)
@@ -904,7 +918,7 @@ XrResult xrGetPHFSharedMemPico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetPHFSharedMem <br>
 Status: **To be RE'd**
@@ -927,7 +941,7 @@ XrResult xrPauseVibratePico(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_PauseVibrate <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_PauseVibrate)
@@ -950,7 +964,7 @@ XrResult xrResumeVibratePico(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_ResumeVibrate <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_ResumeVibrate)
@@ -966,7 +980,7 @@ XrResult xrReleaseControllerBufferPico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_ReleaseControllerBuffer <br>
 Status: **To be RE'd**
@@ -989,7 +1003,7 @@ XrResult xrStartVibrateByCachePico(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_StartVibrateByCache <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartVibrateByCache)
@@ -1012,7 +1026,7 @@ XrResult xrClearVibrateByCachePico(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_ClearVibrateByCache <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_ClearVibrateByCache)
@@ -1033,7 +1047,7 @@ XrResult xrSetAppHandTrackingEnabledPico(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetAppHandTrackingEnabled <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L519)
@@ -1061,7 +1075,7 @@ XrResult xrGetActiveInputDeviceTypePico(
 See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetActiveInputDeviceType <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L520)
@@ -1086,7 +1100,7 @@ XrResult xrGetHandTrackingMeshPico(
 See [PxrMeshType](./include/PxrInput.h?plain=1#L209) and [PxrHandMesh](./include/PxrInput.h?plain=1#L340)
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetHandTrackingMesh <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L524)
@@ -1110,7 +1124,7 @@ XrResult xrGetControllerSensorDataPredictPICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: getControllerSensorDataPredict <br>
 Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
@@ -1133,7 +1147,7 @@ XrResult xrSetControllerMainHandlePICO(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a95cd83871aeee5ccb75f62dc7dea3b24)
@@ -1156,7 +1170,7 @@ XrResult xrGetControllerMainHandlePICO(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetControllerMainInputHandle <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a12d599740d6397af7bd62a8927b4adb0)
@@ -1181,7 +1195,7 @@ XrResult xrGetControllerConnectionStatePICO(
 | status           | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetControllerConnectStatus <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrgetcontrollerconnectionstatepico)
@@ -1206,7 +1220,7 @@ XrResult xrGetControllerInfoPICO(
 | info      | Refer to [PxrControllerInfo](./include/PxrInput.h?plain=1#L186) |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetControllerinfo <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a9d51f251f137aefde686c5489765b2b7)
@@ -1229,7 +1243,7 @@ XrResult xrResetControllerPICO(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_ResetController <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2601)
@@ -1254,7 +1268,7 @@ XrResult xrSetArmModelParametersPICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetArmModelParameters <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2604)
@@ -1273,7 +1287,7 @@ XrResult xrGetControllerHandnessPICO(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetControllerHandness <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2604)
@@ -1291,7 +1305,7 @@ XrResult xrGetControllerTypePICO(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: getControllerType <br>
 Status: **To be RE'd**
@@ -1318,7 +1332,7 @@ XrResult xrSetControllerVibratePICO(
 | time      | Vibration duration. The valid value ranges from 0 to 65535 (in milliseconds).                                               |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerVibration <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a29b92a99751ab8830d1b266ae5135fde)
@@ -1347,7 +1361,7 @@ XrResult xrSetControllerVibrateEventPICO(
 | time      | time of vibration in MS                       |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerVibrationEvent <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetControllerVibrationEvent)
@@ -1370,7 +1384,7 @@ XrResult xrSetControllerEnterPairingPICO(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerEnterPairing <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a501fc44a5990f5b45f7bd0d3758cd61d)
@@ -1389,7 +1403,7 @@ XrResult xrSetControllerStopPairingPICO(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 | Parameter | Description                                   |
 | --------- | --------------------------------------------- |
@@ -1420,7 +1434,7 @@ XrResult xrSetControllerUpgradePICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerUpgrade <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#ad4405376f56f06ac2a73b18760efe84f)
@@ -1443,7 +1457,7 @@ XrResult xrSetControllerUnbindPICO(
 | device    | Left controller = 0 <br> Right controller = 1 |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerUnbind <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#ad0a4668857cf365ab008ba6b96a6a587)
@@ -1468,7 +1482,7 @@ XrResult xrSetControllerEnableKeyPICO(
 | key       | Refer to [PxrControllerKeyMap](./include/PxrInput.h?plain=1#L19) |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetControllerEnableKey <br>
 Status: [Documented by PICO](https://pdocor.pico-interactive.com/reference/native/xr/2.0.1/dd/d11/_pxr_input_8h.html#a75859deb3d1097a444ae985c926a218a)
@@ -1484,7 +1498,7 @@ XrResult xrCreateControllerClientPICO(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 Status: **To be RE'd**
 
@@ -1519,7 +1533,7 @@ xrUpdateVibrateParamsPICO(
 > When slotConfig = 1, the left controller vibrates with the audio source from right soundtrack, and vice versa.
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_UpdateVibrateParams <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_UpdateVibrateParams)
@@ -1558,7 +1572,7 @@ XrResult xrCreateHapticStreamPICO(
 | sourceId        | returns a unique control ID for the corresponding vibration.                                              |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_CreateHapticStream <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_CreateHapticStream)
@@ -1587,7 +1601,7 @@ XrResult xrWriteHapticStreamPICO(
 | numFrames | Specifies how many elements to send.                             |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_WriteHapticStream <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_WriteHapticStream)
@@ -1612,7 +1626,7 @@ XrResult xrSetPHFHapticSpeedPICO(
 | speed     | Speed of the haptic stream.                   |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_SetPHFHapticSpeed <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetPHFHapticSpeed)
@@ -1635,7 +1649,7 @@ XrResult xrGetPHFHapticSpeedPICO(
 | speed     | Speed of the haptic stream.                   |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetPHFHapticSpeed <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_SetPHFHapticSpeed)
@@ -1657,7 +1671,7 @@ XrResult xrGetCurrentFrameSequencePICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetCurrentFrameSequence <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2666)
@@ -1680,7 +1694,7 @@ XrResult xrStartPHFHapticPICO(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_StartPHFHaptic <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StartPHFHaptic)
@@ -1703,7 +1717,7 @@ XrResult xrStopPHFHapticPICO(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_StopPHFHaptic <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_Input/#PXR_StopPHFHaptic)
@@ -1726,7 +1740,7 @@ XrResult xrRemovePHFHapticPICO(
 | sourceId  | ID returned by another vibration control API. |
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_RemovePHFHaptic <br>
 Status: **To be RE'd**
@@ -1740,7 +1754,7 @@ xrGetPHFStreamMemPICO
 ```
 
 > [!NOTE]
-> Requires XR_PICO_controller_interaction extension to be enabled
+> Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: Pxr_GetPHFStreamMem <br>
 Status: **To be RE'd**
@@ -1761,7 +1775,7 @@ XrResult xrGetHandTrackingEnabledPico(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetHandTrackingEnabled <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L521)
@@ -1785,7 +1799,7 @@ XrResult xrGetHandTrackingHandStatePico(
 See [PxrHandType](./include/PxrInput.h?plain=1#L199) and [PxrHandState](./include/PxrInput.h?plain=1#L300)
 
 > [!NOTE]
-> Requires XR_PICO_android_controller_function_ext_enable extension to be enabled
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetHandTrackingHandState <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L522)
@@ -1828,7 +1842,7 @@ XrResult xrGetHandTrackerSettingStatePICO(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_hand_tracking extension to be enabled
+> Requires the XR_PICO_hand_tracking extension to be enabled
 
 External name: Pxr_GetHandTrackerSettingState <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L528)
@@ -1851,7 +1865,7 @@ XrResult xrGetHandTrackerActiveInputTypePICO(
 See [PxrActiveInputDeviceType](./include/PxrInput.h?plain=1#L529).
 
 > [!NOTE]
-> Requires XR_PICO_hand_tracking extension to be enabled
+> Requires the XR_PICO_hand_tracking extension to be enabled
 
 External name: Pxr_GetHandTrackerActiveInputType <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L529)
@@ -1874,7 +1888,7 @@ XrResult xrSetBodyTrackerStaticCalibStatePICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_SetBodyTrackingStaticCalibState <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L550)
@@ -1895,7 +1909,7 @@ XrResult xrSetBodyTrackerModePICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_SetBodyTrackingMode <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2766C1-L2766C68)
@@ -1918,7 +1932,7 @@ XrResult xrGetBodyTrackerPosePICO(
 See [PxrBodyTrackingResult](./include/PxrInput.h?plain=1#L426).
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingPose <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L550)
@@ -1938,7 +1952,7 @@ XrResult xrGetBodyTrackerImuDataPICO(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingImuData <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L552)
@@ -1957,7 +1971,7 @@ XrResult xrGetBodyTrackerConnectStatePICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 Status: **To be RE'd**
 
@@ -1978,7 +1992,7 @@ XrResult xrGetBodyTrackerBatteryPICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetFitnessBandBattery <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2772)
@@ -1999,7 +2013,7 @@ XrResult xrGetBodyTrackerCalibStatePICO(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetFitnessBandCalibState <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2775)
@@ -2023,7 +2037,7 @@ XrResult xrSetBodyTrackingAlgParamPICO(
 See [BodyTrackingAlgParamType](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L1581) and [BodyTrackingAlgParam](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L1587).
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_SetBodyTrackingAlgParam <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2781)
@@ -2041,7 +2055,7 @@ XrResult xrCreateBodyTrackerBD(
 ```
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_body_tracking extension to be enabled
 
 Status: **To be RE'd**
 
@@ -2054,6 +2068,9 @@ XrResult xrDestroyBodyTrackerBD(
     XrInstance instance,
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_body_tracking extension to be enabled
 
 Status: **To be RE'd**
 
@@ -2076,7 +2093,7 @@ XrResult xrLocateBodyJointsBD(
 See [BodyTrackingGetDataInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L644) and [BodyTrackingData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L693).
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingData <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5412)
@@ -2098,10 +2115,10 @@ XrResult xrStartBodyTrackingCalibAppBD(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
-
-External name: Pxr_StartBodyTrackingCalibApp <br>
-Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5400)
+> Requires the XR_BD_body_tracking extension to be enabled
+>
+> External name: Pxr_StartBodyTrackingCalibApp <br>
+> Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5400)
 
 ---
 
@@ -2123,12 +2140,14 @@ XrResult xrGetBodyTrackingStateBD(
 | state      | The body tracking state information. See [BodyTrackingState](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L602). |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_PICO_body_tracking extension to be enabled
 
 External name: Pxr_GetBodyTrackingState <br>
 Status: [Documented by PICO](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#b87b2ff0)
 
 ---
+
+## Motion tracking (XR_BD_motion_tracking)
 
 ### xrGetMotionTrackerConnectStateBD
 
@@ -2146,7 +2165,7 @@ XrResult xrGetMotionTrackerConnectStateBD(
 See [MotionTrackerType](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L714).
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetMotionTrackerConnectState <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5523)
@@ -2169,7 +2188,7 @@ XrResult xrGetMotionTrackerTypeBD(
 See [MotionTrackerType](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L714).
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetMotionTrackerType <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5523)
@@ -2190,7 +2209,7 @@ XrResult xrGetMotionTrackerModeBD(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 See [MotionTrackerMode](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L723).
 
@@ -2218,7 +2237,7 @@ XrResult xrGetMotionTrackerLocationsBD(
 **Parameters not documented**
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetMotionTrackerLocations <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#a18688d1)
@@ -2243,7 +2262,7 @@ XrResult xrCheckMotionTrackerModeAndNumberBD(
 | trackerNumber | Desired number of tracker, value range:[0,3].                                                                                                                                                                   |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_CheckMotionTrackerModeAndNumber <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#a18688d1)
@@ -2266,7 +2285,7 @@ XrResult xrGetExtDevTrackerConnectStateBD(
 | connectState | The connect state of externally developed trackers. See [ExtDevTrackerConnectState](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L838). |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetExtDevTrackerConnectState <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#ebdd731c)
@@ -2289,7 +2308,7 @@ XrResult xrSetExtDevTrackerMotorVibrateBD(
 | motorVibrate | Spread spectrum vibration. See [ExtDevTrackerConnectState](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L849). |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_SetExtDevTrackerMotorVibrate <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#0a2f6710)
@@ -2316,7 +2335,7 @@ Returns
 | bool | True: Pass data is enabled <br> False: Pass data is closed |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_SetExtDevTrackerPassDataState <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#01ee7cde)
@@ -2339,7 +2358,7 @@ XrResult xrSetExtDevTrackerByPassDataBD(
 | passData  | Pass data. See [ExtDevTrackerPassData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L863). |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_SetExtDevTrackerByPassData <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#e642f2c3)
@@ -2367,7 +2386,7 @@ XrResult xrGetExtDevTrackerByPassDataBD(
 | passDatas | Array of pass data. See [ExtDevTrackerPassData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L863). |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetExtDevTrackerByPassData <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#1a6cbf5c)
@@ -2394,7 +2413,7 @@ XrResult xrGetExtDevTrackerBatteryBD(
 | out_charger | Whether the tracker is on charging, 0 for not on charging, 1 for on charging. |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetExtDevTrackerBattery <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#956217e2)
@@ -2418,14 +2437,14 @@ XrResult xrGetExtDevTrackerKeyDataBD(
 | keyData   | Key data of the trackers. See [ExtDevTrackerKeyData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L907). |
 
 > [!NOTE]
-> Requires XR_PICO_body_tracking extension to be enabled
+> Requires the XR_BD_motion_tracking extension to be enabled
 
 External name: Pxr_GetExtDevTrackerKeyData <br>
 Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/client-api/PXR_HandTracking/#befd7127)
 
 ---
 
-## Tracking & IPD
+## Tracking & IPD (XR_PICO_ipd)
 
 ### xrSetIPDPICO
 
@@ -2442,6 +2461,9 @@ XrResult xrSetIPDPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_SetIPD <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L261)
@@ -2461,6 +2483,9 @@ XrResult xrGetIPDPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
+
 External name: Pxr_GetIPD <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L262)
 
@@ -2478,6 +2503,9 @@ XrResult xrSetTrackingIPDEnabledPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_SetTrackingIPDEnabled <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L263)
@@ -2497,6 +2525,9 @@ XrResult xrGetTrackingIPDEnabledPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
+
 External name: Pxr_GetTrackingIPDEnabled <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L264)
 
@@ -2514,6 +2545,9 @@ XrResult xrGetEyeTrackingAutoIPDPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_GetEyeTrackingAutoIPD <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L265)
@@ -2533,6 +2567,9 @@ XrResult xrGetFrustumParametersPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_view_frustum or XR_PICO_view_frustum_ext extension to be enabled
 
 See [XrViewFrustum](./include/PxrEnums.h?plain=1#L78).
 
@@ -2555,12 +2592,15 @@ XrResult xrSetFrustumParametersPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_view_frustum or XR_PICO_view_frustum_ext extension to be enabled
+
 External name: Pxr_SetFrustum <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L324)
 
 ---
 
-## Configs
+## Configs (XR_PICO_configuration)
 
 ### xrGetConfigPICO
 
@@ -2575,6 +2615,9 @@ XrResult xrGetConfigPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
 See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L347) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
 
@@ -2597,6 +2640,9 @@ XrResult xrSetConfigPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
+
 See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L370) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
 
 External name: Pxr_SetConfig <br>
@@ -2618,6 +2664,9 @@ XrResult xrGetConfigsPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
+
 External name: Pxr_GetConfigs <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L411)
 
@@ -2635,6 +2684,9 @@ XrResult xrSetConfigsPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
 See [ConfigsSetPICO](./include_OpenXR/openxr_pico.h?plain=1#L395).
 
@@ -2662,6 +2714,9 @@ XrResult xrGetFoveationConfigPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
+
 See [XrFoveationLevel](./include_OpenXR/openxr_pico.h?plain=1#L225).
 
 External name: getFoveationConfig <br>
@@ -2678,6 +2733,9 @@ XrResult xrGetMainClientInfoPICO(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_PICO_MetricsTool_ext extension to be enabled
+
 External name: Pxr_GetMainClientInfo <br>
 Status: **To be RE'd**
 
@@ -2691,6 +2749,9 @@ XrResult xrGetPerformanceInfoPICO(
     long* param_2
 );
 ```
+
+> [!NOTE]
+> Requires the XR_PICO_performance_metrics extension to be enabled
 
 Status: **To be RE'd**
 
@@ -2711,6 +2772,9 @@ XrResult xrResetSensorPICO(
 
 See [XrResetSensorOption](./include_OpenXR/openxr_pico.h?plain=1#L461).
 
+> [!NOTE]
+> Requires the XR_PICO_reset_sensor extension to be enabled
+
 External name: Pxr_ResetSensor <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L468)
 
@@ -2729,6 +2793,9 @@ XrResult xrSetTrackingModePICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 External name: Pxr_SetTrackingMode <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L185)
 
@@ -2742,6 +2809,9 @@ XrResult xrStartFoveationPICO(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 Status: **To be RE'd**
 
 ---
@@ -2753,6 +2823,9 @@ XrResult xrStopFoveationPICO(
     XrInstance instance,
 );
 ```
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 Status: **To be RE'd**
 
@@ -2769,6 +2842,9 @@ XrResult xrSetEyeTrackerModePICO(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_PICO_eye_tracking extension to be enabled
+
 Status: **To be RE'd**
 
 ---
@@ -2781,6 +2857,9 @@ XrResult xrGetEyeTrackerModePICO(
     int param_2 //Probably PxrTrackingModeFlags.
 );
 ```
+
+> [!NOTE]
+> Requires the XR_PICO_eye_tracking extension to be enabled
 
 Status: **To be RE'd**
 
@@ -2795,6 +2874,9 @@ XrResult xrGetEyeTrackerDataPICO(
     long param_3
 );
 ```
+
+> [!NOTE]
+> Requires the XR_PICO_eye_tracking extension to be enabled
 
 Status: **To be RE'd**
 
@@ -2815,6 +2897,9 @@ XrResult xrGetEyeTrackingDataPICO(
 
 See [XrEyeTrackingData](./include_OpenXR/openxr_pico.h?plain=1#L158).
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 External name: Pxr_GetEyeTrackingData and Pxr_GetEyeTrackingData1 <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L188)
 
@@ -2832,6 +2917,9 @@ XrResult xrGetTrackingModePICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_GetTrackingMode <br>
 Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L186)
@@ -2855,6 +2943,9 @@ XrResult xrGetFaceTrackingDataPICO(
 
 See [PxrFTInfo](./include/PxrTypes.h?plain=1#L492).
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 External name: Pxr_GetFaceTrackingData <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L91)
 
@@ -2875,6 +2966,9 @@ XrResult xrGetEyeTrackingStatePICO(
 **Parameters not documented**
 
 See [EyeTrackingState](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L156).
+
+> [!NOTE]
+> Requires the XR_PICO_eye_tracking extension to be enabled
 
 External name: Pxr_GetEyeTrackingState <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5166)
@@ -2897,6 +2991,9 @@ XrResult xrGetFaceTrackingStatePICO(
 
 See [FaceTrackingState](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L455).
 
+> [!NOTE]
+> Requires the XR_PICO_eye_tracking extension to be enabled
+
 External name: Pxr_GetFaceTrackingState <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5316)
 
@@ -2915,6 +3012,9 @@ XrResult xrGetPupilDistancePICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 External name: Pxr_GetPupilDistance <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L92)
 
@@ -2931,6 +3031,9 @@ XrResult xrStartEyeTrackingPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_StartEyeTracking <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L93)
@@ -2949,6 +3052,9 @@ XrResult xrStopEyeTrackingPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_StopEyeTracking <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L94)
@@ -2969,6 +3075,9 @@ XrResult xrSetTrackingStatusPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 External name: Pxr_SetTrackingStatus <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2753)
 
@@ -2987,6 +3096,9 @@ XrResult xrGetEyeOpennessPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_GetEyeOpenness <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5170)
@@ -3007,6 +3119,9 @@ XrResult xrGetEyePupilInfoPICO(
 **Parameters not documented**
 
 See [EyePupilInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L258).
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_GetEyePupilInfo <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5172)
@@ -3030,6 +3145,9 @@ XrResult xrGetPerEyePosePICO(
 
 See [Posef](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_HandTracking.cs#L84).
 
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
+
 External name: Pxr_GetPerEyePose <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5174)
 
@@ -3049,6 +3167,9 @@ XrResult xrGetBlinkPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_GetEyeBlink <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5176)
@@ -3079,6 +3200,9 @@ XrResult xrSetControllerPositionPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
+
 External name: Pxr_SetControllerPosition <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L563)
 
@@ -3106,6 +3230,9 @@ XrResult xrBoundaryTestNodePICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
 
 External name: Pxr_BoundaryTestNode <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L576)
@@ -3137,6 +3264,9 @@ XrResult xrBoundaryTestPointPICO(
 
 **Parameters conflict with documentation**
 
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
+
 External name: Pxr_TestPointIsInBoundary <br>
 Status: <br>
 [Available in header source code](./include/PxrPlugin.h?plain=1#L590) <br>
@@ -3162,6 +3292,9 @@ XrResult xrGetBoundaryGeometryPICO(
 | outPointsFloat | The points acquired.                                                                                                  |
 | isPlayArea     | Whether it is an internal rectangular area. <br> true: internal rectangular area <br> false: external custom boundary |
 
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
+
 External name: Pxr_GetBoundaryGeometry2 <br>
 Status: <br>
 [Available in header source code](./include/PxrPlugin.h?plain=1#L606) <br>
@@ -3185,6 +3318,9 @@ XrResult xrGetBoundaryDimensionsPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
 
 External name: Pxr_GetBoundaryDimensions <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L612)
@@ -3217,6 +3353,9 @@ XrResult xrGetSeeThroughDataPICO(
 | exposure            | The exposure time acquired                                                                                                  |
 | startTimeOfExposure | The start time of exposure                                                                                                  |
 | ret                 | Whether the acquired data is valid                                                                                          |
+
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
 
 External name: Pxr_GetSeeThroughData <br>
 Status: <br>
@@ -3265,6 +3404,9 @@ XrResult xrInvokeFunctionsPICO(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_PICO_boundary extension to be enabled
+
 External name: Pxr_InvokeFunctions <br>
 Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L555)
 
@@ -3281,6 +3423,9 @@ XrResult xrStartMRModeBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_mr_management extension to be enabled
+
 External name: Pxr_StartMRMode <br>
 Status: **To be RE'd**
 
@@ -3294,6 +3439,9 @@ XrResult xrStopMRModeBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_mr_management extension to be enabled
+
 External name: Pxr_StopMRMode <br>
 Status: **To be RE'd**
 
@@ -3306,6 +3454,9 @@ XrResult xrStopSpatialRecognitionBD(
     XrInstance instance
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_mr_management extension to be enabled
 
 External name: Pxr_StopSpatialRecognition <br>
 Status: **To be RE'd**
@@ -3323,6 +3474,9 @@ XrResult xrSetMrConfigurationBD(
     long param_5
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_mr_management extension to be enabled
 
 External name: Pxr_SetMrConfiguration <br>
 Status: **To be RE'd**
@@ -3345,6 +3499,9 @@ XrResult xrCreateSpatialAnchorSpaceBD(
 
 See [PxrSpatialAnchorCreateInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L365).
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
+
 External name: Pxr_CreateSpatialAnchor <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1689)
 
@@ -3363,6 +3520,9 @@ XrResult xrDestroySpatialAnchorBD(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
+
 External name: Pxr_DestroySpatialAnchor <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1691)
 
@@ -3376,6 +3536,9 @@ XrResult xrSetSpatialAnchorPropertyBD();
 
 Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
+
 External name: Pxr_SetSpatialAnchorProperty <br>
 
 ---
@@ -3387,6 +3550,9 @@ XrResult xrGetSpatialAnchorPropertyBD();
 ```
 
 Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
+
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
 
 External name: Pxr_GetSpatialAnchorProperty <br>
 
@@ -3400,6 +3566,9 @@ XrResult xrSetSpatialAnchorTagBD();
 
 Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
+
 External name: Pxr_SetSpatialAnchorTag <br>
 
 ---
@@ -3411,6 +3580,9 @@ XrResult xrGetSpatialAnchorTagBD();
 ```
 
 Not implemented, returns _XR_ERROR_FUNCTION_UNSUPPORTED_.
+
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
 
 External name: Pxr_GetSpatialAnchorTag <br>
 Status: **To be RE'd**
@@ -3430,6 +3602,9 @@ XrResult xrGetSpatialAnchorUuidBD(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor extension to be enabled
 
 External name: Pxr_GetSpatialAnchorUuid <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1703)
@@ -3452,6 +3627,9 @@ XrResult xrSaveSpatialAnchorBD(
 
 See [PxrSpatialAnchorSaveInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L373).
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor_persistence extension to be enabled
+
 External name: Pxr_SaveSpatialAnchor <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1693)
 
@@ -3473,6 +3651,9 @@ XrResult xrDeleteSpatialAnchorBD(
 
 See [PxrSpatialAnchorDeleteInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L381).
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor_persistence extension to be enabled
+
 External name: Pxr_DeleteSpatialAnchor <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1695)
 
@@ -3491,6 +3672,9 @@ XrResult xrLoadSpatialAnchorByIdBD(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor_persistence extension to be enabled
 
 External name: Pxr_LoadSpatialAnchorById <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1697)
@@ -3513,6 +3697,9 @@ XrResult xrGetSpatialAnchorLoadResultsBD(
 
 See [PxrSpatialAnchorLoadResults](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L493).
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor_persistence extension to be enabled
+
 External name: Pxr_GetSpatialAnchorLoadResults <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1699)
 
@@ -3528,6 +3715,9 @@ XrResult xrExportSpatialInstanceBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor_persistence extension to be enabled
+
 External name: Pxr_ExportSpatialInstance <br>
 Status: **To be RE'd**
 
@@ -3542,6 +3732,9 @@ XrResult xrImportSpatialInstanceBD(
     long param_3
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_spatial_anchor_persistence extension to be enabled
 
 External name: Pxr_ImportSpatialInstance <br>
 Status: **To be RE'd**
@@ -3559,6 +3752,9 @@ XrResult xrStartRoomCaptureBD(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
 
 External name: Pxr_StartRoomCapture <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1720)
@@ -3579,6 +3775,9 @@ XrResult xrCreateRoomSceneDataBD(
 
 **Parameters not documented**
 
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
+
 External name: Pxr_CreateRoomSceneData <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1720)
 
@@ -3594,6 +3793,9 @@ XrResult xrDestroyRoomSceneDataBD(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
 
 External name: Pxr_DestroyRoomSceneData <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1710)
@@ -3616,8 +3818,83 @@ XrResult xrSaveRoomSceneDataBD(
 
 See [PxrRoomSceneDataSaveInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L524).
 
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
+
 External name: Pxr_SaveRoomSceneData <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1712)
+
+---
+
+### xrDeleteRoomSceneDataBD
+
+_Not tested_
+
+```c
+XrResult xrDeleteRoomSceneDataBD(
+    XrInstance instance,
+    PxrRoomSceneDataDeleteInfo* saveInfo,
+    unsigned long* requestId
+);
+```
+
+**Parameters not documented**
+
+See [PxrRoomSceneDataDeleteInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L530).
+
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
+
+External name: Pxr_DeleteRoomSceneData <br>
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1712)
+
+---
+
+### xrGetRoomSceneLoadResultsBD
+
+_Not tested_
+
+```c
+XrResult xrGetRoomSceneLoadResultsBD(
+    XrInstance instance,
+    unsigned long requestId,
+    PxrRoomSceneLoadResults* results
+);
+```
+
+**Parameters not documented**
+
+See [PxrRoomSceneLoadResults](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L580).
+
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
+
+External name: Pxr_GetRoomSceneLoadResults <br>
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1718C35-L1718C62)
+
+---
+
+### xrLoadRoomSceneBD
+
+_Not tested_
+
+```c
+XrResult xrLoadRoomSceneBD(
+    XrInstance instance,
+    PxrRoomSceneLoadInfo* loadInfo,
+    unsigned long* requestId
+);
+```
+
+**Parameters not documented**
+
+See [PxrRoomSceneLoadInfo](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L556).
+
+> [!NOTE]
+> Requires the XR_BD_room_scene extension to be enabled
+
+External name: Pxr_LoadRoomScene <br>
+Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1716C35-L1716C52)
 
 ---
 
@@ -3630,6 +3907,9 @@ XrResult xrStartHumanOcclusionBD(
     XrInstance instance,
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_human_occlusion_ext extension to be enabled
 
 External name: Pxr_StartHumanOcclusion <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
@@ -3646,6 +3926,9 @@ XrResult xrAcquire_occlusion_infoBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_human_occlusion_ext extension to be enabled
+
 External name Pxr_AcquireMeshingInfo? <br>
 Status: **To be RE'd**
 
@@ -3660,6 +3943,9 @@ XrResult xrStopHumanOcclusionBD(
     XrInstance instance,
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_human_occlusion_ext extension to be enabled
 
 External name: Pxr_StopHumanOcclusion <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
@@ -3685,6 +3971,9 @@ XrResult xrGetMrcPosePICO(
 
 See [PxrPosef](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1388).
 
+> [!NOTE]
+> Requires the XR_PICO_mrc_pose_ext_enable or XR_PICO_mrc_pose extension to be enabled
+
 External name: Pxr_GetMrcPose <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
 
@@ -3709,6 +3998,9 @@ XrResult xrSetMrcPosePICO(
 
 See [PxrPosef](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1388).
 
+> [!NOTE]
+> Requires the XR_PICO_mrc_pose_ext_enable or XR_PICO_mrc_pose extension to be enabled
+
 External name: Pxr_SetMrcPose <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L2113)
 
@@ -3726,6 +4018,9 @@ XrResult xrSetIsSupportMovingMrcPICO(
 ```
 
 **Parameters not documented**
+
+> [!NOTE]
+> Requires the XR_PICO_mrc_pose_ext_enable or XR_PICO_mrc_pose extension to be enabled
 
 External name: Pxr_SetIsSupportMovingMrc <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L2116)
@@ -3754,6 +4049,9 @@ See [PxrTrackingOrigin](https://github.com/Pico-Developer/PICO-Unity-Integration
 
 See [PxrPosef](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1388).
 
+> [!NOTE]
+> Requires the XR_BD_external_camera extension to be enabled
+
 External name: Pxr_GetExternalCameraInfo <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2791)
 
@@ -3780,6 +4078,9 @@ XrResult xrPassthroughLayerSetStylePICO(
 
 See [PxrLayerEffect](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L895).
 
+> [!NOTE]
+> Requires the XR_PICO_passthrough extension to be enabled
+
 External name: Pxr_SetPassthroughStyle <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2791)
 
@@ -3801,6 +4102,9 @@ XrResult xrCreateAnchorEntityBD(
 
 See [PxrAnchorEntityCreateInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L573).
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
+
 External name: Pxr_CreateAnchorEntity <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2261)
 
@@ -3820,6 +4124,9 @@ XrResult xrDestroyAnchorEntityBD(
 **Parameters not documented**
 
 See [PxrAnchorEntityDestroyInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L580).
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
 
 External name: Pxr_DestroyAnchorEntity <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2264)
@@ -3841,6 +4148,9 @@ XrResult xrCreateAnchorSpaceBD(
 **Parameters not documented**
 
 See [PxrAnchorEntityCreateInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L573).
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
 
 External name: Pxr_CreateAnchorEntity <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2261)
@@ -3866,6 +4176,9 @@ XrResult xrGetAnchorEntityUuidBD(
 
 See [PxrUuid](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L549).
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
+
 External name: Pxr_GetAnchorEntityUuid <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2270)
 
@@ -3880,6 +4193,9 @@ XrResult xrAddAnchorComponentBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
+
 External name: Pxr_AddAnchorComponent <br>
 Status: **To be RE'd**
 
@@ -3893,6 +4209,9 @@ XrResult xrRemoveAnchorComponentBD(
     long param_2
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
 
 External name: Pxr_RemoveAnchorComponent <br>
 Status: **To be RE'd**
@@ -3915,6 +4234,9 @@ XrResult xrGetAnchorComponentFlagsBD(
 | ----------- | -------------------------------------------------------------------------- |
 | actorHandle | Specifies the handle of the anchor entity to get supported components for. |
 | flag        | Returns the flags of the supported components.                             |
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
 
 External name: Pxr_GetAnchorComponentFlags <br>
 Status: <br>
@@ -3940,6 +4262,9 @@ XrResult xrGetAnchorSceneLabelBD(
 | actorHandle | Specifies the handle of the anchor entity.                                                                                                                                                                        |
 | label       | Returns the anchor entity's scene label. <br> See [PxrSceneLabel](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L864). |
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
+
 External name: Pxr_GetAnchorSceneLabel <br>
 Status: <br>
 [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2277) <br>
@@ -3963,6 +4288,9 @@ XrResult xrGetAnchorPlaneBoundaryInfoBD(
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | anchorHandle | Specifies the handle of the anchor entity.                                                                                                                                       |
 | info         | See [PxrAnchorPlaneBoundaryInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L615). |
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
 
 External name: Pxr_GetAnchorPlaneBoundaryInfo <br>
 Status: <br>
@@ -3988,6 +4316,9 @@ XrResult xrGetAnchorPlanePolygonInfoBD(
 | anchorHandle | Specifies the handle of the anchor entity.                                                                                                                                      |
 | info         | See [PxrAnchorPlanePolygonInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L621). |
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
+
 External name: Pxr_GetAnchorPlanePolygonInfo <br>
 Status: <br>
 [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2284) <br>
@@ -4011,6 +4342,9 @@ XrResult xrGetAnchorBoxInfoBD(
 
 See [PxrAnchorVolumeInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L628).
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity extension to be enabled
+
 External name: Pxr_GetAnchorBoxInfo <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2288)
 
@@ -4031,6 +4365,9 @@ XrResult xrPersistAnchorEntityBD(
 **Parameters not documented**
 
 See [PxrAnchorEntityPersistInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L640).
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity_persistence extension to be enabled
 
 External name: Pxr_PersistAnchorEntity <br>
 Status: <br>
@@ -4055,6 +4392,9 @@ XrResult xrUnpersistAnchorEntityBD(
 
 See [PxrAnchorEntityUnPersistInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L688).
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity_persistence extension to be enabled
+
 External name: Pxr_UnpersistAnchorEntity <br>
 Status: <br>
 [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2295) <br>
@@ -4077,6 +4417,9 @@ XrResult xrClearPersistedAnchorEntityBD(
 
 See [PxrAnchorEntityClearInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L713).
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity_persistence extension to be enabled
+
 External name: Pxr_ClearPersistedAnchorEntity <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2295)
 
@@ -4095,6 +4438,9 @@ XrResult xrLoadAnchorEntityBD(
 **Parameters not documented**
 
 See [PxrAnchorEntityLoadInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L737).
+
+> [!NOTE]
+> Requires the XR_BD_anchor_entity_persistence extension to be enabled
 
 External name: Pxr_LoadAnchorEntity <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2303)
@@ -4117,6 +4463,9 @@ XrResult xrGetAnchorEntityLoadResultsBD(
 
 See [PxrAnchorEntityLoadResults](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L770).
 
+> [!NOTE]
+> Requires the XR_BD_anchor_entity_persistence extension to be enabled
+
 External name: Pxr_GetAnchorEntityLoadResults <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2306)
 
@@ -4134,6 +4483,9 @@ XrResult xrStartSemiAutoRoomCaptureBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_semi_auto_room_capture extension to be enabled
+
 External name: Pxr_StartSemiAutoRoomCapture <br>
 
 ---
@@ -4147,6 +4499,9 @@ XrResult xrStopSemiAutoRoomCaptureBD(
     XrInstance instance
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_semi_auto_room_capture extension to be enabled
 
 External name: Pxr_StopSemiAutoRoomCapture <br>
 
@@ -4163,6 +4518,9 @@ XrResult xrSetFloorHeightBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_semi_auto_room_capture extension to be enabled
+
 External name: Pxr_SetFloorHeight <br>
 
 ---
@@ -4178,6 +4536,9 @@ XrResult xrSetCeilingHeightBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_semi_auto_room_capture extension to be enabled
+
 External name: Pxr_SetCeilingHeight <br>
 
 ---
@@ -4190,6 +4551,9 @@ XrResult xrSetFloorCornerBD(
     int* param_2
 ),
 ```
+
+> [!NOTE]
+> Requires the XR_BD_semi_auto_room_capture extension to be enabled
 
 External name: Pxr_SetFloorCorner <br>
 Status: **To be RE'd**
@@ -4206,6 +4570,9 @@ XrResult xrGetSemiAutoRoomCaptureCandidatesBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_semi_auto_room_capture extension to be enabled
+
 External name: Pxr_GetSemiAutoRoomCaptureCandidates <br>
 Status: **To be RE'd**
 
@@ -4218,6 +4585,9 @@ XrResult xrGetSpatialTrackingStateBD(
     XrInstance instance
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_spatial_localization_and_tracking extension to be enabled
 
 External name: Pxr_GetSpatialTrackingState <br>
 Status: **To be RE'd**
@@ -4233,6 +4603,9 @@ XrResult xrBeginSpatialLocalizationBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_spatial_localization_and_tracking extension to be enabled
+
 External name: Pxr_BeginSpatialLocalization <br>
 Status: **To be RE'd**
 
@@ -4246,6 +4619,9 @@ XrResult xrEndSpatialLocalizationBD(
     long param_2
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_spatial_localization_and_tracking extension to be enabled
 
 External name: Pxr_EndSpatialLocalization <br>
 Status: **To be RE'd**
@@ -4261,6 +4637,9 @@ XrResult xrBeginSpatialMapCreationBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_spatial_localization_and_tracking extension to be enabled
+
 External name: Pxr_BeginSpatialMapCreation <br>
 Status: **To be RE'd**
 
@@ -4274,6 +4653,9 @@ XrResult xrEndSpatialMapCreationBD(
     long param_2
 );
 ```
+
+> [!NOTE]
+> Requires the XR_BD_spatial_localization_and_tracking extension to be enabled
 
 External name: Pxr_EndSpatialMapCreation <br>
 Status: **To be RE'd**
@@ -4295,5 +4677,116 @@ XrResult xrStartSpatialSceneCaptureBD(
 );
 ```
 
+> [!NOTE]
+> Requires the XR_BD_spatial_scene extension to be enabled
+
 External name: Pxr_StartSpatialSceneCapture <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2309)
+
+## Functions from other vendors that are available
+
+- xrGetInstanceProcAddr
+- xrEnumerateInstanceExtensionProperties
+- xrCreateInstance
+- xrDestroyInstance
+- xrGetInstanceProperties
+- xrPollEvent
+- xrResultToString
+- xrStructureTypeToString
+- xrGetSystem
+- xrGetSystemProperties
+- xrEnumerateEnvironmentBlendModes
+- xrCreateSession
+- xrDestroySession
+- xrEnumerateReferenceSpaces
+- xrCreateReferenceSpace
+- xrGetReferenceSpaceBoundsRect
+- xrCreateActionSpace
+- xrLocateSpace
+- xrDestroySpace
+- xrEnumerateViewConfigurations
+- xrGetViewConfigurationProperties
+- xrEnumerateViewConfigurationViews
+- xrEnumerateSwapchainFormats
+- xrCreateSwapchain
+- xrDestroySwapchain
+- xrEnumerateSwapchainImages
+- xrAcquireSwapchainImage
+- xrWaitSwapchainImag
+- xrReleaseSwapchainImage
+- xrBeginSession
+- xrEndSession
+- xrWaitFrame
+- xrBeginFrame
+- xrEndFrame
+- xrRequestExitSession
+- xrLocateViews
+- xrStringToPath
+- xrPathToString
+- xrCreateActionSet
+- xrDestroyActionSet
+- xrCreateAction
+- xrDestroyAction
+- xrSuggestInteractionProfileBindings
+- xrAttachSessionActionSet
+- xrGetCurrentInteractionProfile
+- xrGetActionStateBoolean
+- xrGetActionStateFloat
+- xrGetActionStateVector2f
+- xrGetActionStatePose
+- xrSyncAction
+- xrEnumerateBoundSourcesForActio
+- xrGetInputSourceLocalizedName
+- xrApplyHapticFeedback
+- xrStopHapticFeedback
+- xrConvertTimespecTimeToTimeKHR
+- xrConvertTimeToTimespecTimeKHR
+- xrCreateHandTrackerEXT
+- xrDestroyHandTrackerEXT
+- xrLocateHandJointsEXT
+- xrSetDebugUtilsObjectNameEXT
+- xrCreateDebugUtilsMessengerEXT
+- xrDestroyDebugUtilsMessengerEXT
+- xrSubmitDebugUtilsMessageEXT
+- xrSessionBeginDebugUtilsLabelRegionEXT
+- xrSessionEndDebugUtilsLabelRegionEXT
+- xrSessionInsertDebugUtilsLabelEXT
+- xrGetOpenGLESGraphicsRequirementsKHR
+- xrGetVulkanInstanceExtensionsKHR
+- xrGetVulkanDeviceExtensionsKHR
+- xrGetVulkanGraphicsDeviceKHR
+- xrGetVulkanGraphicsRequirementsKHR
+- xrGetVulkanGraphicsDevice2KHR
+- xrCreateVulkanDeviceKHR
+- xrGetVulkanGraphicsRequirements2KHR
+- xrCreateVulkanInstanceKHR
+- xrSetAndroidApplicationThreadKH
+- xrEnumerateDisplayRefreshRatesFB
+- xrGetDisplayRefreshRateFB
+- xrRequestDisplayRefreshRateFB
+- xrCreateSwapchainAndroidSurfaceKHR
+- xrUpdateSwapchainFB
+- xrGetSwapchainStateFB
+- xrGetFoveationEyeTrackedStateMETA
+- xrCreatePassthroughFB
+- xrDestroyPassthroughFB
+- xrPassthroughStartFB
+- xrPassthroughPauseFB
+- xrCreatePassthroughLayerFB
+- xrDestroyPassthroughLayerFB
+- xrPassthroughLayerPauseFB
+- xrPassthroughLayerResumeFB
+- xrPassthroughLayerSetStyleFB
+- xrCreateGeometryInstanceFB
+- xrDestroyGeometryInstanceFB
+- xrGeometryInstanceSetTransformFB
+- xrCreateTriangleMeshFB
+- xrDestroyTriangleMeshFB
+- xrTriangleMeshGetVertexBufferFB
+- xrTriangleMeshGetIndexBufferFB
+- xrTriangleMeshBeginUpdateFB
+- xrTriangleMeshEndUpdateFB
+- xrTriangleMeshBeginVertexBufferUpdateFB
+- xrTriangleMeshEndVertexBufferUpdateFB
+- xrCreateFoveationProfileFB
+- xrDestroyFoveationProfileFB
