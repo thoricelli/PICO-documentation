@@ -78,10 +78,11 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrStopPHFHapticPICO](#xrstopphfhapticpico)
     - [xrRemovePHFHapticPICO](#xrremovephfhapticpico)
     - [xrGetPHFStreamMemPICO](#xrgetphfstreammempico)
-  - [Hand tracking (XR_PICO_hand_tracking)](#hand-tracking-xr_pico_hand_tracking)
+  - [Hand tracking (XR_PICO_android_controller_function_ext_enable)](#hand-tracking-xr_pico_android_controller_function_ext_enable)
     - [xrGetHandTrackingEnabledPico](#xrgethandtrackingenabledpico)
     - [xrGetHandTrackingHandStatePico](#xrgethandtrackinghandstatepico)
     - [xrGetHandTrackingSkeletonPico](#xrgethandtrackingskeletonpico)
+  - [Hand tracking (XR_PICO_hand_tracking)](#hand-tracking-xr_pico_hand_tracking)
     - [xrGetHandTrackerSettingStatePICO](#xrgethandtrackersettingstatepico)
     - [xrGetHandTrackerActiveInputTypePICO](#xrgethandtrackeractiveinputtypepico)
   - [Body tracking (XR_PICO_body_tracking)](#body-tracking-xr_pico_body_tracking)
@@ -111,28 +112,29 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetExtDevTrackerByPassDataBD](#xrgetextdevtrackerbypassdatabd)
     - [xrGetExtDevTrackerBatteryBD](#xrgetextdevtrackerbatterybd)
     - [xrGetExtDevTrackerKeyDataBD](#xrgetextdevtrackerkeydatabd)
-  - [Tracking \& IPD (XR_PICO_ipd)](#tracking--ipd-xr_pico_ipd)
+  - [Tracking \& IPD (XR_PICO_ipd or XR_PICO_view_ipd)](#tracking--ipd-xr_pico_ipd-or-xr_pico_view_ipd)
     - [xrSetIPDPICO](#xrsetipdpico)
     - [xrGetIPDPICO](#xrgetipdpico)
     - [xrSetTrackingIPDEnabledPICO](#xrsettrackingipdenabledpico)
     - [xrGetTrackingIPDEnabledPICO](#xrgettrackingipdenabledpico)
     - [xrGetEyeTrackingAutoIPDPICO](#xrgeteyetrackingautoipdpico)
+  - [Frustum (XR_PICO_view_frustum or XR_PICO_view_frustum_ext)](#frustum-xr_pico_view_frustum-or-xr_pico_view_frustum_ext)
     - [xrGetFrustumParametersPICO](#xrgetfrustumparameterspico)
     - [xrSetFrustumParametersPICO](#xrsetfrustumparameterspico)
-  - [Configs (XR_PICO_configuration)](#configs-xr_pico_configuration)
+  - [Configs (XR_PICO_configuration or XR_PICO_configs_ext)](#configs-xr_pico_configuration-or-xr_pico_configs_ext)
     - [xrGetConfigPICO](#xrgetconfigpico)
     - [xrSetConfigPICO](#xrsetconfigpico)
     - [xrGetConfigsPICO](#xrgetconfigspico)
     - [xrSetConfigsPICO](#xrsetconfigspico)
-  - [Foveation \& Tracking](#foveation--tracking)
+  - [Foveation (XR_PICO_configuration or XR_PICO_configs_ext)](#foveation-xr_pico_configuration-or-xr_pico_configs_ext)
     - [xrGetFoveationConfigPICO](#xrgetfoveationconfigpico)
     - [xrGetMainClientInfoPICO](#xrgetmainclientinfopico)
     - [xrGetPerformanceInfoPICO](#xrgetperformanceinfopico)
     - [xrResetSensorPICO](#xrresetsensorpico)
+  - [Eye \& Face tracking (XR_EXT_eye_gaze_interaction)](#eye--face-tracking-xr_ext_eye_gaze_interaction)
     - [xrSetTrackingModePICO](#xrsettrackingmodepico)
     - [xrStartFoveationPICO](#xrstartfoveationpico)
     - [xrStopFoveationPICO](#xrstopfoveationpico)
-  - [Eye \& face tracking](#eye--face-tracking)
     - [xrSetEyeTrackerModePICO](#xrseteyetrackermodepico)
     - [xrGetEyeTrackerModePICO](#xrgeteyetrackermodepico)
     - [xrGetEyeTrackerDataPICO](#xrgeteyetrackerdatapico)
@@ -149,7 +151,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetEyePupilInfoPICO](#xrgeteyepupilinfopico)
     - [xrGetPerEyePosePICO](#xrgetpereyeposepico)
     - [xrGetBlinkPICO](#xrgetblinkpico)
-  - [Boundary \& Misc](#boundary--misc)
+  - [Boundary (XR_PICO_boundary)](#boundary-xr_pico_boundary)
     - [xrSetControllerPositionPICO](#xrsetcontrollerpositionpico)
     - [xrBoundaryTestNodePICO](#xrboundarytestnodepico)
     - [xrBoundaryTestPointPICO](#xrboundarytestpointpico)
@@ -157,11 +159,12 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetBoundaryDimensionsPICO](#xrgetboundarydimensionspico)
     - [xrGetSeeThroughDataPICO](#xrgetseethroughdatapico)
     - [xrInvokeFunctionsPICO](#xrinvokefunctionspico)
-  - [Mixed Reality](#mixed-reality)
+  - [Mixed Reality (XR_BD_mr_management)](#mixed-reality-xr_bd_mr_management)
     - [xrStartMRModeBD](#xrstartmrmodebd)
     - [xrStopMRModeBD](#xrstopmrmodebd)
     - [xrStopSpatialRecognitionBD](#xrstopspatialrecognitionbd)
     - [xrSetMrConfigurationBD](#xrsetmrconfigurationbd)
+  - [Spatial anchor (XR_BD_spatial_anchor and XR_BD_spatial_anchor)](#spatial-anchor-xr_bd_spatial_anchor-and-xr_bd_spatial_anchor)
     - [xrCreateSpatialAnchorSpaceBD](#xrcreatespatialanchorspacebd)
     - [xrDestroySpatialAnchorBD](#xrdestroyspatialanchorbd)
     - [xrSetSpatialAnchorPropertyBD](#xrsetspatialanchorpropertybd)
@@ -175,6 +178,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetSpatialAnchorLoadResultsBD](#xrgetspatialanchorloadresultsbd)
     - [xrExportSpatialInstanceBD](#xrexportspatialinstancebd)
     - [xrImportSpatialInstanceBD](#xrimportspatialinstancebd)
+  - [Room capturing (XR_BD_room_scene)](#room-capturing-xr_bd_room_scene)
     - [xrStartRoomCaptureBD](#xrstartroomcapturebd)
     - [xrCreateRoomSceneDataBD](#xrcreateroomscenedatabd)
     - [xrDestroyRoomSceneDataBD](#xrdestroyroomscenedatabd)
@@ -182,14 +186,19 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrDeleteRoomSceneDataBD](#xrdeleteroomscenedatabd)
     - [xrGetRoomSceneLoadResultsBD](#xrgetroomsceneloadresultsbd)
     - [xrLoadRoomSceneBD](#xrloadroomscenebd)
+  - [Human occlusion (XR_BD_human_occlusion_ext)](#human-occlusion-xr_bd_human_occlusion_ext)
     - [xrStartHumanOcclusionBD](#xrstarthumanocclusionbd)
     - [xrAcquire_occlusion_infoBD](#xracquire_occlusion_infobd)
     - [xrStopHumanOcclusionBD](#xrstophumanocclusionbd)
+  - [Mixed Reality Capture (XR_PICO_mrc_pose_ext_enable or XR_PICO_mrc_pose)](#mixed-reality-capture-xr_pico_mrc_pose_ext_enable-or-xr_pico_mrc_pose)
     - [xrGetMrcPosePICO](#xrgetmrcposepico)
     - [xrSetMrcPosePICO](#xrsetmrcposepico)
     - [xrSetIsSupportMovingMrcPICO](#xrsetissupportmovingmrcpico)
+  - [External camera (XR_BD_external_camera)](#external-camera-xr_bd_external_camera)
     - [xrGetExternalCameraInfoBD](#xrgetexternalcamerainfobd)
+  - [Passthrough (XR_PICO_passthrough)](#passthrough-xr_pico_passthrough)
     - [xrPassthroughLayerSetStylePICO](#xrpassthroughlayersetstylepico)
+  - [Anchor entity (XR_BD_anchor_entity)](#anchor-entity-xr_bd_anchor_entity)
     - [xrCreateAnchorEntityBD](#xrcreateanchorentitybd)
     - [xrDestroyAnchorEntityBD](#xrdestroyanchorentitybd)
     - [xrCreateAnchorSpaceBD](#xrcreateanchorspacebd)
@@ -206,7 +215,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrClearPersistedAnchorEntityBD](#xrclearpersistedanchorentitybd)
     - [xrLoadAnchorEntityBD](#xrloadanchorentitybd)
     - [xrGetAnchorEntityLoadResultsBD](#xrgetanchorentityloadresultsbd)
-  - [Room capture and Spatial mapping](#room-capture-and-spatial-mapping)
+  - [Room capture and Spatial mapping (XR_BD_semi_auto_room_capture and XR_BD_spatial_localization_and_tracking)](#room-capture-and-spatial-mapping-xr_bd_semi_auto_room_capture-and-xr_bd_spatial_localization_and_tracking)
     - [xrStartSemiAutoRoomCaptureBD](#xrstartsemiautoroomcapturebd)
     - [xrStopSemiAutoRoomCaptureBD](#xrstopsemiautoroomcapturebd)
     - [xrSetFloorHeightBD](#xrsetfloorheightbd)
@@ -1761,7 +1770,7 @@ Status: **To be RE'd**
 
 ---
 
-## Hand tracking (XR_PICO_hand_tracking)
+## Hand tracking (XR_PICO_android_controller_function_ext_enable)
 
 ### xrGetHandTrackingEnabledPico
 
@@ -1818,13 +1827,19 @@ XrResult xrGetHandTrackingSkeletonPico(
 );
 ```
 
-**Parameters not documented** <br>
+**Parameters not documented**
+
 See [PxrSkeletonType](./include/PxrInput.h?plain=1#L204) and [PxrSkeleton](./include/PxrInput.h?plain=1#L328)
+
+> [!NOTE]
+> Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_GetHandTrackingSkeleton <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L523)
 
 ---
+
+## Hand tracking (XR_PICO_hand_tracking)
 
 ### xrGetHandTrackerSettingStatePICO
 
@@ -2444,7 +2459,7 @@ Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/clie
 
 ---
 
-## Tracking & IPD (XR_PICO_ipd)
+## Tracking & IPD (XR_PICO_ipd or XR_PICO_view_ipd)
 
 ### xrSetIPDPICO
 
@@ -2554,6 +2569,8 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 
 ---
 
+## Frustum (XR_PICO_view_frustum or XR_PICO_view_frustum_ext)
+
 ### xrGetFrustumParametersPICO
 
 _Not tested_
@@ -2600,7 +2617,7 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 
 ---
 
-## Configs (XR_PICO_configuration)
+## Configs (XR_PICO_configuration or XR_PICO_configs_ext)
 
 ### xrGetConfigPICO
 
@@ -2695,7 +2712,7 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 
 ---
 
-## Foveation & Tracking
+## Foveation (XR_PICO_configuration or XR_PICO_configs_ext)
 
 ### xrGetFoveationConfigPICO
 
@@ -2780,6 +2797,8 @@ Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1
 
 ---
 
+## Eye & Face tracking (XR_EXT_eye_gaze_interaction)
+
 ### xrSetTrackingModePICO
 
 _Not tested_
@@ -2830,8 +2849,6 @@ XrResult xrStopFoveationPICO(
 Status: **To be RE'd**
 
 ---
-
-## Eye & face tracking
 
 ### xrSetEyeTrackerModePICO
 
@@ -3176,7 +3193,7 @@ Status: [Available in external source code.](https://github.com/Pico-Developer/P
 
 ---
 
-## Boundary & Misc
+## Boundary (XR_PICO_boundary)
 
 ### xrSetControllerPositionPICO
 
@@ -3412,7 +3429,7 @@ Status: [Available in header source code](./include/PxrPlugin.h?plain=1#L555)
 
 ---
 
-## Mixed Reality
+## Mixed Reality (XR_BD_mr_management)
 
 ### xrStartMRModeBD
 
@@ -3482,6 +3499,8 @@ External name: Pxr_SetMrConfiguration <br>
 Status: **To be RE'd**
 
 ---
+
+## Spatial anchor (XR_BD_spatial_anchor and XR_BD_spatial_anchor)
 
 ### xrCreateSpatialAnchorSpaceBD
 
@@ -3741,6 +3760,8 @@ Status: **To be RE'd**
 
 ---
 
+## Room capturing (XR_BD_room_scene)
+
 ### xrStartRoomCaptureBD
 
 _Not tested_
@@ -3898,6 +3919,8 @@ Status: [Available in external source code](https://github.com/Pico-Developer/Ge
 
 ---
 
+## Human occlusion (XR_BD_human_occlusion_ext)
+
 ### xrStartHumanOcclusionBD
 
 _Not tested_
@@ -3951,6 +3974,8 @@ External name: Pxr_StopHumanOcclusion <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/Getstarted-Unity/blob/0501b7a2d9e56f563ce32e885c61815ccf282484/PICO%20Unity%20Integration%20SDK%20230/Runtime/Scripts/PXR_Plugin.cs#L1683)
 
 ---
+
+## Mixed Reality Capture (XR_PICO_mrc_pose_ext_enable or XR_PICO_mrc_pose)
 
 ### xrGetMrcPosePICO
 
@@ -4027,6 +4052,8 @@ Status: [Available in external source code](https://github.com/Pico-Developer/Ge
 
 ---
 
+## External camera (XR_BD_external_camera)
+
 ### xrGetExternalCameraInfoBD
 
 _Not tested_
@@ -4057,6 +4084,8 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 
 ---
 
+## Passthrough (XR_PICO_passthrough)
+
 ### xrPassthroughLayerSetStylePICO
 
 _Not tested_
@@ -4085,6 +4114,8 @@ External name: Pxr_SetPassthroughStyle <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2791)
 
 ---
+
+## Anchor entity (XR_BD_anchor_entity)
 
 ### xrCreateAnchorEntityBD
 
@@ -4471,7 +4502,7 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 
 ---
 
-## Room capture and Spatial mapping
+## Room capture and Spatial mapping (XR_BD_semi_auto_room_capture and XR_BD_spatial_localization_and_tracking)
 
 ### xrStartSemiAutoRoomCaptureBD
 
