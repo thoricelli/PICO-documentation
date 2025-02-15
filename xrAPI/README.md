@@ -78,11 +78,10 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrStopPHFHapticPICO](#xrstopphfhapticpico)
     - [xrRemovePHFHapticPICO](#xrremovephfhapticpico)
     - [xrGetPHFStreamMemPICO](#xrgetphfstreammempico)
-  - [Hand tracking (XR_PICO_android_controller_function_ext_enable)](#hand-tracking-xr_pico_android_controller_function_ext_enable)
+  - [Hand tracking (XR_PICO_android_controller_function_ext_enable and XR_PICO_hand_tracking)](#hand-tracking-xr_pico_android_controller_function_ext_enable-and-xr_pico_hand_tracking)
     - [xrGetHandTrackingEnabledPico](#xrgethandtrackingenabledpico)
     - [xrGetHandTrackingHandStatePico](#xrgethandtrackinghandstatepico)
     - [xrGetHandTrackingSkeletonPico](#xrgethandtrackingskeletonpico)
-  - [Hand tracking (XR_PICO_hand_tracking)](#hand-tracking-xr_pico_hand_tracking)
     - [xrGetHandTrackerSettingStatePICO](#xrgethandtrackersettingstatepico)
     - [xrGetHandTrackerActiveInputTypePICO](#xrgethandtrackeractiveinputtypepico)
   - [Body tracking (XR_PICO_body_tracking)](#body-tracking-xr_pico_body_tracking)
@@ -112,7 +111,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrGetExtDevTrackerByPassDataBD](#xrgetextdevtrackerbypassdatabd)
     - [xrGetExtDevTrackerBatteryBD](#xrgetextdevtrackerbatterybd)
     - [xrGetExtDevTrackerKeyDataBD](#xrgetextdevtrackerkeydatabd)
-  - [Tracking \& IPD (XR_PICO_ipd or XR_PICO_view_ipd)](#tracking--ipd-xr_pico_ipd-or-xr_pico_view_ipd)
+  - [IPD (XR_PICO_ipd or XR_PICO_view_ipd)](#ipd-xr_pico_ipd-or-xr_pico_view_ipd)
     - [xrSetIPDPICO](#xrsetipdpico)
     - [xrGetIPDPICO](#xrgetipdpico)
     - [xrSetTrackingIPDEnabledPICO](#xrsettrackingipdenabledpico)
@@ -1770,7 +1769,7 @@ Status: **To be RE'd**
 
 ---
 
-## Hand tracking (XR_PICO_android_controller_function_ext_enable)
+## Hand tracking (XR_PICO_android_controller_function_ext_enable and XR_PICO_hand_tracking)
 
 ### xrGetHandTrackingEnabledPico
 
@@ -1838,8 +1837,6 @@ External name: Pxr_GetHandTrackingSkeleton <br>
 Status: [Available in header source code](./include/PxrInput.h?plain=1#L523)
 
 ---
-
-## Hand tracking (XR_PICO_hand_tracking)
 
 ### xrGetHandTrackerSettingStatePICO
 
@@ -2459,7 +2456,7 @@ Status: [Documented by PICO.](https://developer.picoxr.com/reference/unreal/clie
 
 ---
 
-## Tracking & IPD (XR_PICO_ipd or XR_PICO_view_ipd)
+## IPD (XR_PICO_ipd or XR_PICO_view_ipd)
 
 ### xrSetIPDPICO
 
