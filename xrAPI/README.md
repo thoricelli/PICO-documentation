@@ -2884,35 +2884,59 @@ Status: **To be RE'd**
 ```c
 XrResult xrGetEyeTrackerDataPICO(
     XrInstance instance,
-    long param_2,
-    long param_3
-);
-```
-
-> [!TIP]
-> Requires the XR_PICO_eye_tracking extension to be enabled
-
-Status: **To be RE'd**
-
----
-
-### xrGetEyeTrackingDataPICO
-
-_Not tested_
-
-```c
-XrResult xrGetEyeTrackingDataPICO(
-    XrInstance instance,
-    EyeTrackingDataGetInfo info,
-    EyeTrackingData *eyeTrackingData
+    long timestamp,
+    EyeTrackerData* EyeTrackerData
 );
 ```
 
 **Parameters not documented**
 
-See [EyeTrackingDataGetInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L180).
+See [EyeTrackerData (EyeTrackingData)](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L239).
+
+> [!NOTE]
+> The EyeTrackingData struct has an extra value: The timestamp.
+>
+> ```
+> EyeTrackingData {
+>   long timestamp
+>   int32_t leftEyePoseStatus
+>   ...
+> }
+> ```
+
+> [!TIP]
+> Requires the XR_PICO_eye_tracking extension to be enabled
+
+---
+
+### xrGetEyeTrackingDataPICO
+
+Tested
+
+```c
+XrResult xrGetEyeTrackingDataPICO(
+    XrInstance instance,
+    flags flags,
+    EyeTrackingData* eyeTrackingData
+);
+```
+
+**Parameters not documented**
+
+See [EyeTrackingDataGetInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L97).
 
 See [EyeTrackingData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L239).
+
+> [!NOTE]
+> The EyeTrackingData struct has an extra value: The timestamp.
+>
+> ```
+> EyeTrackingData {
+>   long timestamp
+>   int32_t leftEyePoseStatus
+>   ...
+> }
+> ```
 
 > [!TIP]
 > Requires the XR_EXT_eye_gaze_interaction extension to be enabled
@@ -2929,7 +2953,7 @@ _Not tested_
 ```c
 XrResult xrGetTrackingModePICO(
     XrInstance instance,
-    uint32_t *trackingMode
+    uint32_t* trackingMode
 );
 ```
 
@@ -2952,7 +2976,7 @@ XrResult xrGetFaceTrackingDataPICO(
     XrInstance instance,
     int64_t ts,
     int flags,
-    PxrFTInfo *data
+    PxrFTInfo* data
 );
 ```
 
