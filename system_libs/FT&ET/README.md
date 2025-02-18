@@ -11,7 +11,7 @@ The libraries that are responsible for it's tracking:
 - /system/lib/libpxreyetrackingservice.pxr.so
   - Contains listener class for libpxreyetracking.phoenix.so which reads the buffer libpxreyetracking.phoenix listens to.
 - /system/lib/libpxreyetracking.phoenix.so
-  - Actually gets the eye and face tracking data (using OpenCV?) and puts it into a buffer (where? No clue!).
+  - Actually gets the eye and face tracking data (using OpenCV?) and puts it into a buffer using OpenCL shared memory.
 
 ## How to call a system library
 
