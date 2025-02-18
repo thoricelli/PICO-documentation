@@ -4,10 +4,12 @@ A repository that aims to document the internals of PICO devices.
 
 - [XR API](/xrAPI/README.md)
   - Contains documentation for the PICO XR API.
-- [Eye & Face tracking](/FT&ET/README.md)
+- [Eye & Face tracking](/system_libs/FT&ET/README.md)
   - Contains documentation for the PICO 4 P/E and it's eye/face tracking.
 - [Settings](/settings/README.md)
   - Contains documentation for the setprop and settings of the PICO.
+- [Services](/services/README.md)
+  - Documentation on PICO system services.
 
 ## Under construction
 
