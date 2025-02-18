@@ -7,7 +7,7 @@ The eye tracking on the PICO 4 PRO and Enterprise models are provided by [Tobii]
 The libraries that are responsible for it's tracking:
 
 - /system/lib/libeyetrackingclient.pxr.so
-  - Contains listener class for libpxreyetracking.phoenix.so which reads the buffer libpxreyetracking.phoenix listens to.
+  - Contains listener class for libpxreyetracking.phoenix.so.
 - /system/lib/libpxreyetrackingservice.pxr.so
   - Service that controls camera, LED, etc.
 - /system/lib/libpxreyetracking.phoenix.so
