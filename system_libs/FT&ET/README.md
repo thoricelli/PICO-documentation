@@ -7,9 +7,9 @@ The eye tracking on the PICO 4 PRO and Enterprise models are provided by [Tobii]
 The libraries that are responsible for it's tracking:
 
 - /system/lib/libeyetrackingclient.pxr.so
-  - ???
-- /system/lib/libpxreyetrackingservice.pxr.so
   - Contains listener class for libpxreyetracking.phoenix.so which reads the buffer libpxreyetracking.phoenix listens to.
+- /system/lib/libpxreyetrackingservice.pxr.so
+  - Service that controls camera, LED, etc.
 - /system/lib/libpxreyetracking.phoenix.so
   - Actually gets the eye and face tracking data (using OpenCV?) and puts it into a buffer using OpenCL shared memory.
 
