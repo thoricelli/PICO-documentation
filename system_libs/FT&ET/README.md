@@ -37,3 +37,56 @@ See [dlopen](https://man7.org/linux/man-pages/man3/dlopen.3.html) and [dlsym](ht
 ## TODO
 
 API reference for calling these system classes is a TODO!
+
+# Binder
+
+A way to communicate between Android services.
+
+The android service for eyetracking is: `pxreyetrackingservice` with interface `pvr.IEyeTrackingService`.
+
+## Binder
+
+RE note: The IEyeTrackingService checks read-only property `ro.pxr.externalfunc` to check if the device is an Enterprise device or not. Depending on the result it might not include certain data.
+
+IEyeTrackingService:
+
+- Initialize
+- SetTrackingMode
+- ResetTracking
+- Start
+- Stop
+- StartAlgorithm
+- SetAlgorithmParameters
+- GetAlgorithmResult
+- StopAlgorithm
+- SetCameraParameters
+- AddServiceListener
+- RemoveServiceListener
+- checkCameraPermission
+- AddServiceListener
+- RemoveServiceListener
+- OpenCamera
+- StartPreview
+- StopPreview
+- CloseCamera
+- GetCameraParameters
+- GetTrackingDataSharedMemory
+- GetCameraFrameSharedMemory
+- SetCameraErrorListener
+- AddToSpecifiedList
+- SetData
+- GetData
+- hasEyeCamera
+- GetPupilDistance
+- RegisterIPDCallback
+- SetIPD
+- FinishIPDCalibration
+- onFrameAvailable
+- onFrameAvailable
+- onResultsAvailable
+- onIPDDataAvailable
+- onIPDGlassesAvailable
+- onIPDFullDataAvailable
+- onError
+- binderDied
+- dump

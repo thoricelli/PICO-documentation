@@ -1,6 +1,6 @@
 # PICO OpenXR API <!-- omit in toc -->
 
-Content dumped from libpxrruntime.so, used by com.pico.xr.openxr\*runtime. <br>
+Content dumped from libpxrruntime.so, used by com.pico.xr.openxr.runtime. <br>
 Path: _/system/priv-app/XRRuntime/XRRuntime.apk/lib/arm64-v8a/libpxrruntime.so_
 
 PICO's OpenXR runtime is documented [here](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/index.html).
