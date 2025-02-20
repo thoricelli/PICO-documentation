@@ -2891,7 +2891,7 @@ XrResult xrGetEyeTrackerDataPICO(
 
 **Parameters not documented**
 
-See [EyeTrackerData (EyeTrackingData)](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L239).
+See [EyeTrackerData (EyeTrackingData)](./include_openXR/openxr_pico.h?plain=1#L158).
 
 > [!NOTE]
 > The EyeTrackingData struct has an extra value: The timestamp.
@@ -2925,7 +2925,7 @@ XrResult xrGetEyeTrackingDataPICO(
 
 See [EyeTrackingDataGetInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L97).
 
-See [EyeTrackingData](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L239).
+See [EyeTrackingData](./include_openXR/openxr_pico.h?plain=1#L158).
 
 > [!NOTE]
 > The EyeTrackingData struct has an extra value: The timestamp.
