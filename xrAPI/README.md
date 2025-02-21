@@ -282,7 +282,7 @@ XR_PICO_view_state_ext_enable
 # PICO Specific XR functions
 
 Written here are all the PICO specific XR extensions that I could find. <br>
-For the original OpenXR header used by PICO see [here](./include_openXR/openxr_pico.h).
+For the original OpenXR header used by PICO see [here](./include_OpenXR/openxr_pico.h).
 
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
@@ -377,7 +377,7 @@ XrResult xrGetControllerSensorDataPredictPico(
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: getControllerSensorDataPredict <br>
-Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
+Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L847)
 
 ---
 
@@ -398,7 +398,7 @@ XrResult xrSetEngineVersionPico(
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetEngineVersionPico <br>
-Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L836) <br>
+Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L836) <br>
 Note: Not made public through libpxrplugin.so.
 
 ---
@@ -489,7 +489,7 @@ XrResult xrGetPhyControllerInfoPico(
 | Parameter      | Description                                                   |
 | -------------- | ------------------------------------------------------------- |
 | device         | Left controller = 0 <br> Right controller = 1                 |
-| controllerinfo | See [struct](./include_openXR/openxr_pico.h?plain=1#L11) here |
+| controllerinfo | See [struct](./include_OpenXR/openxr_pico.h?plain=1#L11) here |
 
 > [!TIP]
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
@@ -1135,7 +1135,7 @@ XrResult xrGetControllerSensorDataPredictPICO(
 > Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: getControllerSensorDataPredict <br>
-Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
+Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L847)
 
 ---
 
@@ -2891,7 +2891,7 @@ XrResult xrGetEyeTrackerDataPICO(
 
 **Parameters not documented**
 
-See [EyeTrackerData (EyeTrackingData)](./include_openXR/openxr_pico.h?plain=1#L158).
+See [EyeTrackerData (EyeTrackingData)](./include_OpenXR/openxr_pico.h?plain=1#L158).
 
 > [!NOTE]
 > The EyeTrackingData struct has an extra value: The timestamp.
@@ -2925,7 +2925,7 @@ XrResult xrGetEyeTrackingDataPICO(
 
 See [EyeTrackingDataGetInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L97).
 
-See [EyeTrackingData](./include_openXR/openxr_pico.h?plain=1#L158).
+See [EyeTrackingData](./include_OpenXR/openxr_pico.h?plain=1#L158).
 
 > [!NOTE]
 > The EyeTrackingData struct has an extra value: The timestamp.

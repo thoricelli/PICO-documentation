@@ -50,43 +50,31 @@ RE note: The IEyeTrackingService checks read-only property `ro.pxr.externalfunc`
 
 IEyeTrackingService:
 
-- Initialize
-- SetTrackingMode
-- ResetTracking
+- Initialize (1)
+- SetTrackingMode (2)
+- ResetTracking (3)
 - Start
 - Stop
-- StartAlgorithm
+- StartAlgorithm (6)
 - SetAlgorithmParameters
 - GetAlgorithmResult
-- StopAlgorithm
+- StopAlgorithm (9)
 - SetCameraParameters
-- AddServiceListener
-- RemoveServiceListener
-- checkCameraPermission
 - AddServiceListener
 - RemoveServiceListener
 - OpenCamera
 - StartPreview
 - StopPreview
 - CloseCamera
-- GetCameraParameters
+- GetCameraParameters (17)
 - GetTrackingDataSharedMemory
 - GetCameraFrameSharedMemory
-- SetCameraErrorListener
-- AddToSpecifiedList
+- SetCameraErrorListener (20)
+- AddToSpecifiedList (21)
 - SetData
 - GetData
-- hasEyeCamera
 - GetPupilDistance
-- RegisterIPDCallback
-- SetIPD
-- FinishIPDCalibration
-- onFrameAvailable
-- onFrameAvailable
-- onResultsAvailable
-- onIPDDataAvailable
-- onIPDGlassesAvailable
-- onIPDFullDataAvailable
-- onError
-- binderDied
-- dump
+- hasEyeCamera
+- RegisterIPDCallback (26)
+- SetIPD (27)
+- FinishIPDCalibration (28)
