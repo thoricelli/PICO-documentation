@@ -282,7 +282,7 @@ XR_PICO_view_state_ext_enable
 # PICO Specific XR functions
 
 Written here are all the PICO specific XR extensions that I could find. <br>
-For the original OpenXR header used by PICO see [here](./include_OpenXR/openxr_pico.h).
+For the original OpenXR header used by PICO see [here](./include_openXR/openxr_pico.h).
 
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
@@ -377,7 +377,7 @@ XrResult xrGetControllerSensorDataPredictPico(
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: getControllerSensorDataPredict <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L847)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
 
 ---
 
@@ -398,7 +398,7 @@ XrResult xrSetEngineVersionPico(
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetEngineVersionPico <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L836) <br>
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L836) <br>
 Note: Not made public through libpxrplugin.so.
 
 ---
@@ -489,7 +489,7 @@ XrResult xrGetPhyControllerInfoPico(
 | Parameter      | Description                                                   |
 | -------------- | ------------------------------------------------------------- |
 | device         | Left controller = 0 <br> Right controller = 1                 |
-| controllerinfo | See [struct](./include_OpenXR/openxr_pico.h?plain=1#L11) here |
+| controllerinfo | See [struct](./include_openXR/openxr_pico.h?plain=1#L11) here |
 
 > [!TIP]
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
@@ -625,7 +625,7 @@ XrResult xrSetPhyControllerStopPairingPico(
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerStopPairing <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L861)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L861)
 
 ---
 
@@ -652,7 +652,7 @@ XrResult xrSetPhyControllerUpgradePico(
 **Parameters not documented**
 
 External name: Pxr_SetControllerUpgrade <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L861)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L861)
 
 ---
 
@@ -675,7 +675,7 @@ XrResult xrSetPhyControllerUnbindPico(
 > Requires the XR_PICO_android_controller_function_ext_enable extension to be enabled
 
 External name: Pxr_SetControllerUnbind <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L863)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L863)
 
 ---
 
@@ -697,7 +697,7 @@ XrResult xrSetPhyControllerEnableKeyPico(
 | Parameter | Description                                                           |
 | --------- | --------------------------------------------------------------------- |
 | isEnabled | Key blocked                                                           |
-| Key       | [XrControllerKeyMap](./include_OpenXR/openxr_pico.h?plain=1#L19) enum |
+| Key       | [XrControllerKeyMap](./include_openXR/openxr_pico.h?plain=1#L19) enum |
 
 External name: Pxr_SetControllerEnableKey <br>
 Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/chapter_six.html#xrsetphycontrollerenablekeypico-new)
@@ -1135,7 +1135,7 @@ XrResult xrGetControllerSensorDataPredictPICO(
 > Requires the XR_PICO_controller_interaction extension to be enabled
 
 External name: getControllerSensorDataPredict <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L847)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L847)
 
 ---
 
@@ -2478,7 +2478,7 @@ XrResult xrSetIPDPICO(
 > Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_SetIPD <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L261)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L261)
 
 ---
 
@@ -2499,7 +2499,7 @@ XrResult xrGetIPDPICO(
 > Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_GetIPD <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L262)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L262)
 
 ---
 
@@ -2520,7 +2520,7 @@ XrResult xrSetTrackingIPDEnabledPICO(
 > Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_SetTrackingIPDEnabled <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L263)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L263)
 
 ---
 
@@ -2541,7 +2541,7 @@ XrResult xrGetTrackingIPDEnabledPICO(
 > Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_GetTrackingIPDEnabled <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L264)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L264)
 
 ---
 
@@ -2562,7 +2562,7 @@ XrResult xrGetEyeTrackingAutoIPDPICO(
 > Requires the XR_PICO_ipd or XR_PICO_view_ipd extension to be enabled
 
 External name: Pxr_GetEyeTrackingAutoIPD <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L265)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L265)
 
 ---
 
@@ -2588,7 +2588,7 @@ XrResult xrGetFrustumParametersPICO(
 See [XrViewFrustum](./include/PxrEnums.h?plain=1#L78).
 
 External name: Pxr_GetFrustum <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L265)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L265)
 
 ---
 
@@ -2610,7 +2610,7 @@ XrResult xrSetFrustumParametersPICO(
 > Requires the XR_PICO_view_frustum or XR_PICO_view_frustum_ext extension to be enabled
 
 External name: Pxr_SetFrustum <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L324)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L324)
 
 ---
 
@@ -2633,10 +2633,10 @@ XrResult xrGetConfigPICO(
 > [!TIP]
 > Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
-See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L347) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
+See [ConfigsEXT](./include_openXR/openxr_pico.h?plain=1#L347) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
 
 External name: Pxr_GetConfig <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L406)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L406)
 
 ---
 
@@ -2657,10 +2657,10 @@ XrResult xrSetConfigPICO(
 > [!TIP]
 > Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
-See [ConfigsEXT](./include_OpenXR/openxr_pico.h?plain=1#L370) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
+See [ConfigsEXT](./include_openXR/openxr_pico.h?plain=1#L370) or [PxrConfigType](./include/PxrEnums.h?plain=1#L112).
 
 External name: Pxr_SetConfig <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L415)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L415)
 
 ---
 
@@ -2682,7 +2682,7 @@ XrResult xrGetConfigsPICO(
 > Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
 External name: Pxr_GetConfigs <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L411)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L411)
 
 ---
 
@@ -2702,10 +2702,10 @@ XrResult xrSetConfigsPICO(
 > [!TIP]
 > Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
-See [ConfigsSetPICO](./include_OpenXR/openxr_pico.h?plain=1#L395).
+See [ConfigsSetPICO](./include_openXR/openxr_pico.h?plain=1#L395).
 
 External name: Pxr_SetConfigs <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L419)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L419)
 
 ---
 
@@ -2731,10 +2731,10 @@ XrResult xrGetFoveationConfigPICO(
 > [!TIP]
 > Requires the XR_PICO_configuration or XR_PICO_configs_ext extension to be enabled
 
-See [XrFoveationLevel](./include_OpenXR/openxr_pico.h?plain=1#L225).
+See [XrFoveationLevel](./include_openXR/openxr_pico.h?plain=1#L225).
 
 External name: getFoveationConfig <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L419)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L419)
 
 ---
 
@@ -2784,13 +2784,13 @@ XrResult xrResetSensorPICO(
 
 **Parameters not documented**
 
-See [XrResetSensorOption](./include_OpenXR/openxr_pico.h?plain=1#L461).
+See [XrResetSensorOption](./include_openXR/openxr_pico.h?plain=1#L461).
 
 > [!TIP]
 > Requires the XR_PICO_reset_sensor extension to be enabled
 
 External name: Pxr_ResetSensor <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L468)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L468)
 
 ---
 
@@ -2813,7 +2813,7 @@ XrResult xrSetTrackingModePICO(
 > Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_SetTrackingMode <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L185)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L185)
 
 ---
 
@@ -2891,7 +2891,7 @@ XrResult xrGetEyeTrackerDataPICO(
 
 **Parameters not documented**
 
-See [EyeTrackerData (EyeTrackingData)](./include_OpenXR/openxr_pico.h?plain=1#L158).
+See [EyeTrackerData (EyeTrackingData)](./include_openXR/openxr_pico.h?plain=1#L158).
 
 > [!NOTE]
 > The EyeTrackingData struct has an extra value: The timestamp.
@@ -2925,7 +2925,7 @@ XrResult xrGetEyeTrackingDataPICO(
 
 See [EyeTrackingDataGetInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L97).
 
-See [EyeTrackingData](./include_OpenXR/openxr_pico.h?plain=1#L158).
+See [EyeTrackingData](./include_openXR/openxr_pico.h?plain=1#L158).
 
 > [!NOTE]
 > The EyeTrackingData struct has an extra value: The timestamp.
@@ -2942,7 +2942,7 @@ See [EyeTrackingData](./include_OpenXR/openxr_pico.h?plain=1#L158).
 > Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_GetEyeTrackingData and Pxr_GetEyeTrackingData1 <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L188)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L188)
 
 ---
 
@@ -2963,7 +2963,7 @@ XrResult xrGetTrackingModePICO(
 > Requires the XR_EXT_eye_gaze_interaction extension to be enabled
 
 External name: Pxr_GetTrackingMode <br>
-Status: [Available in header source code](./include_OpenXR/openxr_pico.h?plain=1#L186)
+Status: [Available in header source code](./include_openXR/openxr_pico.h?plain=1#L186)
 
 ---
 
