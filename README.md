@@ -1,6 +1,6 @@
 # PICO-documentation
 
-A repository that aims to document the internals of PICO devices.
+A repository that aims to document the internals of PICO 4 series (OS 5.12.0)
 
 - [XR API](/xrAPI/README.md)
   - Contains documentation for the PICO XR API.
