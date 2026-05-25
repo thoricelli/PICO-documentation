@@ -11,11 +11,6 @@ A repository that aims to document the internals of PICO devices.
 - [Services](/services/README.md)
   - Documentation on PICO system services.
 
-## Under construction
-
-Hi! Setting up.
-All the pages are still under construction since I am still gathering documentation.
-
 # Contributing
 
 Check [contributing](./CONTRIBUTING.MD) for pull requests.

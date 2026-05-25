@@ -2,8 +2,6 @@
 
 This file will contain the documentation for the eye and face tracking aspect of the PICO 4 P/E.
 
-The eye tracking on the PICO 4 PRO and Enterprise models are not? provided by [Tobii](https://www.tobii.com/).
-
 The libraries that are responsible for it's tracking:
 
 - /system/lib/libeyetrackingclient.pxr.so

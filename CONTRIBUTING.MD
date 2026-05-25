@@ -22,5 +22,4 @@ When writing documentation please make sure to at least include:
 > If a function call may be dangerous to execute or a process may cause damage then please include a warning bubble by using `>[!CAUTION]`
 
 # Contact
-
-You can contact me on Discord @thoricelli if you have any more questions. <br>
+Make an issue on this repository if you want direct contact, or if you have any questions.
