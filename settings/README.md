@@ -4,7 +4,6 @@ Specific PICO build properties.
 
 | Name                                                      | Type                  | Description                    | Default value            |
 | --------------------------------------------------------- | --------------------- | ------------------------------ | ------------------------ |
-|                                                           |                       |                                |                          |
 | persist.nest.packagetvalue                                | string (package name) |                                |                          |
 | persist.pvr.2dtovr.button_all                             | number                |                                |                          |
 | persist.pvr.2dtovr.button_back                            | number                |                                | 1                        |
