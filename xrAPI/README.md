@@ -3150,8 +3150,18 @@ Status: [Available in external source code.](https://github.com/Pico-Developer/P
 
 _Not tested_
 
-> [!IMPORTANT]
-> This function [does not work](https://www.reddit.com/r/virtualreality/comments/1cyn329/pico_4_enterprise/), and only returns empty values.
+> [!IMPORTANT]  
+> Pupil info is only supplied on the following conditions:
+> - Your device is a Business device (Enterprise) and has the following build property set to `1`: `ro.pxr.externalfunc`.
+> - `<meta-data android:name="pvr.app.et_tob_advance" android:value="true">` is added to `AndroidManifest.xml`.  
+> More information [here](https://technical-protein.hatenablog.com/entry/2025/03/13/182938) (Japanese).  
+>
+> Non-business devices also record:
+> - Pupil distance
+> - Seperate left and right eye position.
+>
+> ...but this does not get populated in the data when these conditions aren't met.  
+> (Thanks Pico!)
 
 ```c
 XrResult xrGetEyePupilInfoPICO(
@@ -3202,7 +3212,7 @@ Status: [Available in external source code.](https://github.com/Pico-Developer/P
 _Not tested_
 
 > [!NOTE]
-> This function [does not work](https://www.reddit.com/r/virtualreality/comments/1cyn329/pico_4_enterprise/), and only returns empty values.
+> See note [here](#xrgeteyepupilinfopico).
 
 ```c
 XrResult xrGetBlinkPICO(
