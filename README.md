@@ -3,14 +3,17 @@
 A repository that aims to document the internals of PICO 4 series (OS 5.12.0)
 
 - [XR API](/xrAPI/README.md)
-  - Contains documentation for the PICO XR API.
+  - PICO XR API.
 - [Eye & Face tracking](/system_libs/FT&ET/README.md)
-  - Contains documentation for the PICO 4 P/E and it's eye/face tracking.
+  - PICO 4 P/E and it's eye/face tracking.
 - [Settings](/settings/README.md)
-  - Contains documentation for the setprop and settings of the PICO.
+  - Build properties and settings of the PICO.
 - [Services](/services/README.md)
-  - Documentation on PICO system services.
-
+  - PICO system services.
+- [Kernel](/kernel/README.md)
+  - Kernel drivers, modified Linux kernel and the Android Open Source Project.
+- [Devices](/devices/README.md)
+  - Specs of the Phoenix headset.
 # Contributing
 
 Check [contributing](./CONTRIBUTING.MD) for pull requests.
