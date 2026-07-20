@@ -29,7 +29,7 @@ These devices use the base specs from the Pico 4, but with slight differences:
 | FT&ET   | 3x Infrared VGA OV6211 x 2, 400 x 400@60Hz/90 Hz, H70°/V70° |
 | Battery | 6070 mAh                                                    |
 # Sources
-https://www.52audio.com/archives/150653.html
-https://en.wikipedia.org/wiki/PICO_4
-https://pico.crx.moe/docs/about-pico/pico4
-https://electronics360.globalspec.com/article/19651/techinsights-teardown-pico-4-headset
+https://www.52audio.com/archives/150653.html  
+https://en.wikipedia.org/wiki/PICO_4  
+https://pico.crx.moe/docs/about-pico/pico4  
+https://electronics360.globalspec.com/article/19651/techinsights-teardown-pico-4-headset  

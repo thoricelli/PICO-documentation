@@ -14,6 +14,8 @@ A repository that aims to document the internals of PICO 4 series (OS 5.12.0)
   - Kernel drivers, modified Linux kernel and the Android Open Source Project.
 - [Devices](/devices/README.md)
   - Specs of the Phoenix headset.
+- [Recovery](/recovery/README.md)
+  - EDL, Partitions, key combinations, bootloader / fastboot.
 # Contributing
 
 Check [contributing](./CONTRIBUTING.MD) for pull requests.
