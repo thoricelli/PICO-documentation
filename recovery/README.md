@@ -43,7 +43,7 @@ There are two known working firehoses for Pico devices:
 - `prog_firehose_ddr.elf`
 	- This firehose will first initialize DDR4 RAM   
 	(do not use on the Pro / Enterprise variants with DDR5 RAM)  
-	These firehoses were leaked with the Neo3 `4.6.10.81.10` OS.
+These firehoses were leaked with the Neo3 `4.6.10.81.10` OS.
 
 1. To enter EDL, boot into Android, plug in the Pico to your computer, and on a command line enter `adb reboot EDL`
 2. The device will boot into EDL mode.
@@ -56,9 +56,9 @@ There are two known working firehoses for Pico devices:
 	- `(LUN 0) super` 
 	- `(LUN 4) boot` and `(LUN 4) bootbak`
 	- `(LUN 4) dtbo` and `(LUN 4) dtbobak`
-	- `(LUN 4) vbmeta` and `(LUN 4) vbmetabak`
+	- `(LUN 4) vbmeta` and `(LUN 4) vbmetabak`  
 	…partitions with your downgraded version.
-8. Hold the POWER button and VOL+ until the Pico logo appears
+8. Hold the POWER button and VOL+ until the Pico logo appears  
    (Holding POWER for 10 seconds will exit EDL mode)
 9. Your screen will show `No Command`.
 10. Hold the POWER button and press the VOL+ button once, then release the POWER button.
