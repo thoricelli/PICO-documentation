@@ -10,9 +10,6 @@ HOLD the POWER button and press the VOL+ button once, release the POWER button.
 `adb reboot bootloader`  
 or  
 VOL- and POWER, HOLD until the Pico logo appears.
-## Android fastboot
-`adb reboot fastboot`  
-https://en.wikipedia.org/wiki/Fastboot
 ## EDL
 With Qualcomm SOC's bricked devices can be recovered, or devices can otherwise downgraded by using EDL (Emergency Download mode).  
 https://en.wikipedia.org/wiki/Qualcomm_EDL_mode
