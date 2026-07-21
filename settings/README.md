@@ -2,6 +2,10 @@
 
 Specific PICO build properties.
 
+Commands:
+- `getprop` / `getprop [NAME_OF_PROPERTY]`
+- `setprop [NAME_OF_PROPERTY]`
+
 | Name                                                      | Type                  | Description                    | Default value            |
 | --------------------------------------------------------- | --------------------- | ------------------------------ | ------------------------ |
 | persist.nest.packagetvalue                                | string (package name) |                                |                          |
@@ -156,7 +160,10 @@ Specific PICO build properties.
 | sys.pxr.vrmode.status                                     | number                |                                |                          |
 | sys.pxreyetrackingservice.state                           | number                |                                |                          |
 # Settings
-
+Commands:
+- `settings list --user [USER_ID]` (Options: system, secure, global)
+- `settings get [NAME_OF_SETTING]`
+- `settings put [NAME_OF_SETTING]`
 # Global
 
 | Name                                            | Type    | Description | Default value                 |
