@@ -161,7 +161,7 @@ Commands:
 | sys.pxreyetrackingservice.state                           | number                |                                |                          |
 # Settings
 Commands:
-- `settings list --user [USER_ID]` (Options: system, secure, global)
+- `settings list [NAMESPACE]` (Options: system, secure, global)
 - `settings get [NAME_OF_SETTING]`
 - `settings put [NAME_OF_SETTING]`
 # Global
@@ -197,6 +197,7 @@ Commands:
 | pxr_auto_brightness_enable                      | number  |             |                               |
 | pxr_distance_sensitivity2_has_changed           | number  |             |                               |
 | pxr.trackingservice.trackingmode_has_changed    | number  |             |                               |
+
 
 # System
 
