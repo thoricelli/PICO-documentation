@@ -23,11 +23,11 @@
 ## Pico 4 Pro / Enterprise
 These devices use the base specs from the Pico 4, but with slight differences:
 
-| Name    | Spec                                                        |
-| ------- | ----------------------------------------------------------- |
-| Memory  | 8 GB LPDDR5 SDRAM @ 6400 MT/s                               |
-| FT&ET   | 3x Infrared VGA OV6211 x 2, 400 x 400@60Hz/90 Hz, H70°/V70° |
-| Battery | 6070 mAh                                                    |
+| Name    | Spec                                                                                                                 |
+| ------- | -------------------------------------------------------------------------------------------------------------------- |
+| Memory  | 8 GB LPDDR5 SDRAM @ 6400 MT/s                                                                                        |
+| FT&ET   | 3x Infrared VGA OV6211 x 2, 400 x 400@60Hz/90 Hz, H70°/V70°<br>Combined into a single feed with the Omnivision OV680 |
+| Battery | 6070 mAh                                                                                                             |
 # Sources
 https://www.52audio.com/archives/150653.html  
 https://en.wikipedia.org/wiki/PICO_4  
