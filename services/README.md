@@ -136,14 +136,16 @@ interface IPxrEyeTrackingService {
 ```
 
 Eye tracking service listener:
+Interface: pvr.IEyeTrackingServiceListener
+
 ```java
 interface BpEyeTrackingServiceListener {
-	onAlgorithmResultsAvailable(int param_1, int param_2);
-	onDeviceError(int param_1, int param_2);
-	onFrameAvailable(int param_1, int param_2, int param_3);
-	onGlassWearableAvailable(bool param_1, int param_2);
-	onIPDAvailable(bool param_1, float param_2);
-	onIPDFullDataAvailable(out Vector param_1, out Vector param_2, int param_3, float param_4);
+	void onFrameAvailable(int param_1, int param_2, int param_3); //1
+	void onAlgorithmResultsAvailable(int param_1, int param_2); //2
+	void onDeviceError(int param_1, int param_2); //3
+	void onIPDAvailable(bool param_1, float param_2); //4
+	void onGlassWearableAvailable(bool param_1, int param_2); //5
+	void onIPDFullDataAvailable(out Vector param_1, out Vector param_2, int param_3, float param_4); //6
 }
 ```
 # pxrhmdservice
