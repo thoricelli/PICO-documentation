@@ -554,17 +554,12 @@ Status: [Documented by PICO](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/ch
 
 _Vibrates the specified controller for a specified frequency, strength and time._
 
-> [!IMPORTANT]  
-> Conflict with reverse engineered function signature. <br>
-> This function signature may be incorrect or outdated.
-
 ```c
 XrResult xrVibrateControllerPico(
     XrInstance instance,
-    int device,
-    int frequency,
     float strength,
-    int time
+    int time,
+    int controllerHandle
 );
 ```
 
@@ -4860,7 +4855,6 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 - xrCreateFoveationProfileFB
 - xrDestroyFoveationProfileFB
 ## New functions that haven't been documented yet
-- 
 - xrCreateEyeTrackerPICO
 - xrDestroyEyeTrackerPICO
 - xrGetEyeDataPICO
