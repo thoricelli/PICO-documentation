@@ -60,6 +60,8 @@ These firehoses were leaked with the Neo3 `4.6.10.81.10` OS.
 9. Your screen will show `No Command`.
 10. Hold the POWER button and press the VOL+ button once, then release the POWER button.
 11. Select factory reset, and wait for the device to reboot.
+### Unlocking the bootloader
+https://pico4.wiki/guides/root/01-root/
 ## Partitions
 
 | LUN | Label            | Start LBA           | LBA Number         | Notes                                                                          |

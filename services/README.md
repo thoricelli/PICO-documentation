@@ -20,7 +20,7 @@
 - xrtruntime
 
 Functions are written order of their transaction code, unless specified otherwise.
-
+Most services are written in AIDL, however most of it is pseudocode!
 ## Testing
 You can test a binder via `adb`:
 ```shell
@@ -93,11 +93,13 @@ interface IPxrEyeTrackingService {
     int Start(String param_1); //4
     int Stop(String param_1); //5
     int StartAlgorithm(int param_1, String param_2, int param_3); //6
+    //Keys: ipd_position, ft_lipsync_ctl, et_calib_position, et_calib_stop, 
     int SetAlgorithmParameters(int type, String key, String value); //7
     int GetAlgorithmResult(int param_1, out String param_2); //8
     int StopAlgorithm(int param_1, int param_2); //9
     //See: ID: 19
-    int SetCameraParameters(int param_1, String param_2, String param_3); //10
+    //Keys: led_mode, brightness, width, height, format, fps, exposure_gain, flash, exposure, gain, face_led_brightness, single_id, torch, led_cross_lighted, keep_camera_opened
+    int SetCameraParameters(int cameraId, String key, String value); //10
     void AddServiceListener(sp param_1); //11, SP: StrongBinder / Strong Pointer
     void RemoveServiceListener(sp param_1); //12
     //See: ID: 19
@@ -126,14 +128,27 @@ interface IPxrEyeTrackingService {
     int GetData(int param_1, out Vector param_2); //23
     //Note: Hardcoded, always returns 0.0f.
     float GetPupilDistance(); //24
-    bool HasEyeCamera(); //25
+    boolean HasEyeCamera(); //25
     void RegisterIPDCallback(int param_1); //26
     void SetIPD(float param_1); //27
     void FinishIPDCalibration(int param_1, bool param_2); //28
 }
 ```
 
+Eye tracking service listener:
+```java
+interface BpEyeTrackingServiceListener {
+	onAlgorithmResultsAvailable(int param_1, int param_2);
+	onDeviceError(int param_1, int param_2);
+	onFrameAvailable(int param_1, int param_2, int param_3);
+	onGlassWearableAvailable(bool param_1, int param_2);
+	onIPDAvailable(bool param_1, float param_2);
+	onIPDFullDataAvailable(out Vector param_1, out Vector param_2, int param_3, float param_4);
+}
+```
 # pxrhmdservice
 Interface: android.Service.PxrHmdService  
 Runs-as: root (native C++)  
 Location: /system/lib/libpxrhmdservice.so  
+
+TODO.

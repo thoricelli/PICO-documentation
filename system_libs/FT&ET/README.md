@@ -1,78 +1,101 @@
 # Face & eye trackng
-
-This file will contain the documentation for the eye and face tracking aspect of the PICO 4 P/E.
+This file contains documentation for the eye and face tracking aspect of the PICO 4 P/E.
 
 The libraries that are responsible for it's tracking:
-
 - /system/lib/libeyetrackingclient.pxr.so
   - Contains listener class for libpxreyetracking.phoenix.so.
 - /system/lib/libpxreyetrackingservice.pxr.so
   - Service that controls camera, LED, etc.
 - /system/lib/libpxreyetracking.phoenix.so
-  - Actually gets the eye and face tracking data (using OpenCV?) and puts it into a buffer using OpenCL shared memory.
+  - Actually gets the eye and face tracking data (the Qualcomm Neural Processing SDK) and puts it into a buffer using OpenCL shared memory.
+## From SDK to service
+Pico provides a way to get face and eye tracking, among other API's via their Unity SDK, Unreal Engine SDK or OpenXR runtime.
 
-## How to call a system library
+Below is an example illustration of how this data flows from the eye tracking service to the actual application, this applies to most Pico XR API's.
 
-```cpp
-#include <dlfcn.h>
+```mermaid
+sequenceDiagram
 
-//Opens a system library within /system/lib, /system/lib64, etc...
-void* handle = dlopen("systemlibrary.so", RTLD_GLOBAL | RTLD_NOW | RTLD_LAZY);
+    autonumber
 
-//Get function pointer.
-void* function = dlsym(handle, "FunctionName");
+    participant UnityCS as Unity C#35;
 
-//Cast function pointer to your function signature.
-bool (*pFunction)(int* param_1, float* param_2) = (bool (*)(int*, float*))function
+    participant PicoSDK as Pico Unity SDK
 
-//Call the function.
-bool value = function(0, 0.0);
+  
+
+    participant libpxrplugin as libpxrplugin.so
+
+    participant XrRuntime as libpxrruntime.so (XrRuntime.apk)
+
+  
+
+    participant libeyetrackingclient as libeyetrackingclient.pxr.so
+
+  
+
+    participant AndroidAIDL as Android ADL
+
+    participant pxreyetrackingservice
+
+  
+
+    UnityCS->>libeyetrackingclient: (Simplified) Start Eye Tracking via Pxr_StartEyeTracking
+
+  
+
+    UnityCS->>PicoSDK: Pxr_GetEyeTrackingData()
+
+    PicoSDK->>libpxrplugin: Pxr_GetEyeTrackingData()
+
+  
+
+    libpxrplugin->>XrRuntime: xrGetInstanceProcAddr("xrGetEyeTrackingDataPICO")
+
+    XrRuntime-->>libpxrplugin: *xrGetEyeTrackingDataPICO
+
+  
+
+    libpxrplugin->>XrRuntime: xrGetEyeTrackingDataPICO()
+
+    XrRuntime->>libeyetrackingclient: GetEyeTrackingData_2_0()
+
+    libeyetrackingclient->>AndroidAIDL: GetTrackingDataSharedMemory()
+
+    AndroidAIDL->>pxreyetrackingservice: GetTrackingDataSharedMemory
+
+    pxreyetrackingservice-->>AndroidAIDL: Shared RingBuffer FD
+
+    AndroidAIDL-->>libeyetrackingclient: Shared RingBuffer FD
+
+  
+
+    libeyetrackingclient-->>UnityCS: Returns data from RingBuffer
 ```
+Pico makes use of IPC AIDL binders, "services". Which are documented here: [[services/README|services]].
+## Hardware
+As described in [[devices/README|devices]], the Pico 4 P/E make use of 3x [Omnivision OV6211](https://www.ovt.com/products/ov6211/) IR camera's, which are then combined into one "physical camera" via the [Omnivision OV680](https://www.ovt.com/products/ov680/).
 
-Replace `systemlibrary.so` and `FunctionName`. <br>
-See [dlopen](https://man7.org/linux/man-pages/man3/dlopen.3.html) and [dlsym](https://man7.org/linux/man-pages/man3/dlsym.3.html).
+The eye and face LED's are controlled via the [Awinic AW21009](https://www.awinic.com/en/productDetail/AW21009QNR). And are enabled / disabled via GPIO pins.
+Device attribute paths:
+- `/sys/bus/i2c/drivers/aw210xx_led/2-0020/leds/aw210xx_led/reg` for the AW21009 registers. 
+  Format: `REG VALUE`.
+- `/sys/bus/i2c/drivers/aw210xx_led/2-0020/leds/aw210xx_led/hwen` for the GPIO hardware enable bits. 
+  Write `1` to enable, `2` to disable the LED GPIO, `3` to disable the GPIO for the AW21009 chip.
 
-## TODO
+This camera is exposed as physical camera `5` via the Android CameraService with the following parameters:
+- Width: 400
+- Height: 1600
+- Format: RAW_PRIVATE
+The camera is however, rotated 90 degrees, the actual output:
+- Height: 1600
+- Width: 400
+- Format: Y8
+- ISO: 100
 
-API reference for calling these system classes is a TODO!
-
-# Binder
-
-A way to communicate between Android services.
-
-The android service for eyetracking is: `pxreyetrackingservice` with interface `pvr.IEyeTrackingService`.
-
-## Binder
-
-RE note: The IEyeTrackingService checks read-only property `ro.pxr.externalfunc` to check if the device is an Enterprise device or not. Depending on the result it might not include certain data.
-
-IEyeTrackingService:
-
-- Initialize (1)
-- SetTrackingMode (2)
-- ResetTracking (3)
-- Start
-- Stop
-- StartAlgorithm (6)
-- SetAlgorithmParameters
-- GetAlgorithmResult
-- StopAlgorithm (9)
-- SetCameraParameters
-- AddServiceListener
-- RemoveServiceListener
-- OpenCamera
-- StartPreview
-- StopPreview
-- CloseCamera
-- GetCameraParameters (17)
-- GetTrackingDataSharedMemory
-- GetCameraFrameSharedMemory
-- SetCameraErrorListener (20)
-- AddToSpecifiedList (21)
-- SetData
-- GetData
-- GetPupilDistance
-- hasEyeCamera
-- RegisterIPDCallback (26)
-- SetIPD (27)
-- FinishIPDCalibration (28)
+Default LED settings:
+- Face: 64 mA (0x40)
+- Eyes: 16 mA (0x10)
+## Algorithm
+The ET/FT algorithm works as a machine learning model. The model parameters are encrypted and available at `/system/etc/pxr/avatar/`.
+These models are SNPE models ran via the Qualcomm Neural Processing SDK.

@@ -226,7 +226,7 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
     - [xrEndSpatialLocalizationBD](#xrendspatiallocalizationbd)
     - [xrBeginSpatialMapCreationBD](#xrbeginspatialmapcreationbd)
     - [xrEndSpatialMapCreationBD](#xrendspatialmapcreationbd)
-    - [Pxr_StartSpatialSceneCapture](#pxr_startspatialscenecapture)
+    - [xrStartSpatialSceneCaptureBD](#pxr_startspatialscenecapture)
   - [Functions from other vendors that are available](#functions-from-other-vendors-that-are-available)
 
 # PICO Extensions
@@ -2916,14 +2916,12 @@ Tested
 ```c
 XrResult xrGetEyeTrackingDataPICO(
     XrInstance instance,
-    flags flags,
+    XrTime time,
     EyeTrackingData* eyeTrackingData
 );
 ```
 
 **Parameters not documented**
-
-See [EyeTrackingDataGetInfo](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/Features/PXR_MotionTracking.cs#L97).
 
 See [EyeTrackingData](./include_openXR/openxr_pico.h?plain=1#L158).
 
@@ -4733,7 +4731,7 @@ Status: **To be RE'd**
 
 ---
 
-### Pxr_StartSpatialSceneCapture
+### xrStartSpatialSceneCaptureBD
 
 _Not tested_
 
@@ -4861,3 +4859,8 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 - xrTriangleMeshEndVertexBufferUpdateFB
 - xrCreateFoveationProfileFB
 - xrDestroyFoveationProfileFB
+## New functions that haven't been documented yet
+- 
+- xrCreateEyeTrackerPICO
+- xrDestroyEyeTrackerPICO
+- xrGetEyeDataPICO
