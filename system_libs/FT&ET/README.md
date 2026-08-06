@@ -2,11 +2,11 @@
 This file contains documentation for the eye and face tracking aspect of the PICO 4 P/E.
 
 The libraries that are responsible for it's tracking:
-- /system/lib/libeyetrackingclient.pxr.so
-  - Contains listener class for libpxreyetracking.phoenix.so.
-- /system/lib/libpxreyetrackingservice.pxr.so
-  - Service that controls camera, LED, etc.
-- /system/lib/libpxreyetracking.phoenix.so
+- `/system/lib/libeyetrackingclient.pxr.so`
+  - Binder IPC listener implementation.
+- `/system/lib/libpxreyetrackingservice.pxr.so`
+  - Binder IPC server, controls LEDs and fetches data from `libpxreyetracking.phoenix.so`.
+- `/system/lib/libpxreyetracking.phoenix.so`
   - Actually gets the eye and face tracking data (the Qualcomm Neural Processing SDK) and puts it into a buffer using OpenCL shared memory.
 ## From SDK to service
 Pico provides a way to get face and eye tracking, among other API's via their Unity SDK, Unreal Engine SDK or OpenXR runtime.
@@ -72,9 +72,9 @@ sequenceDiagram
 
     libeyetrackingclient-->>UnityCS: Returns data from RingBuffer
 ```
-Pico makes use of IPC AIDL binders, "services". Which are documented here: [[services/README|services]].
+Pico makes use of IPC AIDL binders, "services". Which are documented here: [services](/services/README.md).
 ## Hardware
-As described in [[devices/README|devices]], the Pico 4 P/E make use of 3x [Omnivision OV6211](https://www.ovt.com/products/ov6211/) IR camera's, which are then combined into one "physical camera" via the [Omnivision OV680](https://www.ovt.com/products/ov680/).
+As described in [devices](/devices/README.md), the Pico 4 P/E make use of 3x [Omnivision OV6211](https://www.ovt.com/products/ov6211/) IR camera's, which are then combined into one "physical camera" via the [Omnivision OV680](https://www.ovt.com/products/ov680/).
 
 The eye and face LED's are controlled via the [Awinic AW21009](https://www.awinic.com/en/productDetail/AW21009QNR). And are enabled / disabled via GPIO pins.
 Device attribute paths:
