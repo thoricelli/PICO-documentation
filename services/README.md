@@ -87,46 +87,59 @@ Location: /system/lib/libpxreyetrackingservice.pxr.so
 
 ```java
 interface IPxrEyeTrackingService {
+	// NOOP
     int Initialize(String param_1); //1
     int SetTrackingMode(int param_1); //2
+    // NOOP
     int ResetTracking(int param_1, int param_2); //3
+    // NOOP
     int Start(String param_1); //4
+    // NOOP
     int Stop(String param_1); //5
-    int StartAlgorithm(int param_1, String param_2, int param_3); //6
-    //Keys: ipd_position, ft_lipsync_ctl, et_calib_position, et_calib_stop, 
+    // parameters: 
+    // Bit 2: openEyeCamera
+    // Bit 3: openFaceCamera
+    // Bit 12: IpdAlgoStarted
+    // Bit 13: Face tracking flag?
+    // Bit 14: Eye tracking calibration
+    int StartAlgorithm(int cameraId, String parameters, int timeoutMs); //6
+    // Keys: ipd_position, ft_lipsync_ctl, et_calib_position, et_calib_stop
     int SetAlgorithmParameters(int type, String key, String value); //7
-    int GetAlgorithmResult(int param_1, out String param_2); //8
-    int StopAlgorithm(int param_1, int param_2); //9
-    //See: ID: 19
-    //Keys: led_mode, brightness, width, height, format, fps, exposure_gain, flash, exposure, gain, face_led_brightness, single_id, torch, led_cross_lighted, keep_camera_opened
+    // Keys: mode, et_running, ft_lipsync_running, ft_running, lipsync_running
+    int GetAlgorithmResult(int param_1, String key, out int param_3); //8
+    // parameters:
+    // Bit 2: Close eye tracking
+    // Bit 3: Close face tracking
+    int StopAlgorithm(int cameraId, int parameters); //9
+    // UUID <= 1000
+    // Keys: led_mode, brightness, width, height, format, fps, exposure_gain, flash, exposure, gain, face_led_brightness, single_id, torch, led_cross_lighted, keep_camera_opened
     int SetCameraParameters(int cameraId, String key, String value); //10
     void AddServiceListener(sp param_1); //11, SP: StrongBinder / Strong Pointer
     void RemoveServiceListener(sp param_1); //12
-    //See: ID: 19
-    int OpenCamera(int param_1, out DataBufferParcelable param_2); //13
-    //See: ID: 19
-    void StartPreview(int param_1); //14
-    //See: ID: 19
-    void StopPreview(int param_1); //15
-    void CloseCamera(int param_1); //16
-    //See: ID: 19
+    // UUID <= 1000
+    int OpenCamera(int cameraId, out DataBufferParcelable cameraFrameSharedMemoryFd); //13
+    // UUID <= 1000
+    void StartPreview(int cameraId); //14
+    // UUID <= 1000
+    void StopPreview(int cameraId); //15
+    void CloseCamera(int cameraId); //16
+    // UUID <= 1000
     Vector GetCameraParameters(String param_1); //17
     //Returns File Descriptor to shared memory, datatype: RingBuffer.
-    // 1: 50 frames pxr_eyepose (unused?)
-    // 2: 50 frames pxr_eyepose_data_v2_0
-    // 3: 5 frames (FT)
-    // 4: 5 frames (FT)
-    // 5: 5 frames (FT)
-    int GetTrackingDataSharedMemory(int param_1, out DataBufferParcelable param_2); //18
-    // Only available from system applications or if build prop ro.debuggable is 1.
-    int GetCameraFrameSharedMemory(int param_1, out DataBufferParcelable param_2); //19
-    //See: ID: 19
+    // Type 1: 50 slots of pxr_eyepose: 168 bytes
+    // Type 2: 50 slots of pxr_eyepose_data_v2_0: 200 bytes
+    // Type 3: 5 slots of PicoFTInfo: 896 bytes
+    int GetTrackingDataSharedMemory(int type, out DataBufferParcelable param_2); //18
+    // UUID <= 1000
+    int GetCameraFrameSharedMemory(int cameraId, out DataBufferParcelable param_2); //19
+    // UUID <= 1000
     void SetCameraErrorListener(int param_1); //20
-    //See: ID: 19
+    // UUID <= 1000
+    // NOOP?
     int AddToSpecifiedList(int param_1); //21
     int SetData(int param_1, Vector param_2); //22
     int GetData(int param_1, out Vector param_2); //23
-    //Note: Hardcoded, always returns 0.0f.
+    // Note: Hardcoded, always returns 0.0f.
     float GetPupilDistance(); //24
     boolean HasEyeCamera(); //25
     void RegisterIPDCallback(int param_1); //26
