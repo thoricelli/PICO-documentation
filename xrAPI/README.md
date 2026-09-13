@@ -1,6 +1,8 @@
 # PICO OpenXR API <!-- omit in toc -->
+This file contains documentation on all the PICO specific XR API functions for:
+PICO OS 5.13.7, Pico 4 (Phoenix)
 
-Content dumped from libpxrruntime.so, used by com.pico.xr.openxr.runtime. <br>
+Content dumped from libpxrruntime.so, used by com.pico.xr.openxr.runtime.  
 Path: _/system/priv-app/XRRuntime/XRRuntime.apk/lib/arm64-v8a/libpxrruntime.so_
 
 PICO's OpenXR runtime is documented [here](https://sdk.picovr.com/docs/OpenXRMobileSDKv2/en/index.html).
@@ -235,6 +237,24 @@ Original source code from OpenXR for the xrGetInstanceProcAddr function is [here
 
 Extensions are to be passed when calling [`XrCreateInstance`](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrCreateInstance.html).
 
+## Public extensions
+```
+XR_EXTX_overlay
+XR_EXT_active_action_set_priority
+XR_EXT_composition_layer_inverted_alpha
+XR_EXT_debug_utils
+XR_EXT_eye_gaze_interaction
+XR_EXT_hand_interaction
+XR_EXT_hand_tracking
+XR_EXT_performance_settings
+XR_EXT_user_presence
+XR_EXT_uuid
+XR_EXT_view_configuration_depth_range
+XR_EXT_frame_synthesis
+XR_EXT_local_floor
+XR_EXT_palm_pose
+```
+## Pico specific extensions
 ```
 XR_BD_anchor_entity
 XR_BD_anchor_entity_persistence
@@ -255,6 +275,9 @@ XR_BD_spatial_anchor_persistence
 XR_BD_spatial_localization_and_tracking
 XR_BD_spatial_scene
 XR_BD_spatial_tracking_state
+XR_BD_composition_layer_fisheye
+XR_BD_composition_layer_settings
+
 XR_PICO_MetricsTool_ext
 XR_PICO_android_controller_function_ext_enable
 XR_PICO_body_tracking
@@ -277,8 +300,61 @@ XR_PICO_view_frustum_ext
 XR_PICO_view_ipd
 XR_PICO_view_state
 XR_PICO_view_state_ext_enable
+XR_PICO_layer_color_matrix
+XR_PICO_composition_layer_fisheye
+XR_PICO_layer_settings
+XR_PICO_adaptive_resolution
+XR_PICO_body_tracking2
+XR_PICO_expand_device
+XR_PICO_external_camera
+XR_PICO_eye_tracker
+XR_PICO_motion_tracking
+XR_PICO_virtual_boundary
+XR_PICO_mrc_pose
+XR_PICO_mrc_pose_ext_enable
 ```
+## Other vendor extensions
+```
+XR_EPIC_view_configuration_fov
+XR_FB_composition_layer_alpha_blend
+XR_FB_composition_layer_image_layout
+XR_FB_composition_layer_secure_content
+XR_FB_composition_layer_settings
+XR_FB_display_refresh_rate
+XR_FB_foveation
+XR_FB_foveation_configuration
+XR_FB_foveation_vulkan
+XR_FB_passthrough
+XR_FB_space_warp
+XR_FB_swapchain_update_state
+XR_FB_swapchain_update_state_android_surface
+XR_FB_swapchain_update_state_opengl_es
+XR_FB_swapchain_update_state_vulkan
+XR_FB_triangle_mesh
+XR_KHR_android_create_instance
+XR_KHR_android_surface_swapchain
+XR_KHR_android_thread_settings
+XR_KHR_composition_layer_color_scale_bias
+XR_KHR_composition_layer_cube
+XR_KHR_composition_layer_cube
+XR_KHR_composition_layer_depth
+XR_KHR_composition_layer_equirect
+XR_KHR_composition_layer_equirect2
+XR_KHR_convert_timespec_time
+XR_KHR_loader_init
+XR_KHR_loader_init_android
+XR_KHR_opengl_es_enable
+XR_KHR_vulkan_enable
+XR_KHR_vulkan_enable2
+XR_KHR_vulkan_swapchain_format_list
+XR_META_foveation_eye_tracked
+XR_META_vulkan_swapchain_create_info
+XR_MND_headless
+XR_MSFT_composition_layer_reprojection
+XR_KHR_locate_spaces
+XR_KHR_maintenance1
 
+```
 # PICO Specific XR functions
 
 Written here are all the PICO specific XR extensions that I could find. <br>
@@ -286,7 +362,14 @@ For the original OpenXR header used by PICO see [here](./include_openXR/openxr_p
 
 Note: External type refers to the name given to the function in libpxrplugin.so <br>
 (PICO's library used by Unreal and Unity.)
+## Misc
+### xrMarkApiClass
 
+```c
+XrResult xrMarkApiClass(
+	int64_t flags
+);
+```
 ## Logging
 
 ### xrLogSdkApiPICO
@@ -3225,7 +3308,52 @@ External name: Pxr_GetEyeBlink <br>
 Status: [Available in external source code.](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L5176)
 
 ---
+## Eye tracker (No extension)
+(Since Pico OS 5.13.7)
+### xrCreateEyeTrackerPICO
 
+```c
+XrResult xrCreateEyeTrackerPICO(
+	XrInstance instance,
+	XrEyeTrackerCreateInfoPICO *info,
+	XrEyeTrackerPICO *tracker
+);
+```
+
+**Parameters not documented**
+
+See [XrEyeTrackerCreateInfoPICO](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8959).
+
+Status: [Available in XR API](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8992).
+
+---
+### xrDestroyEyeTrackerPICO
+
+```c
+XrResult xrDestroyEyeTrackerPICO(
+	XrEyeTrackerPICO *eyeTracker
+);
+```
+
+Status: [Available in XR API](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8997)
+
+---
+### xrGetEyeDataPICO
+
+```c
+XrResult xrGetEyeDataPICO(
+	XrEyeTrackerPICO tracker,
+	XrEyeTrackerDataInfoPICO *info,
+	XrEyeTrackerDataPICO *eyeTrackerData
+);
+```
+
+See [XrEyeTrackerDataInfoPICO](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8964).
+See [XrEyeDataPICO](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8970).
+
+Status: [Available in XR API](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L9000)
+
+---
 ## Boundary (XR_PICO_boundary)
 
 ### xrSetControllerPositionPICO
@@ -3533,7 +3661,7 @@ Status: **To be RE'd**
 
 ---
 
-## Spatial anchor (XR_BD_spatial_anchor and XR_BD_spatial_anchor)
+## Spatial anchor (XR_BD_spatial_anchor)
 
 ### xrCreateSpatialAnchorSpaceBD
 
@@ -4085,7 +4213,7 @@ Status: [Available in external source code](https://github.com/Pico-Developer/Ge
 
 ---
 
-## External camera (XR_BD_external_camera)
+## External camera (XR_BD_external_camera and XR_PICO_external_camera)
 
 ### xrGetExternalCameraInfoBD
 
@@ -4116,7 +4244,21 @@ External name: Pxr_GetExternalCameraInfo <br>
 Status: [Available in external source code](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK/blob/fec80f9432f90e59c23495fffccec78044ec43f5/Runtime/Scripts/PXR_Plugin.cs#L2791)
 
 ---
+### xrGetExternalCameraInfoPICO
 
+```c
+XrResult xrGetExternalCameraInfoPICO(
+	XrInstance instance,
+	XrExternalCameraParameterPICO *info
+);
+```
+
+See [XrExternalCameraParameterPICO](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8669).
+
+Status: [Available in XR API](./include_openXR/SDK_3.0.0/openxr.h?plain=1#L8681).
+
+> [!TIP]
+> Requires the XR_PICO_external_camera extension to be enabled
 ## Passthrough (XR_PICO_passthrough)
 
 ### xrPassthroughLayerSetStylePICO
@@ -4751,6 +4893,7 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 
 - xrGetInstanceProcAddr
 - xrEnumerateInstanceExtensionProperties
+- xrEnumerateApiLayerProperties
 - xrCreateInstance
 - xrDestroyInstance
 - xrGetInstanceProperties
@@ -4815,6 +4958,7 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 - xrSessionBeginDebugUtilsLabelRegionEXT
 - xrSessionEndDebugUtilsLabelRegionEXT
 - xrSessionInsertDebugUtilsLabelEXT
+- xrInitializeLoaderKHR
 - xrGetOpenGLESGraphicsRequirementsKHR
 - xrGetVulkanInstanceExtensionsKHR
 - xrGetVulkanDeviceExtensionsKHR
@@ -4854,7 +4998,3 @@ Status: [Available in external source code](https://github.com/Pico-Developer/PI
 - xrTriangleMeshEndVertexBufferUpdateFB
 - xrCreateFoveationProfileFB
 - xrDestroyFoveationProfileFB
-## New functions that haven't been documented yet
-- xrCreateEyeTrackerPICO
-- xrDestroyEyeTrackerPICO
-- xrGetEyeDataPICO
