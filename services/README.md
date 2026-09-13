@@ -1,6 +1,6 @@
 # Services
 `service list`
-- ConfigurationService
+- [ConfigurationService](#ConfigurationService)
 - gd32ipdservice
 - native_shell
 - nettools
@@ -37,14 +37,86 @@ Result: Parcel(00000000    '....')
 Interface: com.pvr.configuration.IConfigServiceInterface
 
 IConfigServiceInterface:
-```C++
-string getConfigPropertyDirectAccess(int param_0, String param_1, String param_2);
-//TODO
+```java
+interface IConfigServiceInterface {
+	String getConfigPropertyDirectAccess(int type, String configName, String token); // 1
+		boolean setConfigPropertyDirectAccess(String pkg, int type, String configJson, String category, String token, int priorityLevel); // 2
+	String getConfigProperty(String pkg, int type, String configName, String token); // 3
+	// configJson: "[KEY], [VALUE]"
+	boolean setConfigProperty(String pkg, int type, String configJson, String category, String token, int priorityLevel); // 4
+	boolean updateConfiguration(String pkg, String configJson); // 5
+	String addClientProperty(String pkg, int status); // 6
+	String addClientPropertyJson(String jsonString); // 7
+	boolean deleteClientPropertyByClientId(String clientId); // 8
+	boolean deleteClientPropertyByPkg(String pkg); // 9
+	boolean deleteClientProperty(String jsonString); // 10
+	boolean updateClientProperty(String pkg, int status, String comment, String property1); // 11
+	boolean updateClientPropertyJson(String jsonString); // 12
+	String queryClientPropertyByClientId(String clientId); // 13
+	String queryClientPropertyByPkg(String pkg); // 14
+	String queryClientProperty(String jsonString); // 15
+	String addClientMappingData(String clientId, String permissionId, int status); // 16
+	String addClientMappingDataJson(String jsonString); // 17
+	boolean deleteClientMappingDataByClientId(String clientId); // 18
+	boolean deleteClientMappingDataByPermissionId(String permissionId); // 19
+	boolean deleteClientMappingData(String jsonString); // 20
+	boolean updateClientMappingData(String pkg, int status, String comment, String property1); // 21
+	boolean updateClientMappingDataJson(String jsonString); // 22
+	String queryClientMappingDataByClientId(String clientId); // 23
+	String queryClientMappingDataByPermissionId(String permissionId); // 24
+	String queryClientMappingData(String jsonString); // 25
+	String addConfigData(String configName, String configValue, String defaultConfigValue, String groupId, int level, String token, int status); // 26
+	String addConfigDataJson(String jsonString); // 27
+	boolean deleteConfigDataByConfigId(String configId); // 28
+	boolean deleteConfigDataByPkg(String configName); // 29
+	boolean deleteConfigData(String jsonString); // 30
+	boolean updateDefaultConfigData(String configName, String defaultConfigValue); // 31
+	boolean updateConfigData(String configName, String configValue, String defaultConfigValue, String groupId, int level, String token, int status); // 32
+	boolean updateConfigDataJson(String jsonString); // 33
+	String queryConfigDataByConfigId(String configId); // 34
+	String queryConfigDataByConfigName(String configName); // 35
+	String queryConfigData(String jsonString); // 36
+		String addConfigGroupData(int groupNum, String groupName, String childGroupId, String parentGroupId, String configIds, int status); // 37
+	String addConfigGroupDataJson(String jsonString); // 38
+	boolean deleteConfigGroupDataByConfigGroupId(String configGroupId); // 39
+	boolean deleteConfigGroupData(String jsonString); // 40
+	boolean updateConfigGroupData(String configGroupId, int status); // 41
+	boolean updateConfigGroupData1(String configGroupId, int groupNum, String groupName, String childGroupId, String parentGroupId, String configIds, int status) // 42
+	boolean updateConfigGroupDataJson(String jsonString); // 43
+	String queryConfigGroupDataByConfigGroupId(String configGroupId); // 44
+	String queryConfigGroupData(String jsonString); // 45
+	String addPermissionData(String tableId, int rootPermission, String data, int action, int grantPermission, String groupId, int status); // 46
+	String addPermissionDataJson(String jsonString); // 47
+	boolean deletePermissionDataByPermissionId(String permissionId); // 48
+	boolean deletePermissionData(String jsonString); // 49
+	boolean updatePermissionData(String permissionId, byte action); // 50
+	boolean updatePermissionData1(String permissionId, String tableId, int rootPermission, String data, int action, int grantPermission, String groupId, int status); // 51
+	boolean updatePermissionDataJson(String jsonString); // 52
+	String queryPermissionDataByPermissionId(String permissionId); // 53
+	String queryPermissionData(String jsonString); // 54
+	String addRuleData(String key, String value, String linkageKey, String linkageValue, int rule); // 55
+	String addRuleDataJson(String jsonString); // 56
+	boolean deleteRuleDataByRuleId(String ruleId); // 57
+	boolean deleteRuleData(String jsonString); // 58
+	boolean updateRuleData(String key, String value, String linkageKey, String linkageValue, int rule); // 59
+	boolean updateRuleDataJson(String jsonString); // 60
+	String queryRuleDataByRuleId(String ruleId); // 61
+	String queryRuleData(String jsonString); // 62
+	String addLogTableData(String path, int date, int status); // 63
+	String addLogTableDataJson(String jsonString); // 64
+	boolean deleteLogTableDataByLogId(String logId); // 65
+	boolean deleteLogTableData(String jsonString); // 66
+	boolean updateLogTableData(String path, int date, int status); // 67
+	boolean updateLogTableDataJson(String jsonString); // 68
+	String queryLogTableDataByLogId(String logId); // 69
+	String queryLogTableData(String jsonString); // 70
+	boolean saveConfigData(String filepath); // 71
+}
 ```
 
 # pvr_manager
 Interface: com.pvr.IPvrManagerService    
-Location: /system/app/PvrManager/PvrManager.apk  
+Location: `/system/app/PvrManager/PvrManager.apk`
 
 IPvrManagerService:
 ```java
@@ -79,11 +151,29 @@ interface IPvrCallBack {
     void onEventChanged(Bundle param_1)
 }
 ```
+# pvrtracking
+Interface: pvr.ITrackingService
+Runs-as: root (native C++)
+Location: `/system/lib64/libpvrtrackingservice.so`
+Description: Provides head, controller, body and hand tracking data.
 
+```java
+interface ITrackingService {
+	void AddServiceListener(in sp binder); // 11
+	int CloseCamera(int cameraId); // 16
+	void CloseTrackingCameras(); // 23
+	void ConnectSwiftTracker(in String param_1, in Vector param_2); // 26
+	void DisconnectSwiftTracker(in String param_1); // 27
+	void ConnectTracker(int param_1, in String param_2, in Vector param_3, in Vector param_3); // 35
+	void DisconnectTracker(int param_1, in String param_2); // 36
+	int BPSpiTest(); // 47
+}
+```
 # pxreyetrackingservice
 Interface: pvr.IEyeTrackingService   
 Runs-as: root (native C++)  
-Location: /system/lib/libpxreyetrackingservice.pxr.so  
+Location: `/system/lib64/libpxreyetrackingservice.pxr.so
+Description: Provides eye and face tracking data.
 
 ```java
 interface IPxrEyeTrackingService {
